@@ -1,2 +1,1 @@
-# smart-nft
-NFT marketplace
+NIFTY-SCOTT Admin

@@ -136,7 +136,7 @@ const AllUser = ({ users, totalRecord, handleChange, form }) => {
 				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
 				</nav> */}
 
-          <div className="app-card app-card-orders-table mb-5">
+          <div className="app-card app-card-orders-table p-4 mb-5">
             <div className="app-card-body">
               <div className="table-responsive">
                 <table className="table mb-0 text-left">

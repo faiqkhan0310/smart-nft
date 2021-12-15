@@ -20,9 +20,7 @@ export default function Addcar() {
     type: "sale",
   });
   const [attributes, setAttributes] = React.useState([
-    { name: "", type: "", mutable: false },
-    { name: "", type: "", mutable: false },
-    { name: "", type: "", mutable: false },
+    { name: "", type: "", mutable: false, value: "" },
   ]);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,6 +80,43 @@ export default function Addcar() {
     if (name === "mutable") return (attributesCopy[indx][name] = checked);
     attributesCopy[indx][name] = value;
     setAttributes([...attributesCopy]);
+  };
+  const getFieldType = (attribute) => {
+    if (attribute.type === "text_number") {
+      return (
+        <input
+          type="text"
+          name="value"
+          value={attribute?.value}
+          onChange={(e) => handleAttributeChange(e, indx)}
+          className="form-control ms-3"
+          placeholder="Enter value"
+        />
+      );
+    }
+    if (attribute.type === "image_s3" || attribute.type === "image_ipfs") {
+      return (
+        <input
+          type="file"
+          name="value"
+          value={attribute?.value}
+          onChange={(e) => handleAttributeChange(e, indx)}
+          className="form-control ms-3"
+          placeholder="Enter value"
+        />
+      );
+    }
+    return (
+      <input
+        type="text"
+        name="value"
+        disabled
+        onChange={(e) => handleAttributeChange(e, indx)}
+        className="ms-3"
+        style={{ visibility: "hidden", minWidth: "280px" }}
+        placeholder="Enter value"
+      />
+    );
   };
   return (
     <>
@@ -204,6 +239,8 @@ export default function Addcar() {
                                             Image/IPFS
                                           </option>
                                         </select>
+                                        {getFieldType(attribute)}
+
                                         <button
                                           className="rounded border-0 ms-5 bg-transparent"
                                           type="button"

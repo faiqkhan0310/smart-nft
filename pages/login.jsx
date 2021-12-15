@@ -4,8 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCurrentUser } from "@/hooks/index";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -127,7 +126,7 @@ const LoginPage = () => {
               <div className="container text-center py-3">
                 {/* <small className="copyright">Designed with <i class="fas fa-heart" style={{color:'#fb866a'}}></i> by <a className="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small> */}
                 <small className="copyright">
-                SMART NFT-Admin portal Manage Items and Physical NFTs
+                  SMART NFT-Admin portal Manage Items and Physical NFTs
                 </small>
               </div>
             </footer>
@@ -142,7 +141,9 @@ const LoginPage = () => {
               <div className="h-100"></div>
               <div className="overlay-content p-3 p-lg-4 rounded">
                 <h5 className="mb-2 overlay-title">SMART NFT Admin Portal</h5>
-                <div>SMART NFT Admin portal Manage Items and Physical NFTs.</div>
+                <div>
+                  SMART NFT Admin portal Manage Items and Physical NFTs.
+                </div>
               </div>
             </div>
           </div>

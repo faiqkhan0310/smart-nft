@@ -6,7 +6,7 @@ import { useCurrentUser } from "@/hooks/user";
 import { useRouter } from "next/router";
 import Pagination from "@/components/Paginate/Paginate";
 import { Navbar } from "../../components/layout/Navbar";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 // import searchedValue from "./../../hooks/filter";
 export default function Art({ posts, totalRecord }) {

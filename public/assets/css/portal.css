@@ -4443,7 +4443,7 @@ fieldset:disabled .btn {
 .page-item:first-child .page-link {
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
-  color: #000
+  color: #000;
 }
 .page-item:last-child .page-link {
   border-top-right-radius: 0.25rem;
@@ -10967,7 +10967,7 @@ button.close:focus {
   font-size: 0.75rem;
 }
 .app-content {
-  padding-top: 80px;
+  padding-top: 20px;
   padding-left: 250px;
 }
 @media (max-width: 767.98px) {

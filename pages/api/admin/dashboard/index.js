@@ -134,7 +134,7 @@ export default async (req, res) => {
         return res.status(200).json({
           totalArtists,
           totalArts,
-          totalSaleAmount: totalSaleAmount[0]?.total,
+          totalSaleAmount: totalSaleAmount[0]?.total || 0,
           totalAdminAddress,
           barChart,
           lineChart,

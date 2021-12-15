@@ -347,9 +347,8 @@ ul {
   display: inline-block;
 }
 
-
 /* notifications page style start here */
-.notification-list  li {
+.notification-list li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -369,16 +368,16 @@ ul {
 .back-btn {
   background-color: #fff !important;
   box-shadow: 0px 0px 21px 1px rgb(171 171 171 / 20%) !important;
-    -webkit-box-shadow: 0px 0px 21px 1px rgb(171 171 171 / 20%) !important;
-    -moz-box-shadow: 0px 0px 21px 1px rgba(171, 171, 171, 20%) !important;
-    font-size: 30px;
-    height: 45px !important;
-    width: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
+  -webkit-box-shadow: 0px 0px 21px 1px rgb(171 171 171 / 20%) !important;
+  -moz-box-shadow: 0px 0px 21px 1px rgba(171, 171, 171, 20%) !important;
+  font-size: 30px;
+  height: 45px !important;
+  width: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
 }
 
 .app-btn-secondary {
@@ -392,14 +391,17 @@ ul {
   border: 1px solid #000;
   padding: 8px 30px;
 }
-.mint-nft-form label , .product-col-form label {
+.mint-nft-form label,
+.product-col-form label {
   font-weight: 700;
   color: #616161;
 }
-.mint-nft-form label small , .product-col-form label small {
+.mint-nft-form label small,
+.product-col-form label small {
   font-weight: 500;
 }
-.mint-nft-form .form-control , .product-col-form .form-control{
+.mint-nft-form .form-control,
+.product-col-form .form-control {
   background-color: #f9f9f9;
   border: none;
   border-radius: 50px;
@@ -412,4 +414,50 @@ ul {
 }
 .add-attr-btn:hover {
   color: #fff;
+}
+#cover-spin {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+  /* display: none; */
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#cover-spin::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 48%;
+  top: 40%;
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-color: black;
+  border-top-color: transparent;
+  border-width: 4px;
+  border-radius: 50%;
+  -webkit-animation: spin 0.8s linear infinite;
+  animation: spin 0.8s linear infinite;
 }

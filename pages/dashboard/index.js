@@ -13,13 +13,11 @@ export default function Dashboard({
   totalAdminAddress,
   barChartData,
   lineChartData,
-  props
+  props,
 }) {
   return (
     <>
-      <Navbar
-      DashboardActive="active"
-       />
+      <Navbar DashboardActive="active" />
       <div className="app-content">
         <DashboardComponent
           totalArtists={totalArtists}

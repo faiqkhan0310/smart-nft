@@ -9,12 +9,15 @@ import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { addClass } from "service/class-service";
+import { addClass, getOneClass, updateClass } from "service/class-service";
 import { genContext } from "pages/_app";
 
 export default function Addcar() {
   const context = useContext(genContext);
   const router = useRouter();
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [classId, setClassId] = React.useState(undefined);
+
   const [classA, setClassA] = React.useState({
     name: "",
     type: "sale",
@@ -26,18 +29,22 @@ export default function Addcar() {
     e.preventDefault();
     context.setLoading(true);
     const apibody = {
-      name: classA.name,
-      type: classA.type,
+      ...classA,
       attributes: [...attributes],
     };
-
-    const clRes = await addClass(apibody);
-    console.log(clRes);
+    console.log("updae class and class is is  ", classId);
+    const selectService = () => {
+      if (isEdit) {
+        console.log(classId);
+        return updateClass(classId, apibody);
+      } else return addClass(apibody);
+    };
+    const clRes = await selectService();
     if (clRes.success) {
       context.setLoading(false);
       toast.success("Class Created!");
       return router.push("/classes");
-    } else if (clRes.success === false && productRes?.message) {
+    } else if (clRes.success === false && clRes?.message) {
       context.setLoading(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
       return toast.info(clRes?.message);
@@ -81,7 +88,9 @@ export default function Addcar() {
     attributesCopy[indx][name] = value;
     setAttributes([...attributesCopy]);
   };
-  const getFieldType = (attribute) => {
+  const getFieldType = (attribute, indx) => {
+    console.log("in field tgype");
+    console.log(attribute);
     if (attribute.type === "text_number") {
       return (
         <input
@@ -95,15 +104,28 @@ export default function Addcar() {
       );
     }
     if (attribute.type === "image_s3" || attribute.type === "image_ipfs") {
+      console.log("herer value");
+      console.log(attribute);
+
       return (
-        <input
-          type="file"
-          name="value"
-          value={attribute?.value}
-          onChange={(e) => handleAttributeChange(e, indx)}
-          className="form-control ms-3"
-          placeholder="Enter value"
-        />
+        <div className="w-100  pos-rel ">
+          <input
+            type="file"
+            name="value"
+            // value={attribute?.value}
+            onChange={(e) => handleAttributeChange(e, indx)}
+            className="form-control ms-3"
+            placeholder="Enter value"
+          />
+
+          {attribute.value && (
+            <div className="class_img_view ms-4">
+              <a className="d-block" href={attribute?.value}>
+                View Image
+              </a>
+            </div>
+          )}
+        </div>
       );
     }
     return (
@@ -118,6 +140,28 @@ export default function Addcar() {
       />
     );
   };
+
+  const getClass = async (id) => {
+    const classData = await getOneClass(id);
+    console.log(classData);
+    if (classData.success) {
+      console.log(classData.classes[0]?.attributes);
+      setAttributes([...classData.classes[0]?.attributes]);
+      setClassA({
+        name: classData.classes[0]?.name,
+        type: "sale",
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    console.log(router.query?.classId);
+    if (router.query?.classId) {
+      setIsEdit(true);
+      setClassId(router.query?.classId);
+      getClass(router.query?.classId);
+    }
+  }, [router]);
   return (
     <>
       <Navbar ClassesActive="active" />
@@ -133,7 +177,7 @@ export default function Addcar() {
                       <FontAwesomeIcon icon={faChevronLeft} />
                     </a>
                   </Link>
-                  Add Classes{" "}
+                  {isEdit ? "Edit Class" : " Add Classes"}
                 </span>
               </h1>
 
@@ -148,6 +192,7 @@ export default function Addcar() {
                             <input
                               className="form-control"
                               name="name"
+                              value={classA?.name}
                               onChange={handleChange}
                               type="text"
                             />
@@ -158,9 +203,9 @@ export default function Addcar() {
                             <button type="button" className="btn me-3">
                               Sale
                             </button>
-                            <button type="button" className="btn">
+                            {/* <button type="button" className="btn">
                               Sale
-                            </button>
+                            </button> */}
                           </div>
 
                           <div className="form-group add-attr-col mb-5">
@@ -171,6 +216,7 @@ export default function Addcar() {
                             <ol>
                               {attributes &&
                                 attributes?.map((attribute, indx) => {
+                                  console.log(attribute);
                                   return (
                                     <li>
                                       <div className="d-flex align-items-center mb-4">
@@ -193,7 +239,7 @@ export default function Addcar() {
                                             onChange={(e) =>
                                               handleAttributeChange(e, indx)
                                             }
-                                            defaultValue
+                                            checked={attribute?.mutable}
                                             id="flexCheckDefault3"
                                           />
                                           <label
@@ -203,23 +249,14 @@ export default function Addcar() {
                                             Mutable
                                           </label>
                                         </div>
-                                        {/* 
-                                        <input
-                                          type="text"
-                                          name="type"
-                                          value={attribute?.type}
-                                          onChange={(e) =>
-                                            handleAttributeChange(e, indx)
-                                          }
-                                          className="form-control ms-2"
-                                          placeholder="Enter Attribute Type"
-                                        /> */}
+
                                         <select
                                           onChange={(e) =>
                                             handleAttributeChange(e, indx)
                                           }
                                           name="type"
                                           id="type"
+                                          defaultValue={attribute.type}
                                           className="form-control"
                                         >
                                           <option
@@ -239,7 +276,7 @@ export default function Addcar() {
                                             Image/IPFS
                                           </option>
                                         </select>
-                                        {getFieldType(attribute)}
+                                        {getFieldType(attribute, indx)}
 
                                         <button
                                           className="rounded border-0 ms-5 bg-transparent"
@@ -276,7 +313,7 @@ export default function Addcar() {
                             type="submit"
                             className="add-attr-btn btn w-50 ms-0 "
                           >
-                            Create Class
+                            {isEdit ? "Update Class" : " Create Class"}
                           </button>
                         </div>
                       </form>

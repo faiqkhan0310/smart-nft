@@ -8,6 +8,11 @@ const classSchema = new mongoose.Schema({
     required: [true, "Name is required!"],
     trim: true,
   },
+  products: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Product",
+    trim: true,
+  },
   type: {
     type: String,
     required: [true, "Type is required!"],

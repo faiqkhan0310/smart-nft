@@ -461,3 +461,9 @@ ul {
   -webkit-animation: spin 0.8s linear infinite;
   animation: spin 0.8s linear infinite;
 }
+.class_img_view {
+  position: absolute;
+}
+.pos_rel {
+  position: relative;
+}

@@ -4,13 +4,15 @@ import { useCurrentUser } from "@/hooks/index";
 import {
   faChevronCircleLeft,
   faChevronLeft,
+  faEdit,
+  faEye,
   faShoppingBag,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import Pagination from "@/components/Paginate/Paginate";
-import { router } from "next/router";
+import { useRouter } from "next/router";
 import { DashboardComponent } from "../../components/dashboard-component/DashboardComponent";
 import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
@@ -20,6 +22,7 @@ import { delProduct, getProducts } from "service/product-service";
 import { genContext } from "pages/_app";
 
 const Products = ({ users, totalRecord, handleChange, form }) => {
+  const router = useRouter();
   const context = useContext(genContext);
   const [total, setTotal] = useState(totalRecord);
   const [currentPage, setCurrentPage] = useState(1);
@@ -100,6 +103,12 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
     context.setLoading(false);
     if (delRes.success) getAllProducts();
   };
+  const handleDetail = (id) => {
+    router.push(`/products/detail/${id}`);
+  };
+  const handleEdit = (id) => {
+    router.push(`/products/add-product/?productId=${id}`);
+  };
   return (
     <>
       <Navbar ProductsActive="active" />
@@ -115,13 +124,6 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
               </h1>
             </div>
           </div>
-
-          {/* <nav id="orders-table-tab" className="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-				    <a className="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-				    <a className="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
-				</nav> */}
 
           <div className="app-card app-card-orders-table mb-5">
             <div className="app-card-body p-4">
@@ -142,33 +144,44 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                         classes.map((data, index) => (
                           <tr>
                             <td>{index + 1}</td>
-                            <td className="cell">{data.name}</td>
+                            <td className="cell">{data?.name}</td>
                             <td className="cell">{data?.class?.name}</td>
 
-                            <td className="cell">
-                              John Doe are multiple-use names that are used
-                            </td>
+                            <td className="cell">{data?.desc}</td>
 
                             <td className="cell">
-                              {/* <span className="btn-sm btn app-btn-secondary me-3">
-                              {" "}
-                              <Link
-                                href={`/users/details/${data._id}`}
-                                as={`/users/details/${data._id}`}
-                                href=""
+                              {/* <button
+                                onClick={() => handleEdit(data._id)}
+                                style={{
+                                  borderRadius: "50%",
+                                  width: "30px",
+                                  height: "30px",
+                                  marginLeft: "10px",
+                                  backgroundColor: "white",
+                                  borderColor: "rgb(102,153,204)",
+                                }}
                               >
-                                {" View "}
-                              </Link>
-                            </span> */}
-                              {/* <span className="btn-sm btn app-btn-secondary">
-                              <Link
-                                href=""
-                                href={`/users/edit/${data._id}`}
-                                as={`/users/edit/${data._id}`}
+                                <FontAwesomeIcon
+                                  style={{ color: "rgb(102,153,204)" }}
+                                  icon={faEdit}
+                                />
+                              </button> */}
+                              <button
+                                onClick={() => handleDetail(data._id)}
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  backgroundColor: "white",
+                                  borderRadius: "50%",
+                                  marginLeft: "10px",
+                                  borderColor: "green",
+                                }}
                               >
-                                {"Edit"}
-                              </Link>
-                            </span> */}
+                                <FontAwesomeIcon
+                                  style={{ color: "green" }}
+                                  icon={faEye}
+                                />
+                              </button>
                               <button
                                 onClick={() => handleDelete(data._id)}
                                 style={{

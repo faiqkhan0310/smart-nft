@@ -15,11 +15,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import Pagination from "@/components/Paginate/Paginate";
 import { useRouter } from "next/router";
-import { DashboardComponent } from "../../components/dashboard-component/DashboardComponent";
-import { Navbar } from "../../components/layout/Navbar";
+import { DashboardComponent } from "../../../components/dashboard-component/DashboardComponent";
+import { Navbar } from "../../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import { getClasses, delClass } from "service/class-service";
+import { getOneClass, delClass } from "service/class-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
@@ -39,15 +39,17 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   const [user, { mutate }] = useCurrentUser();
   const [tableLoading, setTableLoading] = useState(false);
 
-  const getAllClasses = async () => {
+  const getClass = async (id) => {
     setTableLoading(true);
-    const allCls = await getClasses();
+    const allCls = await getOneClass(id);
     console.log(allCls);
+    console.log(allCls?.products);
     if (allCls.success) setClasses(allCls.classes);
     setTableLoading(false);
   };
   useEffect(() => {
-    getAllClasses();
+    const classId = router.query.id;
+    getClass(classId);
     if (user === null) router.replace("/login");
   }, [user]);
   const paginate = (e, pageNumber) => {
@@ -97,36 +99,54 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
 
     //  console.log("Paginations",currentPage)
   }, [currentPage]);
-  const handleDelete = async (id) => {
-    context.setLoading(true);
-    const delRes = await delClass(id);
-    console.log(delRes);
-    context.setLoading(false);
-    if (delRes.success) return getAllClasses();
-    if (delRes.success === false && delRes?.message) {
-      return toast.info(delRes?.message);
-    }
-    console.log(delRes);
-    return toast.err("Something went wrong");
-  };
-  const handleDetail = (id) => {
-    router.push(`/classes/detail/${id}`);
-  };
-  const handleEdit = (id) => {
-    router.push(`/products/add-product/?productId=${id}`);
-  };
+
   return (
     <>
       <Navbar ClassesActive="active" />
       <div className="app-content">
         <div className="container-fluid">
+          {/* <div className="row mb-5">
+            <h1 class="app-page-title main-title text-center ">
+              Class Products{" "}
+            </h1>
+          </div> */}
+          <div className="row g-3  mb-4 align-items-center justify-content-between ">
+            <div className="col-6   ">
+              {/* <h1>Name</h1> */}
+              <h1 class="app-page-title  ">Class Name</h1>
+            </div>
+            <div className="col-6  ">
+              <div className="row pr-5 ">
+                <div className="col-12  text-center"></div>
+                <h1 class="app-page-title">{classes[0]?.name}</h1>
+              </div>
+            </div>
+          </div>
+
+          <div className="row g-3  mb-4 align-items-center justify-content-between ">
+            <div className="col-6   ">
+              {/* <h1>Name</h1> */}
+              <h1 class="app-page-title">Attributes</h1>
+            </div>
+            <div className="col-6  ">
+              <div className="row ">
+                <div className="row pr-5 mt-5 w-50">
+                  {classes[0]?.attributes?.map((att) => {
+                    return (
+                      <span className="bg-dark text-white py-2 text-center rounded-1 mb-3">
+                        {att.name}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto w-100">
-              <h1 class="app-page-title main-title d-flex align-items-center justify-content-between">
-                Classes{" "}
-                <Link href="/classes/add-classes">
-                  <a className="btn">Add Class</a>
-                </Link>
+              <h1 class="app-page-title  d-flex align-items-center justify-content-between">
+                Class Products{" "}
               </h1>
             </div>
           </div>
@@ -148,12 +168,12 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                         <th className="cell">Id</th>
                         <th className="cell">Name</th>
                         <th className="cell">Attributes</th>
-                        <th className="cell">Action</th>
+                        {/* <th className="cell">Action</th> */}
                       </tr>
                     </thead>
                     <tbody>
                       {classes &&
-                        classes.map((data, index) => (
+                        classes[0]?.products?.map((data, index) => (
                           <tr>
                             <td>1</td>
                             <td className="cell">
@@ -161,52 +181,17 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                             </td>
                             <td className="cell">
                               {data.attributes?.map((attr) => (
-                                <span>{attr.name}</span>
+                                <>
+                                  <span>{attr.name}</span>
+                                  <span>, </span>
+                                </>
                               ))}
                             </td>
 
-                            <td className="cell">
-                              {/* <span className="btn-sm btn app-btn-secondary me-3">
-                              {" "}
-                              <Link
-                                href={`/users/details/${data._id}`}
-                                as={`/users/details/${data._id}`}
-                                href=""
-                              >
-                                {" View "}
-                              </Link>
-                            </span> */}
-                              {/* <span className="btn-sm btn app-btn-secondary">
-                              <Link
-                                href=""
-                                 href={`/users/edit/${data._id}`}
-                                 as={`/users/edit/${data._id}`}
-                              >
-                                {"Edit"}
-                              </Link>
-                            </span> */}
+                            {/* <td className="cell">
                               <button
                                 onClick={() => handleEdit(data._id)}
                                 style={{
-                                  borderRadius: "50%",
-                                  width: "30px",
-                                  height: "30px",
-                                  marginLeft: "10px",
-                                  backgroundColor: "white",
-                                  borderColor: "rgb(102,153,204)",
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  style={{ color: "rgb(102,153,204)" }}
-                                  icon={faEdit}
-                                />
-                              </button>
-                              <button
-                                onClick={() => handleDetail(data._id)}
-                                style={{
-                                  width: "30px",
-                                  height: "30px",
-                                  backgroundColor: "white",
                                   borderRadius: "50%",
                                   marginLeft: "10px",
                                   borderColor: "green",
@@ -217,24 +202,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                   icon={faEye}
                                 />
                               </button>
-                              <button
-                                onClick={() => handleDelete(data._id)}
-                                style={{
-                                  borderRadius: "50%",
-                                  backgroundColor: "white",
-                                  marginLeft: "10px",
-                                  borderColor: "orange",
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  style={{
-                                    color: "red",
-                                    // textshadow: " 0 0 100px blue",
-                                  }}
-                                  icon={faTrash}
-                                />
-                              </button>
-                            </td>
+                            </td> */}
                           </tr>
                         ))}
                     </tbody>

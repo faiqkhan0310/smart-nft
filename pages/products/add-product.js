@@ -14,9 +14,13 @@ import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { getClasses } from "service/class-service";
+import { addProductToClass, getClasses } from "service/class-service";
 import { values } from "public/assets/plugins/fontawesome/js/v4-shims";
-import { addProduct } from "service/product-service";
+import {
+  addProduct,
+  getOneProduct,
+  updateProduct,
+} from "service/product-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 
@@ -25,6 +29,9 @@ export default function AddProduct() {
   const router = useRouter();
   const [classes, setClasses] = React.useState([]);
   const [selClass, setSelClass] = React.useState();
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState("");
+  const [classId, setClassId] = React.useState(undefined);
   const [inputState, setInputState] = React.useState({
     name: "",
     desc: "",
@@ -32,6 +39,31 @@ export default function AddProduct() {
     list: false,
   });
 
+  const getClass = async (id) => {
+    const classData = await getOneProduct(id);
+    console.log(classData);
+    if (classData.success) {
+      console.log(classData.products[0]?.attributes);
+      // setAttributes([...classData.products[0]?.attributes]);
+      setInputState({
+        name: classData.products[0]?.name,
+        desc: classData.products[0]?.desc,
+        price: classData.products[0]?.price,
+        list: classData.products[0]?.list,
+      });
+      setSelClass(classData.products[0]?.class);
+      console.log(classData.products[0]?.class?.name);
+      setSelectedValue(classData.products[0]?.class?.name);
+    }
+  };
+  React.useEffect(() => {
+    console.log(router.query?.productId);
+    if (router.query?.productId) {
+      setIsEdit(true);
+      setClassId(router.query?.productId);
+      getClass(router.query?.productId);
+    }
+  }, [router]);
   React.useEffect(async () => {
     const allClasses = await getClasses();
     // console.log(allClasses);
@@ -40,6 +72,9 @@ export default function AddProduct() {
   const handleSelect = (e) => {
     console.log(JSON.parse(e.target.value));
     setSelClass(JSON.parse(e.target.value));
+    const dd = JSON.parse(e.target.value);
+    console.log(dd?.name);
+    setSelectedValue(dd?.name);
   };
 
   const handleMutableAttribute = (e, attr) => {
@@ -47,7 +82,7 @@ export default function AddProduct() {
     console.log(name, value);
     const selClassCopy = { ...selClass };
     const selClassAttrIndx = selClassCopy.attributes.indexOf(attr);
-    selClassCopy.attributes[selClassAttrIndx].type = value;
+    selClassCopy.attributes[selClassAttrIndx].value = value;
     setSelClass({ ...selClassCopy });
   };
   const handleInputChange = (e) => {
@@ -73,8 +108,20 @@ export default function AddProduct() {
       attributes: selClass.attributes,
     };
     console.log(apiBody);
-    const productRes = await addProduct(apiBody);
+    const selectService = () => {
+      if (isEdit) {
+        console.log(classId);
+        return updateProduct(classId, apiBody);
+      } else return addProduct(apiBody);
+    };
+    const productRes = await selectService();
     if (productRes.success) {
+      const classUpdateRes = await addProductToClass(selClass?._id, {
+        products: productRes?.data?._id,
+      });
+      if (!classUpdateRes.success) {
+        toast.error("Failed to update Class.");
+      }
       context.setLoading(false);
       toast.success("Product created");
       return router.push("/products");
@@ -90,7 +137,49 @@ export default function AddProduct() {
 
     console.log(productRes);
   };
-
+  const getFieldType = (attr) => {
+    if (attr.type === "text_number") {
+      return (
+        <input
+          type="text"
+          value={attr.value}
+          name={attr?.name}
+          disabled={!attr?.mutable}
+          onChange={(e) => handleMutableAttribute(e, attr)}
+          className="form-control ms-3"
+          placeholder="Enter value"
+        />
+      );
+    }
+    if (attr.type === "image_s3" || attr.type === "image_ipfs") {
+      if (!attr?.mutable) return <a href={attr?.value}>{attr.value}</a>;
+      return (
+        <>
+          <input
+            type="file"
+            name={attr?.name}
+            // value={attr.value}
+            disabled={!attr?.mutable}
+            onChange={(e) => handleMutableAttribute(e, attr)}
+            className="form-control ms-3"
+            placeholder="Enter value"
+          />
+          <a href={attr?.value}>{attr.value}</a>
+        </>
+      );
+    }
+    return (
+      <input
+        type="text"
+        name="value"
+        disabled
+        onChange={(e) => handleMutableAttribute(e, attr)}
+        className="ms-3"
+        style={{ visibility: "hidden", minWidth: "280px" }}
+        placeholder="Enter value"
+      />
+    );
+  };
   return (
     <>
       <Navbar ProductsActive="active" />
@@ -121,6 +210,7 @@ export default function AddProduct() {
                             <input
                               name="name"
                               required
+                              value={inputState.name}
                               className="form-control"
                               onChange={handleInputChange}
                               type="text"
@@ -132,6 +222,7 @@ export default function AddProduct() {
                             <textarea
                               name="desc"
                               required
+                              value={inputState.desc}
                               onChange={handleInputChange}
                               class="form-control"
                               id="exampleFormControlTextarea1"
@@ -146,6 +237,7 @@ export default function AddProduct() {
                             <input
                               name="price"
                               required
+                              value={inputState.price}
                               className="form-control"
                               onChange={handleInputChange}
                               type="number"
@@ -155,6 +247,7 @@ export default function AddProduct() {
                             <label className="d-block mb-3">Select Class</label>
                             <select
                               onChange={handleSelect}
+                              value={selectedValue}
                               className="form-select form-control pt-2"
                               aria-label="Default select example"
                             >
@@ -198,7 +291,7 @@ export default function AddProduct() {
                                     <label className="d-block mb-3">
                                       {attr?.name}
                                     </label>
-                                    <input
+                                    {/* <input
                                       type="text"
                                       name={attr?.name}
                                       value={attr?.type}
@@ -208,7 +301,8 @@ export default function AddProduct() {
                                       disabled={!attr?.mutable}
                                       className="form-control me-2"
                                       placeholder=""
-                                    />
+                                    /> */}
+                                    {getFieldType(attr)}
                                   </div>
                                 );
                               })

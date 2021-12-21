@@ -2,6 +2,7 @@
 
 import ClassA from "../../../models/class-model";
 import "../../../utils/dbConnect";
+// require("../../models/class-model");
 
 export default async (req, res) => {
   const { method, query: id, body } = req;
@@ -10,7 +11,7 @@ export default async (req, res) => {
     case "GET":
       try {
         console.log("class id single", req.query);
-        let oneClass = await ClassA.find({ _id: id.id });
+        let oneClass = await ClassA.find({ _id: id.id }).populate("products");
         return res.status(200).json({ success: true, classes: oneClass });
       } catch (error) {
         console.log(error);
@@ -67,6 +68,7 @@ export default async (req, res) => {
           data: delRes,
         });
       } catch (error) {
+        console.log(error);
         return res.status(400).json({
           error: error,
           success: false,

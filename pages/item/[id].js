@@ -43,12 +43,12 @@ const Details = ({ userData, ownerData, creatorData }) => {
                         <strong>Description:</strong> {userData.Description}
                       </div>
                       {/* <div className="mb-3">
-                      <strong>Contract Address:</strong><span  class= "d-inline-block text-truncate" style={{"max-width": "180px", verticalAlign:'middle'}}> {userData.ContractAddress}</span>
+                      <strong>Contract Address:</strong><span  className= "d-inline-block text-truncate" style={{"max-width": "180px", verticalAlign:'middle'}}> {userData.ContractAddress}</span>
                     </div> */}
                       <div className="mb-3">
                         <strong>Transaction Hash:</strong>{" "}
                         <span
-                          class="d-inline-block text-truncate"
+                          className="d-inline-block text-truncate"
                           style={{
                             "max-width": "180px",
                             verticalAlign: "middle",
@@ -83,7 +83,7 @@ const Details = ({ userData, ownerData, creatorData }) => {
                           <div className="mb-3">
                             <strong>Address:</strong>{" "}
                             <a
-                              class="d-inline-block text-truncate"
+                              className="d-inline-block text-truncate"
                               style={{
                                 "max-width": "180px",
                                 verticalAlign: "middle",
@@ -124,7 +124,7 @@ const Details = ({ userData, ownerData, creatorData }) => {
                           <div className="mb-3">
                             <strong>Address:</strong>{" "}
                             <a
-                              class="d-inline-block text-truncate"
+                              className="d-inline-block text-truncate"
                               style={{
                                 "max-width": "180px",
                                 verticalAlign: "middle",

@@ -106,19 +106,19 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
       <div className="app-content">
         <div className="container-fluid">
           {/* <div className="row mb-5">
-            <h1 class="app-page-title main-title text-center ">
+            <h1 className="app-page-title main-title text-center ">
               Class Products{" "}
             </h1>
           </div> */}
           <div className="row g-3  mb-4 align-items-center justify-content-between ">
             <div className="col-6   ">
               {/* <h1>Name</h1> */}
-              <h1 class="app-page-title  ">Product Name</h1>
+              <h1 className="app-page-title  ">Product Name</h1>
             </div>
             <div className="col-6  ">
               <div className="row pr-5 ">
                 <div className="col-12  text-center"></div>
-                <h1 class="app-page-title">{products[0]?.name}</h1>
+                <h1 className="app-page-title">{products[0]?.name}</h1>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
           <div className="row g-3  mb-4 align-items-center justify-content-between ">
             <div className="col-6   ">
               {/* <h1>Name</h1> */}
-              <h1 class="app-page-title">Attributes</h1>
+              <h1 className="app-page-title">Attributes</h1>
             </div>
             <div className="col-6  ">
               <div className="row ">

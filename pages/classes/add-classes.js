@@ -9,7 +9,11 @@ import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { addClass, getOneClass, updateClass } from "service/class-service";
+import {
+  addClass,
+  getOneClass,
+  updateClass,
+} from "../../service/class-service";
 import { genContext } from "pages/_app";
 
 export default function Addcar() {
@@ -32,7 +36,7 @@ export default function Addcar() {
       ...classA,
       attributes: [...attributes],
     };
-    console.log("updae class and class is is  ", classId);
+    console.log("updae className and className is is  ", classId);
     const selectService = () => {
       if (isEdit) {
         console.log(classId);
@@ -169,7 +173,7 @@ export default function Addcar() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <h1 class="app-page-title mb-5 main-title d-flex align-items-center justify-content-between">
+              <h1 className="app-page-title mb-5 main-title d-flex align-items-center justify-content-between">
                 <span className="d-flex align-items-center">
                   {" "}
                   <Link href="/classes">
@@ -181,8 +185,8 @@ export default function Addcar() {
                 </span>
               </h1>
 
-              <div class="app-card  h-100">
-                <div class="app-card-body p-4 p-lg-5 ">
+              <div className="app-card  h-100">
+                <div className="app-card-body p-4 p-lg-5 ">
                   <div className="row">
                     <div className="col-md-12 col-12 mint-nft-form">
                       <form onSubmit={handleSubmit}>

@@ -195,7 +195,7 @@ export default function Marketing({ marketingData, uploadImage }) {
                             />
                             {(item?.imageUrl ||
                               marketingData?.cards[idx]?.imageUrl) && (
-                              <div class="cover-thumbnail-box">
+                              <div className="cover-thumbnail-box">
                                 {/* <button
                                 name="backgroundImage1"
                                 type="button"
@@ -226,7 +226,7 @@ export default function Marketing({ marketingData, uploadImage }) {
                                 // className="coverimg-indication"
                                 // style={{ display: data ? "" : "none" }}
                                 >
-                                  <i class="far fa-check-circle "></i>
+                                  <i className="far fa-check-circle "></i>
                                 </span>
                               </div>
                             )}

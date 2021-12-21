@@ -112,7 +112,7 @@ const LoginPage = () => {
                     >
                       Log In
                       {loginLoading && (
-                        <div class="spinner-border" role="status"></div>
+                        <div className="spinner-border" role="status"></div>
                       )}
                     </button>
                   </div>
@@ -124,7 +124,7 @@ const LoginPage = () => {
 
             <footer className="app-auth-footer">
               <div className="container text-center py-3">
-                {/* <small className="copyright">Designed with <i class="fas fa-heart" style={{color:'#fb866a'}}></i> by <a className="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small> */}
+                {/* <small className="copyright">Designed with <i className="fas fa-heart" style={{color:'#fb866a'}}></i> by <a className="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small> */}
                 <small className="copyright">
                   SMART NFT-Admin portal Manage Items and Physical NFTs
                 </small>

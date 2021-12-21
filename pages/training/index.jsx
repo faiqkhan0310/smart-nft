@@ -99,16 +99,18 @@ export default function Item({ posts, totalRecord, train }) {
         <>
           <Navbar />
           <div>
-            <div class="app-content">
-              <div class="container-fluid">
-                <div class="row g-3 mb-4 align-items-center justify-content-between">
-                  <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Crypto Training Page</h1>
+            <div className="app-content">
+              <div className="container-fluid">
+                <div className="row g-3 mb-4 align-items-center justify-content-between">
+                  <div className="col-auto">
+                    <h1 className="app-page-title mb-0">
+                      Crypto Training Page
+                    </h1>
                   </div>
                   {/* 									
 									<div className="col-auto d-flex flex-wrap align-items-center search-box col-md-6 justify-content-between">
 									<div className="col-md-5">
-									<select class="form-select"  aria-label="Default select example" onChange={(e)=>handleAuctioned(e)}>
+									<select className="form-select"  aria-label="Default select example" onChange={(e)=>handleAuctioned(e)}>
 									<option disabled hidden  selected>Please Select Auctioned </option>
                                          <option key='1' value={'none'}>All Auctioned </option>
                                          <option key='2' value={true}>Auctioned</option>
@@ -116,41 +118,41 @@ export default function Item({ posts, totalRecord, train }) {
                                     </select>
 									</div>
 										 
-								    <form class="table-search-form  col-md-6 d-flex flex-wrap gx-1 align-items-center justify-content-between">
-					                    <div class="col-md-8">
-					                        <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search"  onChange={(e)=>setSearch(e.target.value)}/>
+								    <form className="table-search-form  col-md-6 d-flex flex-wrap gx-1 align-items-center justify-content-between">
+					                    <div className="col-md-8">
+					                        <input type="text" id="search-orders" name="searchorders" className="form-control search-orders" placeholder="Search"  onChange={(e)=>setSearch(e.target.value)}/>
 					                    </div>
-					                    <div class="col-auto">
-					                        <button type="button " class="btn app-btn-secondary" onClick={(e)=>paginate(e,1)}>Search</button>
+					                    <div className="col-auto">
+					                        <button type="button " className="btn app-btn-secondary" onClick={(e)=>paginate(e,1)}>Search</button>
 					                    </div>
 					                </form>
 					                
 							    </div> */}
                 </div>
 
-                {/* <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-				    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+                {/* <nav id="orders-table-tab" className="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+				    <a className="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
+				    <a className="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
+				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
+				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
 				</nav> */}
 
-                <div class="app-card app-card-orders-table mb-5">
-                  <div class="app-card-body">
-                    <div class="table-responsive">
-                      <table class="table mb-0 text-left">
+                <div className="app-card app-card-orders-table mb-5">
+                  <div className="app-card-body">
+                    <div className="table-responsive">
+                      <table className="table mb-0 text-left">
                         <thead>
                           <tr>
-                            <th class="cell">Page-ID</th>
-                            <th class="cell">Heading</th>
-                            <th class="cell">Description</th>
-                            <th class="cell">Video URLS</th>
+                            <th className="cell">Page-ID</th>
+                            <th className="cell">Heading</th>
+                            <th className="cell">Description</th>
+                            <th className="cell">Video URLS</th>
                           </tr>
                         </thead>
                         <tbody>
                           {train.trainings.map((data, i) => (
                             <tr key={i}>
-                              <td class="cell">
+                              <td className="cell">
                                 <a
                                   href={`${process.env.BASE_URl}/train/${data._id}`}
                                   target="_blank"
@@ -158,19 +160,23 @@ export default function Item({ posts, totalRecord, train }) {
                                   {data._id}
                                 </a>
                               </td>
-                              <td class="cell">{data.heading}</td>
-                              <td class="cell">
-                                <span class="truncate">{data.description}</span>
+                              <td className="cell">{data.heading}</td>
+                              <td className="cell">
+                                <span className="truncate">
+                                  {data.description}
+                                </span>
                               </td>
-                              <td class="cell">
-                                <span class="truncate">{data.videoUrl}</span>
+                              <td className="cell">
+                                <span className="truncate">
+                                  {data.videoUrl}
+                                </span>
                               </td>
-                              {/* <td class="cell">{data.Price}</td>
-																<td class="cell"><span>{data.NFTId ? data.NFTId : "-"}</span></td>
-																<td class="cell"><span class="badge bg-success">{data.Status ? 'Active' : 'Deactive'}</span></td> */}
-                              {/* <td class="cell">$259.35</td> */}
-                              <td class="cell">
-                                <span class="btn-sm app-btn-secondary">
+                              {/* <td className="cell">{data.Price}</td>
+																<td className="cell"><span>{data.NFTId ? data.NFTId : "-"}</span></td>
+																<td className="cell"><span className="badge bg-success">{data.Status ? 'Active' : 'Deactive'}</span></td> */}
+                              {/* <td className="cell">$259.35</td> */}
+                              <td className="cell">
+                                <span className="btn-sm app-btn-secondary">
                                   <Link
                                     href={{
                                       pathname: "/training/[id]",
@@ -180,7 +186,7 @@ export default function Item({ posts, totalRecord, train }) {
                                     View
                                   </Link>
                                 </span>{" "}
-                                <span class="btn-sm app-btn-secondary">
+                                <span className="btn-sm app-btn-secondary">
                                   <Link href={"/training/edit/" + data._id}>
                                     Edit
                                   </Link>

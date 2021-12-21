@@ -18,7 +18,7 @@ export const addProduct = async (body) => {
 
 export const getProducts = async (body) => {
   try {
-    const res = await fetch("/api/product ", {
+    const res = await fetch("/api/product", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

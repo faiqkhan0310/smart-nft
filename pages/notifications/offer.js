@@ -1,7 +1,11 @@
 /*eslint-disable*/
 
 import { useCurrentUser } from "@/hooks/index";
-import { faChevronCircleLeft, faChevronLeft, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronCircleLeft,
+  faChevronLeft,
+  faShoppingBag,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { router } from "next/router";
@@ -18,21 +22,21 @@ export default function Offer() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <h1 class="app-page-title mb-5 main-title d-flex align-items-center justify-content-between">
+              <h1 className="app-page-title mb-5 main-title d-flex align-items-center justify-content-between">
                 <span className="d-flex align-items-center">
                   {" "}
                   <Link href="/notifications">
                     <a className="back-btn me-4">
-                      <FontAwesomeIcon icon={faChevronLeft}/>
+                      <FontAwesomeIcon icon={faChevronLeft} />
                     </a>
                   </Link>
                   Offers{" "}
                 </span>
               </h1>
 
-              <div class="app-card  h-100">
-                <div class="app-card-body p-4 p-lg-5 ">
-                  {/* <h3 class="stats-type mb-3"> Recent Notifications</h3> */}
+              <div className="app-card  h-100">
+                <div className="app-card-body p-4 p-lg-5 ">
+                  {/* <h3 className="stats-type mb-3"> Recent Notifications</h3> */}
                   <ul className="notification-list">
                     <li>
                       <span className="d-flex align-items-center">
@@ -102,7 +106,6 @@ export default function Offer() {
                       </span>
                     </li>
                   </ul>
-
                 </div>
               </div>
             </div>

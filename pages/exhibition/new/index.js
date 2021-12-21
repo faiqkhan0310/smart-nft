@@ -264,7 +264,7 @@ const Details = ({ artists }) => {
                     <div className="app-card app-card-settings shadow-sm p-4 row">
                       <form className="settings-form" onSubmit={handleSubmit}>
                         <div className="row">
-                          <div class="form-check mb-3 col-12">
+                          <div className="form-check mb-3 col-12">
                             <label
                               for="title"
                               className="mb-1"
@@ -275,7 +275,7 @@ const Details = ({ artists }) => {
                             <input
                               type="text"
                               name="title"
-                              class="form-control"
+                              className="form-control"
                               required
                               value={title}
                               id="title"
@@ -284,7 +284,7 @@ const Details = ({ artists }) => {
                           </div>
                         </div>
                         <div className="row">
-                          <div class="form-check mb-3 col-6">
+                          <div className="form-check mb-3 col-6">
                             <label
                               for="title"
                               className="mb-1"
@@ -295,7 +295,7 @@ const Details = ({ artists }) => {
                             <input
                               type="date"
                               name="startingDate"
-                              class="form-control"
+                              className="form-control"
                               id="startingDate"
                               value={startingDate}
                               required
@@ -303,7 +303,7 @@ const Details = ({ artists }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3 col-6">
+                          <div className="form-check mb-3 col-6">
                             <label
                               for="title"
                               className="mb-1"
@@ -314,7 +314,7 @@ const Details = ({ artists }) => {
                             <input
                               type="date"
                               name="endingDate"
-                              class="form-control"
+                              className="form-control"
                               id="endingDate"
                               value={endingDate}
                               required
@@ -324,7 +324,7 @@ const Details = ({ artists }) => {
                         </div>
 
                         <div className="row">
-                          <div class="form-check mb-3 col-6">
+                          <div className="form-check mb-3 col-6">
                             <label
                               for="exampleInputEmail1"
                               className="mb-1"
@@ -342,7 +342,7 @@ const Details = ({ artists }) => {
                             ></input>
                           </div>
 
-                          <div class="form-check mb-3 col-6">
+                          <div className="form-check mb-3 col-6">
                             <label
                               for="exampleInputEmail1"
                               className="mb-1"
@@ -360,7 +360,7 @@ const Details = ({ artists }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label
                               className="mb-1"
                               for="exampleInputEmail1"
@@ -372,7 +372,7 @@ const Details = ({ artists }) => {
                               cols="30"
                               rows="40"
                               name="description"
-                              class="form-control desc-height"
+                              className="form-control desc-height"
                               id="description"
                               placeholder="briefly describe the purpose of your exhibition"
                               value={description}
@@ -475,9 +475,9 @@ const Details = ({ artists }) => {
                           );
                         })}
 
-                        {/* <div class="form-check mb-3">
+                        {/* <div className="form-check mb-3">
                           <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             name="status"
                             checked={status ? true : false}
@@ -487,15 +487,15 @@ const Details = ({ artists }) => {
                             id="settings-checkbox-1"
                           />
                           <label
-                            class="form-check-label"
+                            className="form-check-label"
                             for="settings-checkbox-1"
                           >
                             Status
                           </label>
                         </div> */}
 
-                        <div class="form-group mt-3">
-                          {/* <label class="mr-2">Upload Image:</label> */}
+                        <div className="form-group mt-3">
+                          {/* <label className="mr-2">Upload Image:</label> */}
                           {/* <input
                             type="file"
                             name="file"
@@ -504,7 +504,7 @@ const Details = ({ artists }) => {
                           {/* {images?.length > 0 &&
                             images.map((data, i) => {
                               return (
-                                <div class="cover-thumbnail-box" key={i}>
+                                <div className="cover-thumbnail-box" key={i}>
                                   <button
                                     name="landingImage"
                                     onClick={(e) => {
@@ -525,7 +525,7 @@ const Details = ({ artists }) => {
                                     alt="pic"
                                   />
                                   <span>
-                                    <i class="far fa-check-circle "></i>
+                                    <i className="far fa-check-circle "></i>
                                   </span>
                                 </div>
                               );
@@ -535,7 +535,7 @@ const Details = ({ artists }) => {
                         <button type="submit" className="btn app-btn-primary">
                           submit
                           {loading && (
-                            <div class="spinner-border" role="status"></div>
+                            <div className="spinner-border" role="status"></div>
                           )}
                         </button>
                       </form>

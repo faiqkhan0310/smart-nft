@@ -184,7 +184,7 @@ const Details = ({ userData }) => {
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
                                   />
                                   <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
@@ -205,7 +205,7 @@ const Details = ({ userData }) => {
                               Category
                             </label>
                             <select
-                              class="form-control"
+                              className="form-control"
                               id="exampleFormControlSelect1"
                               name="platform"
                               required="required"
@@ -228,7 +228,7 @@ const Details = ({ userData }) => {
                               onChange={(e) => handleChangeDiscription(e)}
                             />
                           </div>
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label
                               for="Price"
                               className="form-label"
@@ -239,7 +239,7 @@ const Details = ({ userData }) => {
                             <input
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="priceInput"
                               aria-describedby="emailHelp"
                               placeholder="Enter Price"
@@ -248,7 +248,7 @@ const Details = ({ userData }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label
                               for="Price"
                               className="form-label"
@@ -259,7 +259,7 @@ const Details = ({ userData }) => {
                             <img className="img-fluid" src={userData.Url} />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label
                               for="Price"
                               className="form-label"
@@ -270,7 +270,7 @@ const Details = ({ userData }) => {
                             <input
                               type="text"
                               name="Url"
-                              class="form-control"
+                              className="form-control"
                               id="Url"
                               aria-describedby="emailHelp"
                               placeholder="Url"
@@ -278,9 +278,9 @@ const Details = ({ userData }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <input
-                              class="form-check-input"
+                              className="form-check-input"
                               type="checkbox"
                               name="status"
                               checked={status ? true : false}
@@ -290,15 +290,15 @@ const Details = ({ userData }) => {
                               id="settings-checkbox-1"
                             />
                             <label
-                              class="form-check-label"
+                              className="form-check-label"
                               for="settings-checkbox-1"
                             >
                               Status
                             </label>
                           </div>
-                          {/* <div class="form-check mb-3">
+                          {/* <div className="form-check mb-3">
                           <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             name="feature"
                             checked={feature ? true : false}
@@ -308,7 +308,7 @@ const Details = ({ userData }) => {
                             id="settings-checkbox-2"
                           />
                           <label
-                            class="form-check-label"
+                            className="form-check-label"
                             for="settings-checkbox-2"
                           >
                             Feature
@@ -316,9 +316,9 @@ const Details = ({ userData }) => {
                         </div> */}
                           {Auctioned ? (
                             <>
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <input
-                                  class="form-check-input"
+                                  className="form-check-input"
                                   type="checkbox"
                                   name="Auctioned"
                                   checked={Auctioned ? true : false}
@@ -328,11 +328,14 @@ const Details = ({ userData }) => {
                                   disabled
                                   id="Auctioned"
                                 />
-                                <label class="form-check-label" for="Auctioned">
+                                <label
+                                  className="form-check-label"
+                                  for="Auctioned"
+                                >
                                   Auction
                                 </label>
                               </div>
-                              <div class="row">
+                              <div className="row">
                                 <div className="col-6">
                                   <div className="mb-3">
                                     <label

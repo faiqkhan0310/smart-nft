@@ -206,14 +206,14 @@ const Details = ({ userData }) => {
                     <div className="app-card app-card-settings shadow-sm p-4">
                       <div className="app-card-body">
                         <form className="settings-form" onSubmit={handleSubmit}>
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleInputEmail1" required="required">
                               Name
                             </label>
                             <input
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="nameInput"
                               aria-describedby="emailHelp"
                               placeholder="Enter Name"
@@ -222,14 +222,14 @@ const Details = ({ userData }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleInputEmail1" required="required">
                               Description
                             </label>
                             <input
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="DescInput"
                               aria-describedby="emailHelp"
                               placeholder="Enter Description"
@@ -238,14 +238,14 @@ const Details = ({ userData }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleInputEmail1" required="required">
                               Price
                             </label>
                             <input
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="priceInput"
                               aria-describedby="emailHelp"
                               placeholder="Enter Price"
@@ -254,12 +254,12 @@ const Details = ({ userData }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleFormControlSelect1">
                               Category
                             </label>
                             <select
-                              class="form-control"
+                              className="form-control"
                               id="exampleFormControlSelect1"
                               name="platform"
                               required="required"
@@ -271,9 +271,9 @@ const Details = ({ userData }) => {
                             </select>
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <input
-                              class="form-check-input"
+                              className="form-check-input"
                               type="checkbox"
                               name="status"
                               checked={status ? true : false}
@@ -283,15 +283,15 @@ const Details = ({ userData }) => {
                               id="settings-checkbox-1"
                             />
                             <label
-                              class="form-check-label"
+                              className="form-check-label"
                               for="settings-checkbox-1"
                             >
                               Status
                             </label>
                           </div>
 
-                          <div class="form-group mt-3">
-                            <label class="mr-2">Upload Image:</label>
+                          <div className="form-group mt-3">
+                            <label className="mr-2">Upload Image:</label>
                             <input
                               type="file"
                               name="file"
@@ -300,7 +300,7 @@ const Details = ({ userData }) => {
                             {images?.length > 0 &&
                               images.map((data, i) => {
                                 return (
-                                  <div class="cover-thumbnail-box" key={i}>
+                                  <div className="cover-thumbnail-box" key={i}>
                                     <button
                                       name="landingImage"
                                       onClick={(e) => {
@@ -324,7 +324,7 @@ const Details = ({ userData }) => {
                                     // className="coverimg-indication"
                                     // style={{ display: data ? "" : "none" }}
                                     >
-                                      <i class="far fa-check-circle "></i>
+                                      <i className="far fa-check-circle "></i>
                                     </span>
                                   </div>
                                 );
@@ -355,7 +355,7 @@ const Details = ({ userData }) => {
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  fill-rule="evenodd"
+                                  fillRule="evenodd"
                                   d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
                                 />
                                 <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
@@ -395,9 +395,9 @@ const Details = ({ userData }) => {
                             onChange={(e) => handleChangeDiscription(e)}
                           />
                         </div>
-                        <div class="form-check mb-3">
+                        <div className="form-check mb-3">
                           <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             name="status"
                 checked={status ? true : false}
@@ -407,15 +407,15 @@ const Details = ({ userData }) => {
                             id="settings-checkbox-1"
                           />
                           <label
-                            class="form-check-label"
+                            className="form-check-label"
                             for="settings-checkbox-1"
                           >
                             Status
                           </label>
                         </div>
-                        <div class="form-check mb-3">
+                        <div className="form-check mb-3">
                           <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             name="feature"
                             checked={feature ? true : false}
@@ -425,7 +425,7 @@ const Details = ({ userData }) => {
                             id="settings-checkbox-2"
                           />
                           <label
-                            class="form-check-label"
+                            className="form-check-label"
                             for="settings-checkbox-2"
                           >
                             Feature
@@ -433,9 +433,9 @@ const Details = ({ userData }) => {
                         </div>
                         {Auctioned ? <>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                           <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             name="Auctioned"
                             checked={Auctioned ? true : false}
@@ -446,13 +446,13 @@ const Details = ({ userData }) => {
                             id="Auctioned"
                           />
                           <label
-                            class="form-check-label"
+                            className="form-check-label"
                             for="Auctioned"
                           >
                             Auction
                           </label>
                         </div>
-                            <div class="row">
+                            <div className="row">
                         <div className="col-6">
                         <div className="mb-3">
                           <label for="StitemAuction" className="form-label">

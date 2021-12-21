@@ -19,7 +19,7 @@ import { DashboardComponent } from "../../../components/dashboard-component/Dash
 import { Navbar } from "../../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import { getOneClass, delClass } from "service/class-service";
+import { getOneClass, delClass } from "../../../service/class-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
@@ -48,10 +48,13 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     setTableLoading(false);
   };
   useEffect(() => {
-    const classId = router.query.id;
-    getClass(classId);
     if (user === null) router.replace("/login");
   }, [user]);
+
+  useEffect(() => {
+    const classId = router.query.id;
+    getClass(classId);
+  }, [router]);
   const paginate = (e, pageNumber) => {
     // e.preventDefault();
     fetch(
@@ -106,19 +109,19 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
       <div className="app-content">
         <div className="container-fluid">
           {/* <div className="row mb-5">
-            <h1 class="app-page-title main-title text-center ">
+            <h1 className="app-page-title main-title text-center ">
               Class Products{" "}
             </h1>
           </div> */}
           <div className="row g-3  mb-4 align-items-center justify-content-between ">
             <div className="col-6   ">
               {/* <h1>Name</h1> */}
-              <h1 class="app-page-title  ">Class Name</h1>
+              <h1 className="app-page-title  ">Class Name</h1>
             </div>
             <div className="col-6  ">
               <div className="row pr-5 ">
                 <div className="col-12  text-center"></div>
-                <h1 class="app-page-title">{classes[0]?.name}</h1>
+                <h1 className="app-page-title">{classes[0]?.name}</h1>
               </div>
             </div>
           </div>
@@ -126,7 +129,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
           <div className="row g-3  mb-4 align-items-center justify-content-between ">
             <div className="col-6   ">
               {/* <h1>Name</h1> */}
-              <h1 class="app-page-title">Attributes</h1>
+              <h1 className="app-page-title">Attributes</h1>
             </div>
             <div className="col-6  ">
               <div className="row ">
@@ -145,7 +148,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
 
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto w-100">
-              <h1 class="app-page-title  d-flex align-items-center justify-content-between">
+              <h1 className="app-page-title  d-flex align-items-center justify-content-between">
                 Class Products{" "}
               </h1>
             </div>

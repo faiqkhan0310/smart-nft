@@ -1,6 +1,9 @@
 /*eslint-disable*/
 
 import mongoose from "mongoose";
+// require("./Product");
+// var Product = mongoose.model("Product");
+// require("./Product");
 
 const classSchema = new mongoose.Schema({
   name: {
@@ -10,7 +13,7 @@ const classSchema = new mongoose.Schema({
   },
   products: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: "Product",
+    ref: "products",
     trim: true,
   },
   type: {
@@ -27,5 +30,4 @@ const classSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.models.Classes ||
-  mongoose.model("Classes", classSchema);
+export default mongoose.models.class || mongoose.model("class", classSchema);

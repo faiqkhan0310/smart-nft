@@ -116,7 +116,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
         <div className="container-fluid">
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto w-100">
-              <h1 class="app-page-title main-title d-flex align-items-center justify-content-between">
+              <h1 className="app-page-title main-title d-flex align-items-center justify-content-between">
                 Products{" "}
                 <Link href="/products/add-product">
                   <a className="btn">Add Product</a>
@@ -150,7 +150,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                             <td className="cell">{data?.desc}</td>
 
                             <td className="cell">
-                              {/* <button
+                              <button
                                 onClick={() => handleEdit(data._id)}
                                 style={{
                                   borderRadius: "50%",
@@ -165,7 +165,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                                   style={{ color: "rgb(102,153,204)" }}
                                   icon={faEdit}
                                 />
-                              </button> */}
+                              </button>
                               <button
                                 onClick={() => handleDetail(data._id)}
                                 style={{

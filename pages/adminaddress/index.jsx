@@ -28,47 +28,41 @@ export default function AdminAddress({ posts }) {
     <>
       {user != null && (
         <>
-          <Navbar
-          AddressesActive="active"
-           />
+          <Navbar AddressesActive="active" />
 
           <div>
-            <div class="app-content">
-              <div class="container-fluid">
-                <div class="row g-3 mb-4 align-items-center justify-content-between">
-                  
+            <div className="app-content">
+              <div className="container-fluid">
                 <div className="row g-3 mb-4 align-items-center justify-content-between">
-            <div className="col-auto w-100">
-            <h1 class="app-page-title main-title d-flex align-items-center justify-content-between">
-               Products{" "}
-                <Link href="/adminaddress/creation">
-                <a className="btn">
-                 Add Product
-                </a>
-                </Link>
-              </h1>
-            </div>
-
-          </div>
+                  <div className="row g-3 mb-4 align-items-center justify-content-between">
+                    <div className="col-auto w-100">
+                      <h1 className="app-page-title main-title d-flex align-items-center justify-content-between">
+                        Products{" "}
+                        <Link href="/adminaddress/creation">
+                          <a className="btn">Add Product</a>
+                        </Link>
+                      </h1>
+                    </div>
+                  </div>
                 </div>
 
-                {/* <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-				<a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-				<a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-				<a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-				<a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+                {/* <nav id="orders-table-tab" className="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+				<a className="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
+				<a className="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
+				<a className="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
+				<a className="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
 			</nav> */}
 
-                <div class="app-card app-card-orders-table p-4 mb-5">
-                  <div class="app-card-body">
-                    <div class="table-responsive">
-                      <table class="table mb-0 text-left">
+                <div className="app-card app-card-orders-table p-4 mb-5">
+                  <div className="app-card-body">
+                    <div className="table-responsive">
+                      <table className="table mb-0 text-left">
                         <thead>
                           <tr>
-                            <th class="cell">ID</th>
-                            <th class="cell">Public Address</th>
-                            <th class="cell">Action</th>
-                            {/* <th class="cell"></th> */}
+                            <th className="cell">ID</th>
+                            <th className="cell">Public Address</th>
+                            <th className="cell">Action</th>
+                            {/* <th className="cell"></th> */}
                           </tr>
                         </thead>
                         <tbody>
@@ -76,16 +70,16 @@ export default function AdminAddress({ posts }) {
                             !!posts.length &&
                             posts.map((data, i) => (
                               <tr>
-                                <td class="cell">{data._id}</td>
-                                <td class="cell">
-                                  <span class="truncate">
+                                <td className="cell">{data._id}</td>
+                                <td className="cell">
+                                  <span className="truncate">
                                     {data.PublicAddress}
                                   </span>
                                 </td>
-                                {/* <td class="cell">$259.35</td> */}
-                                <td class="cell">
+                                {/* <td className="cell">$259.35</td> */}
+                                <td className="cell">
                                   <a
-                                    class="btn-sm app-btn-secondary"
+                                    className="btn-sm app-btn-secondary"
                                     href=""
                                     onClick={() => {
                                       deleteAddress(data._id);

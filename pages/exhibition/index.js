@@ -188,8 +188,8 @@ export default function Art({ posts, totalRecord }) {
         <>
           <Navbar />
           <div>
-            <div class="app-content">
-              <div class="container-fluid">
+            <div className="app-content">
+              <div className="container-fluid">
                 <div className="row">
                   <button
                     className="newexh"
@@ -200,15 +200,15 @@ export default function Art({ posts, totalRecord }) {
                     New Exhibition
                   </button>
                 </div>
-                <div class="row g-3 mb-4 align-items-center justify-content-between">
-                  <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Exhibiton</h1>
+                <div className="row g-3 mb-4 align-items-center justify-content-between">
+                  <div className="col-auto">
+                    <h1 className="app-page-title mb-0">Exhibiton</h1>
                   </div>
 
                   <div className="col-auto d-flex flex-wrap align-items-center search-box col-md-6 justify-content-between">
                     <div className="col-md-5">
                       <select
-                        class="form-select"
+                        className="form-select"
                         aria-label="Default select example"
                         onChange={(e) => handleAuctioned(e)}
                       >
@@ -227,21 +227,21 @@ export default function Art({ posts, totalRecord }) {
                       </select>
                     </div>
 
-                    <form class="table-search-form  col-md-6 d-flex flex-wrap gx-1 align-items-center justify-content-between">
-                      <div class="col-md-8">
+                    <form className="table-search-form  col-md-6 d-flex flex-wrap gx-1 align-items-center justify-content-between">
+                      <div className="col-md-8">
                         <input
                           type="text"
                           id="search-orders"
                           name="searchorders"
-                          class="form-control search-orders"
+                          className="form-control search-orders"
                           placeholder="Search"
                           onChange={(e) => setSearch(e.target.value)}
                         />
                       </div>
-                      <div class="col-auto">
+                      <div className="col-auto">
                         <button
                           type="button "
-                          class="btn app-btn-secondary"
+                          className="btn app-btn-secondary"
                           onClick={(e) => paginate(e, 1)}
                         >
                           Search
@@ -251,25 +251,25 @@ export default function Art({ posts, totalRecord }) {
                   </div>
                 </div>
 
-                {/* <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-				    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+                {/* <nav id="orders-table-tab" className="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+				    <a className="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
+				    <a className="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
+				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
+				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
 				</nav> */}
 
-                <div class="app-card app-card-orders-table mb-5">
-                  <div class="app-card-body">
-                    <div class="table-responsive">
-                      <table class="table mb-0 text-left">
+                <div className="app-card app-card-orders-table mb-5">
+                  <div className="app-card-body">
+                    <div className="table-responsive">
+                      <table className="table mb-0 text-left">
                         <thead>
                           <tr>
-                            <th class="cell">Title</th>
-                            <th class="cell">Starting Date</th>
-                            <th class="cell">Ending Date</th>
-                            <th class="cell">Location</th>
-                            <th class="cell">Action</th>
-                            {/* <th class="cell">description</th> */}
+                            <th className="cell">Title</th>
+                            <th className="cell">Starting Date</th>
+                            <th className="cell">Ending Date</th>
+                            <th className="cell">Location</th>
+                            <th className="cell">Action</th>
+                            {/* <th className="cell">description</th> */}
                           </tr>
                         </thead>
                         <tbody>
@@ -277,7 +277,7 @@ export default function Art({ posts, totalRecord }) {
                             !!postsPaginated.length &&
                             postsPaginated.map((data, i) => (
                               <tr key={i}>
-                                <td class="cell">
+                                <td className="cell">
                                   <a
                                     href={`https://www.bxminft.com/art/${data._id}`}
                                     target="_blank"
@@ -285,18 +285,18 @@ export default function Art({ posts, totalRecord }) {
                                     {data.title}
                                   </a>
                                 </td>
-                                <td class="cell">
-                                  <span class="truncate">
+                                <td className="cell">
+                                  <span className="truncate">
                                     {data.startingDate}
                                   </span>
                                 </td>
-                                <td class="cell">
-                                  <span class="truncate">
+                                <td className="cell">
+                                  <span className="truncate">
                                     {data.endingDate}
                                   </span>
                                 </td>
-                                <td class="cell">{data.location}</td>
-                                <td class="cell">
+                                <td className="cell">{data.location}</td>
+                                <td className="cell">
                                   <button
                                     onClick={() => handleExhibitionEdit(data)}
                                     style={{
@@ -310,12 +310,12 @@ export default function Art({ posts, totalRecord }) {
                                       width="16"
                                       height="16"
                                       fill="green"
-                                      class="bi bi-pencil-square"
+                                      className="bi bi-pencil-square"
                                       viewBox="0 0 16 16"
                                     >
                                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                       <path
-                                        fill-rule="evenodd"
+                                        fillRule="evenodd"
                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
                                       />
                                     </svg>
@@ -341,7 +341,7 @@ export default function Art({ posts, totalRecord }) {
                                         width="16"
                                         height="16"
                                         fill="red"
-                                        class="bi bi-trash2-fill"
+                                        className="bi bi-trash2-fill"
                                         viewBox="0 0 16 16"
                                       >
                                         <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
@@ -349,14 +349,14 @@ export default function Art({ posts, totalRecord }) {
                                     </button>
                                   )}
                                 </td>
-                                {/* <td class="cell">
-                                  <span class="badge bg-success">
+                                {/* <td className="cell">
+                                  <span className="badge bg-success">
                                     {data.description}
                                   </span>
                                 </td> */}
-                                {/* <td class="cell">$259.35</td> */}
-                                {/* <td class="cell">
-                                  <span class="btn-sm app-btn-secondary">
+                                {/* <td className="cell">$259.35</td> */}
+                                {/* <td className="cell">
+                                  <span className="btn-sm app-btn-secondary">
                                     <Link
                                       href={{
                                         pathname: "/art/[id]",
@@ -370,7 +370,7 @@ export default function Art({ posts, totalRecord }) {
                                       View
                                     </Link>
                                   </span>{" "}
-                                  <span class="btn-sm app-btn-secondary">
+                                  <span className="btn-sm app-btn-secondary">
                                     <Link href={"/art/edit/" + data._id}>
                                       Edit
                                     </Link>
@@ -389,7 +389,7 @@ export default function Art({ posts, totalRecord }) {
                                   {featuredLoading &&
                                     loadingId === data._id && (
                                       <div
-                                        class="spinner-border"
+                                        className="spinner-border"
                                         role="status"
                                       ></div>
                                     )}

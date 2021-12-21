@@ -1,13 +1,14 @@
-import nc from 'next-connect';
-import { all } from '@/middlewares/index';
-import passport from 'middlewares/passport';
-import { extractUser } from '@/lib/api-helpers';
+import nc from "next-connect";
+import { all } from "@/middlewares/index";
+import passport from "middlewares/passport";
+import { extractUser } from "@/lib/api-helpers";
 
+// var classes = mongoose.model("classes");
 const handler = nc();
 
 handler.use(all);
 
-handler.post(passport.authenticate('local'), (req, res) => {
+handler.post(passport.authenticate("local"), (req, res) => {
   res.json({ user: extractUser(req.user) });
 });
 

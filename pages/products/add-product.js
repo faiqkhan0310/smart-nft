@@ -14,7 +14,8 @@ import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { addProductToClass, getClasses } from "service/class-service";
+import { getProducts } from "../../service/product-service";
+import { addProductToClass } from "../../service/class-service";
 import { values } from "public/assets/plugins/fontawesome/js/v4-shims";
 import {
   addProduct,
@@ -23,6 +24,7 @@ import {
 } from "service/product-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
+import { getClasses } from "service/class-service";
 
 export default function AddProduct() {
   const context = useContext(genContext);
@@ -187,7 +189,7 @@ export default function AddProduct() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <h1 class="app-page-title mb-5 main-title d-flex align-items-center justify-content-between">
+              <h1 className="app-page-title mb-5 main-title d-flex align-items-center justify-content-between">
                 <span className="d-flex align-items-center">
                   {" "}
                   <Link href="/classes">
@@ -199,8 +201,8 @@ export default function AddProduct() {
                 </span>
               </h1>
 
-              <div class="app-card  h-100">
-                <div class="app-card-body p-4 p-lg-5 ">
+              <div className="app-card  h-100">
+                <div className="app-card-body p-4 p-lg-5 ">
                   <div className="row">
                     <div className="col-md-12 col-12 product-col-form">
                       <form onSubmit={handleSubmit}>
@@ -224,7 +226,7 @@ export default function AddProduct() {
                               required
                               value={inputState.desc}
                               onChange={handleInputChange}
-                              class="form-control"
+                              className="form-control"
                               id="exampleFormControlTextarea1"
                               style={{
                                 minHeight: "150px !important",
@@ -307,7 +309,7 @@ export default function AddProduct() {
                                 );
                               })
                             ) : (
-                              <p>No class is selected</p>
+                              <p>No className is selected</p>
                             )}
 
                             <div className="form-group type-btn mt-5">

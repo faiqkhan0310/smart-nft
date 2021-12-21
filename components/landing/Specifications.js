@@ -129,7 +129,7 @@ export default function Specifications({ specificationsData, uploadImage }) {
                         }}
                       />
                       {(image || specificationsData?.image) && (
-                        <div class="cover-thumbnail-box">
+                        <div className="cover-thumbnail-box">
                           {/* <button
                             name="backgroundImage1"
                             onClick={(e) => {
@@ -160,7 +160,7 @@ export default function Specifications({ specificationsData, uploadImage }) {
                           // className="coverimg-indication"
                           // style={{ display: data ? "" : "none" }}
                           >
-                            <i class="far fa-check-circle "></i>
+                            <i className="far fa-check-circle "></i>
                           </span>
                         </div>
                       )}
@@ -208,7 +208,7 @@ export default function Specifications({ specificationsData, uploadImage }) {
                         }}
                       />
                       {(image2 || specificationsData?.image2) && (
-                        <div class="cover-thumbnail-box">
+                        <div className="cover-thumbnail-box">
                           {/* <button
                             name="backgroundImage2"
                             onClick={(e) => {
@@ -237,7 +237,7 @@ export default function Specifications({ specificationsData, uploadImage }) {
                           // className="coverimg-indication"
                           // style={{ display: data ? "" : "none" }}
                           >
-                            <i class="far fa-check-circle "></i>
+                            <i className="far fa-check-circle "></i>
                           </span>
                         </div>
                       )}{" "}

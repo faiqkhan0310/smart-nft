@@ -146,7 +146,7 @@ const EditLandingPage = ({ landingData, specsData, marketingData }) => {
                             {images?.length > 0 &&
                               images.map((data, i) => {
                                 return (
-                                  <div class="cover-thumbnail-box" key={i}>
+                                  <div className="cover-thumbnail-box" key={i}>
                                     <button
                                       name="landingImage"
                                       onClick={(e) => {
@@ -170,7 +170,7 @@ const EditLandingPage = ({ landingData, specsData, marketingData }) => {
                                     // className="coverimg-indication"
                                     // style={{ display: data ? "" : "none" }}
                                     >
-                                      <i class="far fa-check-circle "></i>
+                                      <i className="far fa-check-circle "></i>
                                     </span>
                                   </div>
                                 );

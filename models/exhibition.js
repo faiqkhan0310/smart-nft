@@ -1,6 +1,5 @@
 /*eslint-disable*/
 import mongoose from "mongoose";
-
 const ExhibitionSchema = new mongoose.Schema({
   title: {
     type: String,

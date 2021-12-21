@@ -19,7 +19,7 @@ import { DashboardComponent } from "../../components/dashboard-component/Dashboa
 import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import { getClasses, delClass } from "service/class-service";
+import { getClasses, delClass } from "../../service/class-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
@@ -107,13 +107,13 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
       return toast.info(delRes?.message);
     }
     console.log(delRes);
-    return toast.err("Something went wrong");
+    return toast.error("Something went wrong");
   };
   const handleDetail = (id) => {
     router.push(`/classes/detail/${id}`);
   };
   const handleEdit = (id) => {
-    router.push(`/products/add-product/?productId=${id}`);
+    router.push(`/classes/add-classes/?classId=${id}`);
   };
   return (
     <>
@@ -122,7 +122,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
         <div className="container-fluid">
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto w-100">
-              <h1 class="app-page-title main-title d-flex align-items-center justify-content-between">
+              <h1 className="app-page-title main-title d-flex align-items-center justify-content-between">
                 Classes{" "}
                 <Link href="/classes/add-classes">
                   <a className="btn">Add Class</a>

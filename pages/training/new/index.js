@@ -299,14 +299,14 @@ const Details = ({ userData }) => {
                     <div className="app-card app-card-settings shadow-sm p-4">
                       <div className="app-card-body">
                         <form className="settings-form">
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleInputEmail1" required="required">
                               Heading
                             </label>
                             <input
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="nameInput"
                               aria-describedby="emailHelp"
                               placeholder="Enter Name"
@@ -315,7 +315,7 @@ const Details = ({ userData }) => {
                             />
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleInputEmail1" required="required">
                               Description
                             </label>
@@ -323,7 +323,7 @@ const Details = ({ userData }) => {
                               rows="5"
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="DescInput"
                               style={{ height: "200px" }}
                               aria-describedby="emailHelp"
@@ -335,7 +335,7 @@ const Details = ({ userData }) => {
 
                           {/* {count.map((video, index) => ( */}
                           <div>
-                            <div class="form-check mb-3">
+                            <div className="form-check mb-3">
                               <label
                                 for="exampleInputEmail1"
                                 required="required"
@@ -345,7 +345,7 @@ const Details = ({ userData }) => {
                               <input
                                 type="text"
                                 name="name"
-                                class="form-control"
+                                className="form-control"
                                 id="DescInput"
                                 aria-describedby="emailHelp"
                                 placeholder="Enter Description"
@@ -356,14 +356,14 @@ const Details = ({ userData }) => {
                             </div>
                           </div>
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleInputEmail1" required="required">
                               Section 2 Heading
                             </label>
                             <input
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="nameInput"
                               aria-describedby="emailHelp"
                               placeholder="Enter Name"
@@ -378,7 +378,7 @@ const Details = ({ userData }) => {
                             })} */}
                           {inputFields?.map((inputField, index) => (
                             <div key={index}>
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <label
                                   for="exampleInputEmail1"
                                   required="required"
@@ -388,7 +388,7 @@ const Details = ({ userData }) => {
                                 <input
                                   type="text"
                                   name="videoName"
-                                  class="form-control"
+                                  className="form-control"
                                   id="nameInput"
                                   aria-describedby="emailHelp"
                                   placeholder="Enter Name"
@@ -397,7 +397,7 @@ const Details = ({ userData }) => {
                                 />
                               </div>
 
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <label
                                   for="exampleInputEmail1"
                                   required="required"
@@ -408,7 +408,7 @@ const Details = ({ userData }) => {
                                   rows="5"
                                   type="text"
                                   name="videoDescription"
-                                  class="form-control"
+                                  className="form-control"
                                   id="DescInput"
                                   style={{ height: "200px" }}
                                   aria-describedby="emailHelp"
@@ -419,7 +419,7 @@ const Details = ({ userData }) => {
                               </div>
 
                               <div>
-                                <div class="form-check mb-3">
+                                <div className="form-check mb-3">
                                   <label
                                     for="exampleInputEmail1"
                                     required="required"
@@ -429,7 +429,7 @@ const Details = ({ userData }) => {
                                   <input
                                     type="text"
                                     name="videoUrl"
-                                    class="form-control"
+                                    className="form-control"
                                     id="DescInput"
                                     aria-describedby="emailHelp"
                                     placeholder="Enter Description"
@@ -442,7 +442,7 @@ const Details = ({ userData }) => {
                                 </div>
                               </div>
 
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <button
                                   className="btn app-btn-primary"
                                   onClick={(e) => handlesection2Fields(e)}
@@ -451,11 +451,11 @@ const Details = ({ userData }) => {
                                 </button>
                               </div>
 
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <button
                                   onClick={() => handleremoveFields(index)}
                                   type="button"
-                                  class="btn btn-danger"
+                                  className="btn btn-danger"
                                 >
                                   Remove
                                 </button>
@@ -463,14 +463,14 @@ const Details = ({ userData }) => {
                             </div>
                           ))}
 
-                          <div class="form-check mb-3">
+                          <div className="form-check mb-3">
                             <label for="exampleInputEmail1" required="required">
                               Section 3 Heading
                             </label>
                             <input
                               type="text"
                               name="name"
-                              class="form-control"
+                              className="form-control"
                               id="nameInput"
                               aria-describedby="emailHelp"
                               placeholder="Enter Name"
@@ -485,7 +485,7 @@ const Details = ({ userData }) => {
                             })} */}
                           {inputFields2?.map((inputField, index) => (
                             <div key={index}>
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <label
                                   for="exampleInputEmail1"
                                   required="required"
@@ -495,7 +495,7 @@ const Details = ({ userData }) => {
                                 <input
                                   type="text"
                                   name="videoName"
-                                  class="form-control"
+                                  className="form-control"
                                   id="nameInput"
                                   aria-describedby="emailHelp"
                                   placeholder="Enter Name"
@@ -504,7 +504,7 @@ const Details = ({ userData }) => {
                                 />
                               </div>
 
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <label
                                   for="exampleInputEmail1"
                                   required="required"
@@ -515,7 +515,7 @@ const Details = ({ userData }) => {
                                   rows="5"
                                   type="text"
                                   name="videoDescription"
-                                  class="form-control"
+                                  className="form-control"
                                   id="DescInput"
                                   style={{ height: "200px" }}
                                   aria-describedby="emailHelp"
@@ -526,7 +526,7 @@ const Details = ({ userData }) => {
                               </div>
 
                               <div>
-                                <div class="form-check mb-3">
+                                <div className="form-check mb-3">
                                   <label
                                     for="exampleInputEmail1"
                                     required="required"
@@ -536,7 +536,7 @@ const Details = ({ userData }) => {
                                   <input
                                     type="text"
                                     name="videoUrl"
-                                    class="form-control"
+                                    className="form-control"
                                     id="DescInput"
                                     aria-describedby="emailHelp"
                                     placeholder="Enter Description"
@@ -549,7 +549,7 @@ const Details = ({ userData }) => {
                                 </div>
                               </div>
 
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <button
                                   className="btn app-btn-primary"
                                   onClick={(e) => handlesection3Fields(e)}
@@ -558,11 +558,11 @@ const Details = ({ userData }) => {
                                 </button>
                               </div>
 
-                              <div class="form-check mb-3">
+                              <div className="form-check mb-3">
                                 <button
                                   onClick={() => handleremoveFields2(index)}
                                   type="button"
-                                  class="btn btn-danger"
+                                  className="btn btn-danger"
                                 >
                                   Remove
                                 </button>

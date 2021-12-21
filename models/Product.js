@@ -2,10 +2,10 @@
 
 import mongoose from "mongoose";
 
-const classSchema = new mongoose.Schema({
+const classSchemap = new mongoose.Schema({
   class: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Classes",
+    ref: "class",
     required: [true, "Class is required!"],
     trim: true,
   },
@@ -36,5 +36,5 @@ const classSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.models.Product ||
-  mongoose.model("Product", classSchema);
+export default mongoose.models.products ||
+  mongoose.model("products", classSchemap);

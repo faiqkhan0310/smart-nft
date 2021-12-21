@@ -12,6 +12,7 @@ export default async (req, res) => {
         let allClasses = await Product.find({}).populate("class");
         return res.status(200).json({ success: true, classes: allClasses });
       } catch (error) {
+        console.log(error);
         return res.status(400).json({
           success: false,
           error: error,

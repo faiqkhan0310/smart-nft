@@ -46,7 +46,11 @@ export default function Addcar() {
     const clRes = await selectService();
     if (clRes.success) {
       context.setLoading(false);
-      toast.success("Class Created!");
+      {
+        !isEdit
+          ? toast.success("Class Created!")
+          : toast.success("Class Updated!");
+      }
       return router.push("/classes");
     } else if (clRes.success === false && clRes?.message) {
       context.setLoading(false);
@@ -88,7 +92,11 @@ export default function Addcar() {
     const { name, value, checked } = e.target;
     console.log(name);
     const attributesCopy = [...attributes];
-    if (name === "mutable") return (attributesCopy[indx][name] = checked);
+    if (name === "mutable") {
+      attributesCopy[indx][name] = checked;
+      setAttributes([...attributesCopy]);
+      return;
+    }
     attributesCopy[indx][name] = value;
     setAttributes([...attributesCopy]);
   };
@@ -188,126 +196,147 @@ export default function Addcar() {
               <div className="app-card  h-100">
                 <div className="app-card-body p-4 p-lg-5 ">
                   <div className="row">
-                    <div className="col-md-12 col-12 mint-nft-form">
+                    <div className="col-12 mint-nft-form">
                       <form onSubmit={handleSubmit}>
-                        <div className="mint-nft-form w-50 ">
-                          <div className="form-group mb-5">
-                            <label className="d-block mb-3">Name</label>
-                            <input
-                              className="form-control"
-                              name="name"
-                              value={classA?.name}
-                              onChange={handleChange}
-                              type="text"
-                            />
-                          </div>
+                        <div className="mint-nft-form">
+                          <div className="row">
+                            <div className="col-6">
+                              <div className="form-group mb-5">
+                                <label className="d-block mb-3">Name</label>
+                                <input
+                                  className="form-control"
+                                  name="name"
+                                  value={classA?.name}
+                                  onChange={handleChange}
+                                  type="text"
+                                />
+                              </div>
 
-                          <div className="form-group type-btn mb-5">
-                            <label className="d-block mb-4">Type</label>
-                            <button type="button" className="btn me-3">
-                              Sale
-                            </button>
-                            {/* <button type="button" className="btn">
-                              Sale
-                            </button> */}
-                          </div>
+                              <div className="form-group type-btn mb-5">
+                                <label className="d-block mb-4">Type</label>
+                                <button type="button" className="btn me-3">
+                                  Sale
+                                </button>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="form-group add-attr-col mb-5">
+                                <label className="d-block mb-4">
+                                  Add Attributes{" "}
+                                  <small>(You can add upto 10 attribute)</small>
+                                </label>
+                                <ol>
+                                  {attributes &&
+                                    attributes?.map((attribute, indx) => {
+                                      console.log(attribute);
+                                      return (
+                                        <li>
+                                          <div className="d-flex align-items-center mb-4">
+                                            <input
+                                              type="text"
+                                              name="name"
+                                              value={attribute?.name}
+                                              onChange={(e) =>
+                                                handleAttributeChange(e, indx)
+                                              }
+                                              className="form-control me-2"
+                                              placeholder="Enter Attribute Name"
+                                            />
 
-                          <div className="form-group add-attr-col mb-5">
-                            <label className="d-block mb-4">
-                              Add Attributes{" "}
-                              <small>(You can add upto 10 attribute)</small>
-                            </label>
-                            <ol>
-                              {attributes &&
-                                attributes?.map((attribute, indx) => {
-                                  console.log(attribute);
-                                  return (
-                                    <li>
-                                      <div className="d-flex align-items-center mb-4">
-                                        <input
-                                          type="text"
-                                          name="name"
-                                          value={attribute?.name}
-                                          onChange={(e) =>
-                                            handleAttributeChange(e, indx)
-                                          }
-                                          className="form-control me-2"
-                                          placeholder="Enter Attribute Name"
-                                        />
+                                            <div className="form-check ms-3 me-3">
+                                              <input
+                                                name="mutable"
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                onChange={(e) =>
+                                                  handleAttributeChange(e, indx)
+                                                }
+                                                checked={attribute?.mutable}
+                                                id="flexCheckDefault3"
+                                              />
+                                              <label
+                                                className="form-check-label"
+                                                htmlFor="flexCheckDefault3"
+                                              >
+                                                Mutable
+                                              </label>
+                                            </div>
 
-                                        <div className="form-check ms-3 me-3">
-                                          <input
-                                            name="mutable"
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            onChange={(e) =>
-                                              handleAttributeChange(e, indx)
-                                            }
-                                            checked={attribute?.mutable}
-                                            id="flexCheckDefault3"
-                                          />
-                                          <label
-                                            className="form-check-label"
-                                            htmlFor="flexCheckDefault3"
-                                          >
-                                            Mutable
-                                          </label>
-                                        </div>
+                                            <select
+                                              onChange={(e) =>
+                                                handleAttributeChange(e, indx)
+                                              }
+                                              name="type"
+                                              id="type"
+                                              className="form-control"
+                                            >
+                                              <option
+                                                selected={attribute.type === ""}
+                                                value="disable"
+                                                disabled
+                                              >
+                                                Select Type
+                                              </option>
 
-                                        <select
-                                          onChange={(e) =>
-                                            handleAttributeChange(e, indx)
-                                          }
-                                          name="type"
-                                          id="type"
-                                          defaultValue={attribute.type}
-                                          className="form-control"
-                                        >
-                                          <option
-                                            selected
-                                            value="disable"
-                                            disabled
-                                          >
-                                            Select Type
-                                          </option>
-                                          <option value="text_number">
-                                            Text/Number
-                                          </option>
-                                          <option value="image_s3">
-                                            Image/S3
-                                          </option>
-                                          <option value="image_ipfs">
-                                            Image/IPFS
-                                          </option>
-                                        </select>
-                                        {getFieldType(attribute, indx)}
+                                              <option
+                                                selected={
+                                                  attribute.type ===
+                                                  "text_number"
+                                                }
+                                                value="text_number"
+                                              >
+                                                Text/Number
+                                              </option>
+                                              <option
+                                                selected={
+                                                  attribute.type === "image_s3"
+                                                }
+                                                value="image_s3"
+                                              >
+                                                Image/S3
+                                              </option>
+                                              <option
+                                                selected={
+                                                  attribute.type ===
+                                                  "image_ipfs"
+                                                }
+                                                value="image_ipfs"
+                                              >
+                                                Image/IPFS
+                                              </option>
+                                            </select>
+                                            {getFieldType(attribute, indx)}
 
-                                        <button
-                                          className="rounded border-0 ms-5 bg-transparent"
-                                          type="button"
-                                        >
-                                          <FontAwesomeIcon
-                                            style={{
-                                              color: "red",
-                                            }}
-                                            icon={faTrash}
-                                            onClick={() => handleDelete(indx)}
-                                          />
-                                        </button>
-                                      </div>
-                                    </li>
-                                  );
-                                })}
-                            </ol>
+                                            <button
+                                              className="rounded border-0 ms-5 bg-transparent"
+                                              type="button"
+                                            >
+                                              <FontAwesomeIcon
+                                                style={{
+                                                  color: "red",
+                                                }}
+                                                icon={faTrash}
+                                                onClick={() =>
+                                                  handleDelete(indx)
+                                                }
+                                              />
+                                            </button>
+                                          </div>
+                                        </li>
+                                      );
+                                    })}
+                                </ol>
 
-                            <div className="form-group type-btn mt-5">
-                              <button
-                                onClick={addAttribute}
-                                type="button"
-                                className="add-attr-btn btn ms-0"
-                              >
-                                Add More Attribute
-                              </button>
+                                <div className="form-group type-btn mt-5">
+                                  <button
+                                    onClick={addAttribute}
+                                    type="button"
+                                    className="add-attr-btn btn ms-0"
+                                  >
+                                    Add More Attribute
+                                  </button>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>

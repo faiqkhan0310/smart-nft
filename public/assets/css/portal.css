@@ -10980,7 +10980,7 @@ button.close:focus {
   }
 }
 textarea.form-control {
-  min-height: 70px !important;
+  min-height: 100px !important;
 }
 
 .desc-height {

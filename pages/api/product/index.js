@@ -2,6 +2,7 @@
 
 import Product from "../../../models/Product";
 import "../../../utils/dbConnect";
+import ClassA from "../../../models/class-model";
 
 export default async (req, res) => {
   const { method, query } = req;

@@ -161,36 +161,19 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                             </td>
                             <td className="cell">
                               {data.attributes?.map((attr) => (
-                                <span>{attr.name}</span>
+                                <span style={{ marginRight: "10px" }}>
+                                  {attr.name.toUpperCase()}
+                                </span>
                               ))}
                             </td>
 
                             <td className="cell">
-                              {/* <span className="btn-sm btn app-btn-secondary me-3">
-                              {" "}
-                              <Link
-                                href={`/users/details/${data._id}`}
-                                as={`/users/details/${data._id}`}
-                                href=""
-                              >
-                                {" View "}
-                              </Link>
-                            </span> */}
-                              {/* <span className="btn-sm btn app-btn-secondary">
-                              <Link
-                                href=""
-                                 href={`/users/edit/${data._id}`}
-                                 as={`/users/edit/${data._id}`}
-                              >
-                                {"Edit"}
-                              </Link>
-                            </span> */}
                               <button
                                 onClick={() => handleEdit(data._id)}
                                 style={{
                                   borderRadius: "50%",
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "35px",
+                                  height: "35px",
                                   marginLeft: "10px",
                                   backgroundColor: "white",
                                   borderColor: "rgb(102,153,204)",
@@ -204,8 +187,8 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                               <button
                                 onClick={() => handleDetail(data._id)}
                                 style={{
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "35px",
+                                  height: "35px",
                                   backgroundColor: "white",
                                   borderRadius: "50%",
                                   marginLeft: "10px",

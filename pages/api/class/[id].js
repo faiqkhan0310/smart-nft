@@ -3,6 +3,7 @@
 import ClassA from "../../../models/class-model";
 import "../../../utils/dbConnect";
 // require("../../models/class-model");
+import productModel from "../../../models/Product";
 
 export default async (req, res) => {
   const { method, query: id, body } = req;
@@ -55,6 +56,10 @@ export default async (req, res) => {
         console.log(id.id);
         const isClassHaveProduct = await ClassA.findById(id.id).populate(
           "products"
+        );
+        console.log(
+          isClassHaveProduct?.products.length,
+          "this is the procduct aray lengy of class"
         );
         if (isClassHaveProduct?.products.length) {
           return res.status(422).json({

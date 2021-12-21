@@ -5,7 +5,7 @@ import ClassA from "../../../models/class-model";
 import "../../../utils/dbConnect";
 
 export default async (req, res) => {
-  const { method, query: id } = req;
+  const { method, query: id, body } = req;
 
   switch (method) {
     case "GET":

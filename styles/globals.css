@@ -467,3 +467,43 @@ ul {
 .pos_rel {
   position: relative;
 }
+.att_chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  color: white;
+  min-width: 185px;
+  width: fit-content;
+  font-size: 20px;
+  min-height: 20px;
+  padding: 18px;
+  height: 30px;
+  /* margin-right: 20px; */
+  /* border-radius: 20px; */
+}
+
+td {
+  font-size: 18px;
+}
+th {
+  font-size: 20px;
+}
+
+.chip-parent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.att_info {
+  color: black;
+  font-size: 18px;
+}
+.prod_detail {
+  background-color: white;
+  padding: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

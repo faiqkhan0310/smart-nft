@@ -76,7 +76,9 @@ export default function AddProduct() {
     setSelClass(JSON.parse(e.target.value));
     const dd = JSON.parse(e.target.value);
     console.log(dd?.name);
-    setSelectedValue(dd?.name);
+    setSelClass(dd);
+
+    setSelectedValue(dd.name);
   };
 
   const handleMutableAttribute = (e, attr) => {
@@ -125,7 +127,12 @@ export default function AddProduct() {
         toast.error("Failed to update Class.");
       }
       context.setLoading(false);
-      toast.success("Product created");
+      {
+        !isEdit
+          ? toast.success("Product created")
+          : toast.success("Product Updated");
+      }
+
       return router.push("/products");
     } else if (productRes.success === false && productRes?.message) {
       context.setLoading(false);
@@ -192,12 +199,12 @@ export default function AddProduct() {
               <h1 className="app-page-title mb-5 main-title d-flex align-items-center justify-content-between">
                 <span className="d-flex align-items-center">
                   {" "}
-                  <Link href="/classes">
+                  <Link href="/products">
                     <a className="back-btn me-4">
                       <FontAwesomeIcon icon={faChevronLeft} />
                     </a>
                   </Link>
-                  Add Product{" "}
+                  {isEdit ? "Update Product" : "Add Product"}
                 </span>
               </h1>
 
@@ -224,12 +231,13 @@ export default function AddProduct() {
                             <textarea
                               name="desc"
                               required
+                              rows={5}
                               value={inputState.desc}
                               onChange={handleInputChange}
                               className="form-control"
                               id="exampleFormControlTextarea1"
                               style={{
-                                minHeight: "150px !important",
+                                minHeight: "170px !important",
                                 borderRadius: "20px",
                               }}
                             ></textarea>
@@ -249,16 +257,20 @@ export default function AddProduct() {
                             <label className="d-block mb-3">Select Class</label>
                             <select
                               onChange={handleSelect}
-                              value={selectedValue}
+                              defaultValue={selectedValue}
                               className="form-select form-control pt-2"
                               aria-label="Default select example"
                             >
-                              <option selected disabled>
+                              <option selected={selectedValue === ""} disabled>
                                 Select Class
                               </option>
                               {classes?.map((clas, ind) => {
                                 return (
-                                  <option required value={JSON.stringify(clas)}>
+                                  <option
+                                    selected={selectedValue === clas.name}
+                                    required
+                                    value={JSON.stringify(clas)}
+                                  >
                                     {clas?.name}
                                   </option>
                                 );

@@ -104,15 +104,21 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     <>
       <Navbar ClassesActive="active" />
       <div className="app-content">
-        <div className="container-fluid">
-          {/* <div className="row mb-5">
-            <h1 className="app-page-title main-title text-center ">
-              Class Products{" "}
-            </h1>
-          </div> */}
+        <div className="container-fluid prod_detail">
+          <div className="row mb-5">
+            <div className="col-12 d-flex">
+              <Link href="/products">
+                <a className="back-btn me-4 mt-2">
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </a>
+              </Link>
+              <h1 className="app-page-title main-title">Product Details </h1>
+            </div>
+          </div>
           <div className="row g-3  mb-4 align-items-center justify-content-between ">
             <div className="col-6   ">
               {/* <h1>Name</h1> */}
+
               <h1 className="app-page-title  ">Product Name</h1>
             </div>
             <div className="col-6  ">

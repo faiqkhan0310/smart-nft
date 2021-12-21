@@ -119,7 +119,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
               <h1 className="app-page-title main-title d-flex align-items-center justify-content-between">
                 Products{" "}
                 <Link href="/products/add-product">
-                  <a className="btn">Add Product</a>
+                  <a className="btn"> Add Product</a>
                 </Link>
               </h1>
             </div>
@@ -147,15 +147,15 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                             <td className="cell">{data?.name}</td>
                             <td className="cell">{data?.class?.name}</td>
 
-                            <td className="cell">{data?.desc}</td>
+                            <td className="cell w-50">{data?.desc}</td>
 
                             <td className="cell">
                               <button
                                 onClick={() => handleEdit(data._id)}
                                 style={{
                                   borderRadius: "50%",
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "35px",
+                                  height: "35px",
                                   marginLeft: "10px",
                                   backgroundColor: "white",
                                   borderColor: "rgb(102,153,204)",
@@ -169,8 +169,8 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                               <button
                                 onClick={() => handleDetail(data._id)}
                                 style={{
-                                  width: "30px",
-                                  height: "30px",
+                                  width: "35px",
+                                  height: "35px",
                                   backgroundColor: "white",
                                   borderRadius: "50%",
                                   marginLeft: "10px",
@@ -202,9 +202,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                   </table>
                 </div>
               ) : (
-                <div className="spinner-grow text-warning" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
+                <div className="spinner-grow text-warning" role="status"></div>
               )}
             </div>
           </div>

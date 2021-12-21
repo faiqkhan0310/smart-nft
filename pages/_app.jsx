@@ -3,6 +3,7 @@
 import React, { createContext, useEffect } from "react";
 import Head from "next/head";
 import { Layout } from "@/components/layout/Layout";
+import NextNprogress from "nextjs-progressbar";
 import "bootstrap/dist/css/bootstrap.css";
 
 import "../public/assets/css/portal.css";
@@ -31,6 +32,7 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <NextNprogress height={6} color="orange" />
       <ToastContainer
         position="top-right"
         autoClose={3000}

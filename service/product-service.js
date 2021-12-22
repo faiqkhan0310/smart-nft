@@ -47,14 +47,17 @@ export const getOneProduct = async (id) => {
   }
 };
 
-export const updateProduct = async (id, body) => {
+export const updateProduct = async (id, prevClass, newClass, body) => {
   try {
     console.log(id, body);
-    const res = await fetch(`/api/product/${id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    const res = await fetch(
+      `/api/product/${id}?prevClass=${prevClass}&newClass=${newClass._id}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
 
     const userObj = await res.json();
     return userObj;

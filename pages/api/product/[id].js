@@ -6,6 +6,7 @@ import "../../../utils/dbConnect";
 
 export default async (req, res) => {
   const { method, query: id, body } = req;
+  console.log(req.query);
 
   switch (method) {
     case "GET":
@@ -23,10 +24,22 @@ export default async (req, res) => {
         console.log("update body prdiuct");
         console.log(body);
         console.log(id);
+
         let oneClassUpdated = await Product.findByIdAndUpdate(id.id, body);
-        return res
-          .status(200)
-          .json({ success: true, products: oneClassUpdated });
+        console.log(oneClassUpdated);
+        if (oneClassUpdated) {
+          if (
+            req.query.prevClass &&
+            req.query.prevClass != "undefined" &&
+            req.query.newClass
+          ) {
+            const removeProductFromClass = await ClassA.findByIdAndUpdate(
+              req.query.prevClass,
+              { $pull: { products: id.id } }
+            );
+          }
+        }
+        return res.status(200).json({ success: true, data: oneClassUpdated });
       } catch (error) {
         console.log(error);
         return res.status(400).json({

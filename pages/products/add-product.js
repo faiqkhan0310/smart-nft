@@ -31,6 +31,7 @@ export default function AddProduct() {
   const router = useRouter();
   const [classes, setClasses] = React.useState([]);
   const [selClass, setSelClass] = React.useState();
+  const [selClassPrev, setSelClassPrev] = React.useState(undefined);
   const [isEdit, setIsEdit] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("");
   const [classId, setClassId] = React.useState(undefined);
@@ -72,11 +73,16 @@ export default function AddProduct() {
     if (allClasses?.success) setClasses(allClasses?.classes);
   }, []);
   const handleSelect = (e) => {
+    if (isEdit) {
+      console.log("prev class", selClass);
+      setSelClassPrev(selClass._id);
+    }
     console.log(JSON.parse(e.target.value));
     setSelClass(JSON.parse(e.target.value));
     const dd = JSON.parse(e.target.value);
+
     console.log(dd?.name);
-    setSelClass(dd);
+    // setSelClass(dd);
 
     setSelectedValue(dd.name);
   };
@@ -111,22 +117,25 @@ export default function AddProduct() {
       ...inputState,
       attributes: selClass.attributes,
     };
-    console.log(apiBody);
+
     const selectService = () => {
       if (isEdit) {
-        console.log(classId);
-        return updateProduct(classId, apiBody);
+        return updateProduct(classId, selClassPrev, selClass, apiBody);
       } else return addProduct(apiBody);
     };
     const productRes = await selectService();
+
     if (productRes.success) {
       const classUpdateRes = await addProductToClass(selClass?._id, {
         products: productRes?.data?._id,
       });
+
       if (!classUpdateRes.success) {
         toast.error("Failed to update Class.");
       }
+
       context.setLoading(false);
+
       {
         !isEdit
           ? toast.success("Product created")

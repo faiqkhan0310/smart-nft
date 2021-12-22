@@ -23,6 +23,7 @@ export default async (req, res) => {
       }
     case "PATCH":
       try {
+        console.log("body of class ", body);
         let oneClassUpdated = await ClassA.findByIdAndUpdate(id.id, {
           $push: { products: body.products },
         });

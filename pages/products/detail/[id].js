@@ -50,7 +50,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   useEffect(() => {
     const productId = router.query.id;
     getProduct(productId);
-    if (user === null) router.replace("/login");
+    // if (user === null) router.replace("/login");
   }, [user]);
   const paginate = (e, pageNumber) => {
     // e.preventDefault();

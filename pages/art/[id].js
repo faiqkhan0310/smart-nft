@@ -7,9 +7,9 @@ import router from "next/router";
 
 const Details = ({ userData, ownerData, creatorData }) => {
   const [user, { mutate }] = useCurrentUser();
-  useEffect(() => {
-    if (user === null) router.replace("/login");
-  }, [user]);
+  // useEffect(() => {
+  //   if (user === null) router.replace("/login");
+  // }, [user]);
   return (
     <>
       {user != null && (

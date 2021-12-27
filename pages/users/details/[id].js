@@ -9,7 +9,7 @@ const Details = ({ userData }) => {
   console.log(userData, "userData");
   const [user, { mutate }] = useCurrentUser();
   useEffect(() => {
-    if (user === null) router.replace("/login");
+    // if (user === null) router.replace("/login");
   });
   return (
     <>

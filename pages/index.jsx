@@ -1,22 +1,24 @@
-import React, {useEffect} from "react";
+/*eslint-disable*/
+
+import React, { useEffect } from "react";
 import { useCurrentUser } from "@/hooks/index";
-import LoginPage from './login';
+import LoginPage from "./login";
 import router from "next/router";
-
-
+import { useSelector } from "react-redux";
 
 const IndexPage = () => {
-  const [user] = useCurrentUser();
-  
-  useEffect(() => {
-    if(!user){
-        router.push('/login')
-    }
-  }, [user])
+  // const [user] = useCurrentUser();
+  const state = useSelector((state) => state.admin);
+
+  // useEffect(() => {
+  //   if (state.isLogin === false) {
+  //     router.push("/login");
+  //   }
+  // }, [state.isAuth]);
 
   return (
     <>
-    {/* < LoginPage /> */}
+      {/* < LoginPage /> */}
       {/* <section className="pb-5 bg-light" >
         <div className="container pt-5">
           <div className="row">

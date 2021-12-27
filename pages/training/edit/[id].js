@@ -48,7 +48,7 @@ const Details = ({ userData }) => {
   const [inputFields2, setInputFields2] = useState([{}]);
   const [user, { mutate }] = useCurrentUser();
   useEffect(() => {
-    if (user === null) useRouter.replace("/login");
+    // if (user === null) useRouter.replace("/login");
   }, [user]);
 
   useEffect(() => {

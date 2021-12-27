@@ -23,10 +23,15 @@ import { getClasses, delClass } from "../../service/class-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { delAdmin, getAdmins } from "service/admin-service";
+import { Admin } from "../../lib/constants";
+import { startLoading, stopLoading } from "store/admin-slice";
 
 const Cars = ({ users, totalRecord, handleChange, form }) => {
-  const context = useContext(genContext);
+  const state = useSelector((state) => state.admin);
   const router = useRouter();
+  const dispatch = useDispatch();
   const [total, setTotal] = useState(totalRecord);
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(10);
@@ -39,17 +44,18 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   const [user, { mutate }] = useCurrentUser();
   const [tableLoading, setTableLoading] = useState(false);
 
-  const getAllClasses = async () => {
+  const getAllAdmins = async () => {
     setTableLoading(true);
-    const allCls = await getClasses();
-    console.log(allCls);
-    if (allCls.success) setClasses(allCls.classes);
+    const allAdmins = await getAdmins();
+    console.log(allAdmins);
+    if (allAdmins.success) setClasses(allAdmins.data);
     setTableLoading(false);
   };
   useEffect(() => {
-    getAllClasses();
-    // if (user === null) router.replace("/login");
-  }, [user]);
+    // console.log(state);
+    // if (state.isLogin === false) return router.replace("/login");
+    getAllAdmins();
+  }, []);
   const paginate = (e, pageNumber) => {
     // e.preventDefault();
     fetch(
@@ -98,11 +104,11 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     //  console.log("Paginations",currentPage)
   }, [currentPage]);
   const handleDelete = async (id) => {
-    context.setLoading(true);
-    const delRes = await delClass(id);
+    dispatch(startLoading());
+    const delRes = await delAdmin(id);
     console.log(delRes);
-    context.setLoading(false);
-    if (delRes.success) return getAllClasses();
+    dispatch(stopLoading());
+    if (delRes.success) return getAllAdmins();
     if (delRes.success === false && delRes?.message) {
       return toast.info(delRes?.message);
     }
@@ -113,7 +119,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     router.push(`/classes/detail/${id}`);
   };
   const handleEdit = (id) => {
-    router.push(`/classes/add-classes/?classId=${id}`);
+    router.push(`/admins/update/${id}`);
   };
   return (
     <>
@@ -123,10 +129,14 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto w-100">
               <h1 className="app-page-title main-title d-flex align-items-center justify-content-between">
-                Classes{" "}
-                <Link href="/classes/add-classes">
-                  <a className="btn">Add Class</a>
-                </Link>
+                Admins{" "}
+                {state?.admin
+                  ? state?.admin[0]?.role === Admin.SUPER_ADMIN && (
+                      <Link href="/admins/add-admin">
+                        <a className="btn">Add Admin</a>
+                      </Link>
+                    )
+                  : null}
               </h1>
             </div>
           </div>
@@ -147,7 +157,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                       <tr>
                         <th className="cell">Id</th>
                         <th className="cell">Name</th>
-                        <th className="cell">Attributes</th>
+                        <th className="cell">Verified</th>
                         <th className="cell">Action</th>
                       </tr>
                     </thead>
@@ -160,30 +170,34 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                               {data?.name?.toUpperCase()}
                             </td>
                             <td className="cell">
-                              {data.attributes?.map((attr) => (
-                                <span style={{ marginRight: "10px" }}>
-                                  {attr.name.toUpperCase()}
-                                </span>
-                              ))}
+                              {data?.verified === false
+                                ? "Not Verified"
+                                : "Verified"}
                             </td>
 
                             <td className="cell">
-                              <button
-                                onClick={() => handleEdit(data._id)}
-                                style={{
-                                  borderRadius: "50%",
-                                  width: "35px",
-                                  height: "35px",
-                                  marginLeft: "10px",
-                                  backgroundColor: "white",
-                                  borderColor: "rgb(102,153,204)",
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  style={{ color: "rgb(102,153,204)" }}
-                                  icon={faEdit}
-                                />
-                              </button>
+                              {console.log(state?.admin)}
+                              {state?.admin
+                                ? state?.admin[0]?.role ===
+                                    Admin.SUPER_ADMIN && (
+                                    <button
+                                      onClick={() => handleEdit(data._id)}
+                                      style={{
+                                        borderRadius: "50%",
+                                        width: "35px",
+                                        height: "35px",
+                                        marginLeft: "10px",
+                                        backgroundColor: "white",
+                                        borderColor: "rgb(102,153,204)",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon
+                                        style={{ color: "rgb(102,153,204)" }}
+                                        icon={faEdit}
+                                      />
+                                    </button>
+                                  )
+                                : null}
                               <button
                                 onClick={() => handleDetail(data._id)}
                                 style={{
@@ -200,23 +214,28 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                   icon={faEye}
                                 />
                               </button>
-                              <button
-                                onClick={() => handleDelete(data._id)}
-                                style={{
-                                  borderRadius: "50%",
-                                  backgroundColor: "white",
-                                  marginLeft: "10px",
-                                  borderColor: "orange",
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  style={{
-                                    color: "red",
-                                    // textshadow: " 0 0 100px blue",
-                                  }}
-                                  icon={faTrash}
-                                />
-                              </button>
+                              {state?.admin
+                                ? state?.admin[0]?.role ===
+                                    Admin.SUPER_ADMIN && (
+                                    <button
+                                      onClick={() => handleDelete(data._id)}
+                                      style={{
+                                        borderRadius: "50%",
+                                        backgroundColor: "white",
+                                        marginLeft: "10px",
+                                        borderColor: "orange",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon
+                                        style={{
+                                          color: "red",
+                                          // textshadow: " 0 0 100px blue",
+                                        }}
+                                        icon={faTrash}
+                                      />
+                                    </button>
+                                  )
+                                : null}
                             </td>
                           </tr>
                         ))}

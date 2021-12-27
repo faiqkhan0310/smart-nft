@@ -8,7 +8,7 @@ export default function AdminAddress({ posts }) {
   const [user, { mutate }] = useCurrentUser();
 
   useEffect(() => {
-    if (user === null) router.replace("/login");
+    // if (user === null) router.replace("/login");
   }, [user]);
 
   // delete address

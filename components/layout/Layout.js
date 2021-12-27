@@ -7,13 +7,15 @@ import { useContext } from "react";
 // import { useCurrentUser } from '@/hooks/index';
 import Head from "next/head";
 import { genContext } from "pages/_app";
+import { useSelector } from "react-redux";
 
 export function Layout({ children }) {
   const context = useContext(genContext);
+  const state = useSelector((state) => state.admin);
   // const [user, { mutate }] = useCurrentUser();
   return (
     <>
-      {context?.loading && <div id="cover-spin"></div>}
+      {state?.loading && <div id="cover-spin"></div>}
 
       <div>
         {/* <Head>

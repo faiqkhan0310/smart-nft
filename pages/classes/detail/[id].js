@@ -51,7 +51,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     setTableLoading(false);
   };
   useEffect(() => {
-    if (user === null) router.replace("/login");
+    // if (user === null) router.replace("/login");
   }, [user]);
 
   useEffect(() => {

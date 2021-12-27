@@ -25,7 +25,7 @@ export default function Art({ posts, totalRecord }) {
   //const [Auctioned, setAuctioned] = useState()
 
   useEffect(() => {
-    if (user === null) router.replace("/login");
+    // if (user === null) router.replace("/login");
   }, [user]);
   const paginate = (e, pageNumber) => {
     e.preventDefault();

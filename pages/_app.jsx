@@ -14,6 +14,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import router from "next/router";
+import { Provider } from "react-redux";
+import { store } from "../store/index";
 // import 'public/assets/css/portal.css';
 // import 'public/assets/plugins/fontawesome/css/all.min.css'
 
@@ -41,14 +43,16 @@ export default function MyApp({ Component, pageProps }) {
         closeOnClick
         rtl={false}
       />
-      <genContext.Provider value={{ global, setGlobal, loading, setLoading }}>
+      <Provider store={store}>
+        {/* <genContext.Provider value={{ global, setGlobal, loading, setLoading }}> */}
         <Layout>
           <Head>
             <title>Admin Portal</title>
           </Head>
           <Component {...pageProps} />
         </Layout>
-      </genContext.Provider>
+        {/* </genContext.Provider> */}
+      </Provider>
     </>
   );
 }

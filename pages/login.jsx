@@ -5,8 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCurrentUser } from "@/hooks/index";
 import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { login, startLoading, stopLoading } from "store/admin-slice";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState("");
   const [user, { mutate }] = useCurrentUser();
@@ -40,6 +43,33 @@ const LoginPage = () => {
     }
   }
 
+  const handleSubmitNew = async (e) => {
+    e.preventDefault();
+    dispatch(startLoading());
+    const body = {
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
+    };
+    const res = await fetch("/api/admins/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    const resJson = await res.json();
+    dispatch(stopLoading());
+
+    console.log(resJson);
+    const { success, message, data, token } = resJson;
+    if (!success) return toast.info(message);
+    if (success) {
+      toast.success(message);
+      router.push("/dashboard");
+      const loginPayload = { data, token };
+      dispatch({ type: login, payload: loginPayload });
+    }
+  };
+
   return (
     <>
       {/* <Head>
@@ -63,7 +93,11 @@ const LoginPage = () => {
                 Log in to Portal
               </h2>
               <div className="auth-form-container text-start">
-                <form className="auth-form login-form" form onSubmit={onSubmit}>
+                <form
+                  className="auth-form login-form"
+                  form
+                  onSubmit={handleSubmitNew}
+                >
                   <div className="email mb-3">
                     <label className="sr-only" for="email">
                       Email

@@ -2,7 +2,7 @@
 
 import mongoose from "mongoose";
 
-const classSchemap = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   class: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "class",
@@ -37,4 +37,4 @@ const classSchemap = new mongoose.Schema({
 });
 
 export default mongoose.models.products ||
-  mongoose.model("products", classSchemap);
+  mongoose.model("products", productSchema);

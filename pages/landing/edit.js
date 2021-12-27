@@ -17,7 +17,7 @@ const EditLandingPage = ({ landingData, specsData, marketingData }) => {
 
   const [user] = useCurrentUser();
   useEffect(() => {
-    if (user === null) useRouter.replace("/login");
+    // if (user === null) useRouter.replace("/login");
   }, [user]);
 
   const handleSubmit = async (e) => {

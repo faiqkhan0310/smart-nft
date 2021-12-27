@@ -52,7 +52,7 @@ const Details = ({ userData }) => {
 
   const [user, { mutate }] = useCurrentUser();
   useEffect(() => {
-    if (user === null) useRouter.replace("/login");
+    // if (user === null) useRouter.replace("/login");
   }, [user]);
 
   // useEffect(() => {

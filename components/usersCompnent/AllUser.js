@@ -16,9 +16,9 @@ const AllUser = ({ users, totalRecord, handleChange, form }) => {
   const [filterArray, setfilterArray] = useState([]);
   const [search, setSearch] = useState("");
   const [user, { mutate }] = useCurrentUser();
-  useEffect(() => {
-    if (user === null) router.replace("/login");
-  }, [user]);
+  // useEffect(() => {
+  //   if (user === null) router.replace("/login");
+  // }, [user]);
   const paginate = (e, pageNumber) => {
     // e.preventDefault();
     fetch(

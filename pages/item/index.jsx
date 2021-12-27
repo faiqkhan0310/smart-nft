@@ -19,7 +19,7 @@ export default function Item({ posts, totalRecord }) {
   const [search, setSearch] = useState("");
   //const [Auctioned, setAuctioned] = useState()
   useEffect(() => {
-    if (user === null) router.replace("/login");
+    // if (user === null) router.replace("/login");
   }, [user]);
   const paginate = (e, pageNumber) => {
     e.preventDefault();

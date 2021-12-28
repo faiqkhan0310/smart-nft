@@ -2,6 +2,7 @@
 
 import Admins from "../../../models/admins";
 import "../../../utils/dbConnect";
+import { Admin } from "../../../lib/constants";
 
 const sendResponse = (status, success, message, data, resa, ...restParams) => {
   const [restParamsObj] = restParams;
@@ -18,6 +19,18 @@ export default async (req, res) => {
   switch (method) {
     case "DELETE":
       try {
+        const isSuperAdmin = await Admins.findById(id);
+        console.log(isSuperAdmin);
+        if (isSuperAdmin.role === Admin.SUPER_ADMIN) {
+          return sendResponse(
+            400,
+            false,
+            "Super Admin Can't be changed",
+            isSuperAdmin,
+            res
+          );
+        }
+
         let AdminRes = await Admins.findByIdAndDelete(id);
         return sendResponse(
           200,
@@ -71,8 +84,41 @@ export default async (req, res) => {
         });
       }
 
+    case "PATCH":
+      try {
+        const isSuperAdmin = await Admins.findById(id);
+        console.log(isSuperAdmin);
+        if (isSuperAdmin === Admin.SUPER_ADMIN) {
+          return sendResponse(
+            400,
+            false,
+            "Super Admin Can't be changed",
+            isSuperAdmin,
+            res
+          );
+        }
+
+        let AdminRes = await Admins.findByIdAndUpdate(id, {
+          isActive: body.isActive,
+        });
+        return sendResponse(
+          200,
+          true,
+          "Admin Status updated Successfully",
+          AdminRes,
+          res
+        );
+      } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+          success: false,
+          error: error,
+          message: "Error occured",
+        });
+      }
+
     default:
-      res.setHeaders("Allow", ["POST", "GET", "DELETE"]);
+      res.setHeaders("Allow", ["POST", "GET", "DELETE", "PATCH"]);
       return res
         .status(405)
         .json({ success: false })

@@ -77,3 +77,19 @@ export const delAdmin = async (id) => {
     return error;
   }
 };
+
+export const changeAdminStatus = async (id, body) => {
+  try {
+    const res = await fetch(`/api/admins/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    const userObj = await res.json();
+    return userObj;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

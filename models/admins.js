@@ -25,10 +25,19 @@ const AdminsSchema = new mongoose.Schema({
 
   verified: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   role: {
     type: Number,
+  },
+
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+  isFirstLogin: {
+    type: Boolean,
+    default: true,
   },
 
   createdAt: { type: Date, default: Date.now },

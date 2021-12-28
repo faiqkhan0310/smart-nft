@@ -24,7 +24,7 @@ import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { delAdmin, getAdmins } from "service/admin-service";
+import { changeAdminStatus, delAdmin, getAdmins } from "service/admin-service";
 import { Admin } from "../../lib/constants";
 import { startLoading, stopLoading } from "store/admin-slice";
 
@@ -121,6 +121,21 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   const handleEdit = (id) => {
     router.push(`/admins/update/${id}`);
   };
+
+  const handleAD = async (e, id) => {
+    dispatch(startLoading());
+    console.log(e.target.checked);
+    const body = {
+      isActive: e.target.checked,
+    };
+    const res = await changeAdminStatus(id, body);
+    dispatch(stopLoading());
+    if (!res.success) return toast.error(res.message);
+    if (res.success) {
+      toast.success(res.message);
+      return getAllAdmins();
+    }
+  };
   return (
     <>
       <Navbar ClassesActive="active" />
@@ -141,13 +156,6 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
             </div>
           </div>
 
-          {/* <nav id="orders-table-tab" className="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-				    <a className="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-				    <a className="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-				    <a className="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
-				</nav> */}
-
           <div className="app-card app-card-orders-table mb-5">
             <div className="app-card-body p-4 ">
               {!tableLoading ? (
@@ -158,14 +166,21 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                         <th className="cell">Id</th>
                         <th className="cell">Name</th>
                         <th className="cell">Verified</th>
-                        <th className="cell">Action</th>
+                        {state?.admin
+                          ? state?.admin[0]?.role === Admin.SUPER_ADMIN && (
+                              <>
+                                <th className="cell">Action</th>
+                                <th className="cell">A/D</th>
+                              </>
+                            )
+                          : null}
                       </tr>
                     </thead>
                     <tbody>
                       {classes &&
                         classes.map((data, index) => (
                           <tr>
-                            <td>1</td>
+                            <td>{index + 1}</td>
                             <td className="cell">
                               {data?.name?.toUpperCase()}
                             </td>
@@ -178,8 +193,8 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                             <td className="cell">
                               {console.log(state?.admin)}
                               {state?.admin
-                                ? state?.admin[0]?.role ===
-                                    Admin.SUPER_ADMIN && (
+                                ? state?.admin[0]?.role === Admin.SUPER_ADMIN &&
+                                  data.role !== Admin.SUPER_ADMIN && (
                                     <button
                                       onClick={() => handleEdit(data._id)}
                                       style={{
@@ -198,25 +213,27 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                     </button>
                                   )
                                 : null}
-                              <button
-                                onClick={() => handleDetail(data._id)}
-                                style={{
-                                  width: "35px",
-                                  height: "35px",
-                                  backgroundColor: "white",
-                                  borderRadius: "50%",
-                                  marginLeft: "10px",
-                                  borderColor: "green",
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  style={{ color: "green" }}
-                                  icon={faEye}
-                                />
-                              </button>
+                              {false && (
+                                <button
+                                  onClick={() => handleDetail(data._id)}
+                                  style={{
+                                    width: "35px",
+                                    height: "35px",
+                                    backgroundColor: "white",
+                                    borderRadius: "50%",
+                                    marginLeft: "10px",
+                                    borderColor: "green",
+                                  }}
+                                >
+                                  <FontAwesomeIcon
+                                    style={{ color: "green" }}
+                                    icon={faEye}
+                                  />
+                                </button>
+                              )}
                               {state?.admin
-                                ? state?.admin[0]?.role ===
-                                    Admin.SUPER_ADMIN && (
+                                ? state?.admin[0]?.role === Admin.SUPER_ADMIN &&
+                                  data.role !== Admin.SUPER_ADMIN && (
                                     <button
                                       onClick={() => handleDelete(data._id)}
                                       style={{
@@ -237,6 +254,22 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                   )
                                 : null}
                             </td>
+                            {state?.admin
+                              ? state?.admin[0]?.role === Admin.SUPER_ADMIN && (
+                                  <td>
+                                    {data.role !== Admin.SUPER_ADMIN && (
+                                      <input
+                                        type="checkbox"
+                                        defaultChecked={
+                                          data.isActive &&
+                                          data.isActive === true
+                                        }
+                                        onChange={(e) => handleAD(e, data._id)}
+                                      />
+                                    )}
+                                  </td>
+                                )
+                              : null}
                           </tr>
                         ))}
                     </tbody>

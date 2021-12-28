@@ -7,6 +7,7 @@ import { useCurrentUser } from "@/hooks/index";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { login, startLoading, stopLoading } from "store/admin-slice";
+import { Admin } from "../lib/constants";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -64,9 +65,13 @@ const LoginPage = () => {
     if (!success) return toast.info(message);
     if (success) {
       toast.success(message);
-      router.push("/dashboard");
       const loginPayload = { data, token };
       dispatch({ type: login, payload: loginPayload });
+      console.log(data);
+      if (data[0].isFirstLogin && data[0].role !== Admin.SUPER_ADMIN)
+        return router.push("admins/reset-password");
+
+      router.push("/dashboard");
     }
   };
 

@@ -23,10 +23,12 @@ import { getClasses, delClass } from "../../service/class-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { startLoading, stopLoading } from "store/admin-slice";
 
 const Cars = ({ users, totalRecord, handleChange, form }) => {
-  const context = useContext(genContext);
   const router = useRouter();
+  const dispatch = useDispatch();
   const [total, setTotal] = useState(totalRecord);
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(10);
@@ -98,10 +100,10 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     //  console.log("Paginations",currentPage)
   }, [currentPage]);
   const handleDelete = async (id) => {
-    context.setLoading(true);
+    dispatch(startLoading());
     const delRes = await delClass(id);
     console.log(delRes);
-    context.setLoading(false);
+    dispatch(stopLoading());
     if (delRes.success) return getAllClasses();
     if (delRes.success === false && delRes?.message) {
       return toast.info(delRes?.message);

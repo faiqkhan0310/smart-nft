@@ -20,10 +20,12 @@ import Link from "next/link";
 import { useContext } from "react";
 import { delProduct, getProducts } from "service/product-service";
 import { genContext } from "pages/_app";
+import { useDispatch } from "react-redux";
+import { startLoading, stopLoading } from "store/admin-slice";
 
 const Products = ({ users, totalRecord, handleChange, form }) => {
   const router = useRouter();
-  const context = useContext(genContext);
+  const dispatch = useDispatch();
   const [total, setTotal] = useState(totalRecord);
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(10);
@@ -97,17 +99,17 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
     //  console.log("Paginations",currentPage)
   }, [currentPage]);
   const handleDelete = async (id) => {
-    context.setLoading(true);
+    dispatch(startLoading());
     const delRes = await delProduct(id);
     console.log(delRes);
-    context.setLoading(false);
+    dispatch(stopLoading());
     if (delRes.success) getAllProducts();
   };
   const handleDetail = (id) => {
     router.push(`/products/detail/${id}`);
   };
   const handleEdit = (id) => {
-    router.push(`/products/add-product/?productId=${id}`);
+    router.push(`/products/update/${id}`);
   };
   return (
     <>

@@ -180,7 +180,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                 )}
                               </span>
                               <span className="att_info">
-                                {att.mutable ? "Mutable" : "Imutable"}
+                                {att.immutable ? "IMmutable" : "Mutable"}
                               </span>
                             </div>
                           </>

@@ -9,15 +9,17 @@ import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
 import {
   addClass,
   getOneClass,
   updateClass,
 } from "../../service/class-service";
 import { genContext } from "pages/_app";
+import { startLoading, stopLoading } from "store/admin-slice";
 
 export default function Addcar() {
-  const context = useContext(genContext);
+  const dispatch = useDispatch();
   const router = useRouter();
   const [isEdit, setIsEdit] = React.useState(false);
   const [classId, setClassId] = React.useState(undefined);
@@ -27,11 +29,11 @@ export default function Addcar() {
     type: "sale",
   });
   const [attributes, setAttributes] = React.useState([
-    { name: "", type: "", mutable: false, value: "" },
+    { name: "", type: "", immutable: false, value: "" },
   ]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    context.setLoading(true);
+    dispatch(startLoading());
     const apibody = {
       ...classA,
       attributes: [...attributes],
@@ -45,7 +47,7 @@ export default function Addcar() {
     };
     const clRes = await selectService();
     if (clRes.success) {
-      context.setLoading(false);
+      dispatch(stopLoading());
       {
         !isEdit
           ? toast.success("Class Created!")
@@ -53,11 +55,11 @@ export default function Addcar() {
       }
       return router.push("/classes");
     } else if (clRes.success === false && clRes?.message) {
-      context.setLoading(false);
+      dispatch(stopLoading());
       window.scrollTo({ top: 0, behavior: "smooth" });
       return toast.info(clRes?.message);
     } else {
-      context.setLoading(false);
+      dispatch(stopLoading());
       window.scrollTo({ top: 0, behavior: "smooth" });
       toast.error("Some error occured!");
       return;
@@ -73,7 +75,7 @@ export default function Addcar() {
     });
   };
   const addAttribute = () => {
-    const attributeObj = { name: "", type: "", mutable: false };
+    const attributeObj = { name: "", type: "", immutable: false };
     const attributesCopy = [...attributes];
     if (attributesCopy.length === 10) return;
 
@@ -92,7 +94,7 @@ export default function Addcar() {
     const { name, value, checked } = e.target;
     console.log(name);
     const attributesCopy = [...attributes];
-    if (name === "mutable") {
+    if (name === "immutable") {
       attributesCopy[indx][name] = checked;
       setAttributes([...attributesCopy]);
       return;
@@ -100,58 +102,58 @@ export default function Addcar() {
     attributesCopy[indx][name] = value;
     setAttributes([...attributesCopy]);
   };
-  const getFieldType = (attribute, indx) => {
-    console.log("in field tgype");
-    console.log(attribute);
-    if (attribute.type === "text_number") {
-      return (
-        <input
-          type="text"
-          name="value"
-          value={attribute?.value}
-          onChange={(e) => handleAttributeChange(e, indx)}
-          className="form-control ms-3"
-          placeholder="Enter value"
-        />
-      );
-    }
-    if (attribute.type === "image_s3" || attribute.type === "image_ipfs") {
-      console.log("herer value");
-      console.log(attribute);
+  // const getFieldType = (attribute, indx) => {
+  //   console.log("in field tgype");
+  //   console.log(attribute);
+  //   if (attribute.type === "text_number") {
+  //     return (
+  //       <input
+  //         type="text"
+  //         name="value"
+  //         value={attribute?.value}
+  //         onChange={(e) => handleAttributeChange(e, indx)}
+  //         className="form-control ms-3"
+  //         placeholder="Enter value"
+  //       />
+  //     );
+  //   }
+  //   if (attribute.type === "image_s3" || attribute.type === "image_ipfs") {
+  //     console.log("herer value");
+  //     console.log(attribute);
 
-      return (
-        <div className="w-100  pos-rel ">
-          <input
-            type="file"
-            name="value"
-            // value={attribute?.value}
-            onChange={(e) => handleAttributeChange(e, indx)}
-            className="form-control ms-3"
-            placeholder="Enter value"
-          />
+  //     return (
+  //       <div className="w-100  pos-rel ">
+  //         <input
+  //           type="file"
+  //           name="value"
+  //           // value={attribute?.value}
+  //           onChange={(e) => handleAttributeChange(e, indx)}
+  //           className="form-control ms-3"
+  //           placeholder="Enter value"
+  //         />
 
-          {attribute.value && (
-            <div className="class_img_view ms-4">
-              <a className="d-block" href={attribute?.value}>
-                View Image
-              </a>
-            </div>
-          )}
-        </div>
-      );
-    }
-    return (
-      <input
-        type="text"
-        name="value"
-        disabled
-        onChange={(e) => handleAttributeChange(e, indx)}
-        className="ms-3"
-        style={{ visibility: "hidden", minWidth: "280px" }}
-        placeholder="Enter value"
-      />
-    );
-  };
+  //         {attribute.value && (
+  //           <div className="class_img_view ms-4">
+  //             <a className="d-block" href={attribute?.value}>
+  //               View Image
+  //             </a>
+  //           </div>
+  //         )}
+  //       </div>
+  //     );
+  //   }
+  //   return (
+  //     <input
+  //       type="text"
+  //       name="value"
+  //       disabled
+  //       onChange={(e) => handleAttributeChange(e, indx)}
+  //       className="ms-3"
+  //       style={{ visibility: "hidden", minWidth: "280px" }}
+  //       placeholder="Enter value"
+  //     />
+  //   );
+  // };
 
   const getClass = async (id) => {
     const classData = await getOneClass(id);
@@ -245,20 +247,20 @@ export default function Addcar() {
 
                                             <div className="form-check ms-3 me-3">
                                               <input
-                                                name="mutable"
+                                                name="immutable"
                                                 className="form-check-input"
                                                 type="checkbox"
                                                 onChange={(e) =>
                                                   handleAttributeChange(e, indx)
                                                 }
-                                                checked={attribute?.mutable}
+                                                checked={attribute?.immutable}
                                                 id="flexCheckDefault3"
                                               />
                                               <label
                                                 className="form-check-label"
                                                 htmlFor="flexCheckDefault3"
                                               >
-                                                Mutable
+                                                IMmutable
                                               </label>
                                             </div>
 
@@ -305,7 +307,7 @@ export default function Addcar() {
                                                 Image/IPFS
                                               </option>
                                             </select>
-                                            {getFieldType(attribute, indx)}
+                                            {/* {getFieldType(attribute, indx)} */}
 
                                             <button
                                               className="rounded border-0 ms-5 bg-transparent"

@@ -76,12 +76,8 @@ export default function AddProduct() {
     setSelClassPrev(selClass._id);
     setSelClass(JSON.parse(e.target.value));
     const dd = JSON.parse(e.target.value);
-
     setSelectedValue(dd.name);
-    console.log(dd);
-    if (dd._id !== classId) {
-      setProductAttributes([...dd.attributes]);
-    }
+    setProductAttributes([...dd.attributes]);
     setClassId(dd._id);
   };
 
@@ -275,6 +271,7 @@ export default function AddProduct() {
                             <label className="d-block mb-3">Select Class</label>
                             <select
                               onChange={handleSelect}
+                              disabled
                               defaultValue={selectedValue}
                               className="form-select form-control pt-2"
                               aria-label="Default select example"

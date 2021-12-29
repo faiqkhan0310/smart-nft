@@ -1,10 +1,33 @@
 /*eslint-disable*/
 import { createSlice } from "@reduxjs/toolkit";
 
+const rehydrateAdmin = () => {
+  if (typeof window != "undefined") {
+    if (localStorage.getItem("admin"))
+      return JSON.parse(localStorage.getItem("admin"));
+    else return [];
+  }
+};
+const rehydrateisLogin = () => {
+  if (typeof window != "undefined") {
+    if (localStorage.getItem("isLogin"))
+      return JSON.parse(localStorage.getItem("isLogin"));
+    else return false;
+  }
+};
+
+// const rehydrateToken = () => {
+//   if (typeof window != "undefined") {
+//     if (localStorage.getItem("token"))
+//       return JSON.parse(localStorage.getItem("token"));
+//     else return false;
+//   }
+// };
+
 const initialState = {
-  isLogin: false,
+  isLogin: rehydrateisLogin(),
   token: "",
-  admin: [],
+  admin: rehydrateAdmin(),
   publicAddress: undefined,
   loading: false,
 };

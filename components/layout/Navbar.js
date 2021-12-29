@@ -578,8 +578,8 @@ export function Navbar(props) {
                   </Link>
                 </li>
 
-                <li className="nav-item">
-                  <Link href="../../adminaddress">
+                {/* <li className="nav-item">
+                  <Link href="/adminaddress">
                     <a className={`nav-link ${props.AddressesActive}`}>
                       <span className="nav-icon">
                         <svg
@@ -600,7 +600,7 @@ export function Navbar(props) {
                       <span className="nav-link-text">Approved Addresses</span>
                     </a>
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link href="/admins">
                     <a className={`nav-link ${props.AddressesActive}`}>

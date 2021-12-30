@@ -19,7 +19,7 @@ export default function ResetPassword() {
     let password = e.currentTarget.password.value;
     const salt = bcrypt.genSaltSync(10);
     password = bcrypt.hashSync(password, salt);
-    const res = await updateAdmin(state?.admin[0]?._id, {
+    const res = await updateAdmin(state?.admin?.id, {
       password: password,
       isFirstLogin: false,
     });

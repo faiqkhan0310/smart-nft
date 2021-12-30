@@ -146,7 +146,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
               <h1 className="app-page-title main-title d-flex align-items-center justify-content-between">
                 Admins{" "}
                 {state?.admin
-                  ? state?.admin[0]?.role === Admin.SUPER_ADMIN && (
+                  ? state?.admin?.role === Admin.SUPER_ADMIN && (
                       <Link href="/admins/add-admin">
                         <a className="btn">Add Admin</a>
                       </Link>
@@ -167,7 +167,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                         <th className="cell">Name</th>
                         <th className="cell">Verified</th>
                         {state?.admin
-                          ? state?.admin[0]?.role === Admin.SUPER_ADMIN && (
+                          ? state?.admin?.role === Admin.SUPER_ADMIN && (
                               <>
                                 <th className="cell">Action</th>
                                 <th className="cell">A/D</th>
@@ -193,10 +193,10 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                             <td className="cell">
                               {console.log(state?.admin)}
                               {state?.admin
-                                ? state?.admin[0]?.role === Admin.SUPER_ADMIN &&
+                                ? state?.admin?.role === Admin.SUPER_ADMIN &&
                                   data.role !== Admin.SUPER_ADMIN && (
                                     <button
-                                      onClick={() => handleEdit(data._id)}
+                                      onClick={() => handleEdit(data.id)}
                                       style={{
                                         borderRadius: "50%",
                                         width: "35px",
@@ -215,7 +215,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                 : null}
                               {false && (
                                 <button
-                                  onClick={() => handleDetail(data._id)}
+                                  onClick={() => handleDetail(data.id)}
                                   style={{
                                     width: "35px",
                                     height: "35px",
@@ -232,10 +232,10 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                 </button>
                               )}
                               {state?.admin
-                                ? state?.admin[0]?.role === Admin.SUPER_ADMIN &&
+                                ? state?.admin?.role === Admin.SUPER_ADMIN &&
                                   data.role !== Admin.SUPER_ADMIN && (
                                     <button
-                                      onClick={() => handleDelete(data._id)}
+                                      onClick={() => handleDelete(data.id)}
                                       style={{
                                         borderRadius: "50%",
                                         backgroundColor: "white",
@@ -255,7 +255,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                 : null}
                             </td>
                             {state?.admin
-                              ? state?.admin[0]?.role === Admin.SUPER_ADMIN && (
+                              ? state?.admin?.role === Admin.SUPER_ADMIN && (
                                   <td>
                                     {data.role !== Admin.SUPER_ADMIN && (
                                       <input
@@ -264,7 +264,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                                           data.isActive &&
                                           data.isActive === true
                                         }
-                                        onChange={(e) => handleAD(e, data._id)}
+                                        onChange={(e) => handleAD(e, data.id)}
                                       />
                                     )}
                                   </td>

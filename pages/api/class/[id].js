@@ -1,9 +1,8 @@
 /*eslint-disable*/
 
-import ClassA from "../../../models/class-model";
+import ClassA from "../../../models/class-seq";
 import "../../../utils/dbConnect";
-// require("../../models/class-model");
-import productModel from "../../../models/Product";
+import Product from "../../../models/Product.seq";
 
 export default async (req, res) => {
   const { method, query: id, body } = req;
@@ -12,7 +11,10 @@ export default async (req, res) => {
     case "GET":
       try {
         console.log("class id single", req.query);
-        let oneClass = await ClassA.find({ _id: id.id }).populate("products");
+        let oneClass = await ClassA.findOne({
+          where: { id: id.id },
+          include: { model: Product },
+        });
         return res.status(200).json({ success: true, classes: oneClass });
       } catch (error) {
         console.log(error);
@@ -41,7 +43,10 @@ export default async (req, res) => {
         console.log("update body class");
         console.log(body);
         console.log(id);
-        let oneClassUpdated = await ClassA.findByIdAndUpdate(id.id, body);
+        let oneClassUpdated = await ClassA.update(
+          { ...body },
+          { where: { id: id.id } }
+        );
         return res
           .status(200)
           .json({ success: true, classes: oneClassUpdated });
@@ -55,20 +60,21 @@ export default async (req, res) => {
     case "DELETE":
       try {
         console.log(id.id);
-        const isClassHaveProduct = await ClassA.findById(id.id).populate(
-          "products"
-        );
+        const isClassHaveProduct = await ClassA.findOne({
+          where: { id: id.id },
+          include: { model: Product },
+        });
         console.log(
-          isClassHaveProduct?.products.length,
+          isClassHaveProduct?.products?.length,
           "this is the procduct aray lengy of class"
         );
-        if (isClassHaveProduct?.products.length) {
+        if (isClassHaveProduct?.products?.length) {
           return res.status(422).json({
             success: false,
             message: "This class is used by some products. Delete Aborted.",
           });
         }
-        const delRes = await ClassA.findByIdAndDelete(id.id);
+        const delRes = await ClassA.destroy({ where: { id: id.id } });
         return res.status(200).json({
           success: true,
           data: delRes,

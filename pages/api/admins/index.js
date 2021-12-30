@@ -1,6 +1,6 @@
 /*eslint-disable*/
 
-import Admins from "../../../models/admins";
+import Admins from "../../../models/Admin_seq";
 import "../../../utils/dbConnect";
 import { isEmail } from "validator";
 
@@ -18,7 +18,7 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
-        let AdminRes = await Admins.find({});
+        let AdminRes = await Admins.findAll();
         return sendResponse(
           200,
           true,

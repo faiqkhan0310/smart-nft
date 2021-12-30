@@ -159,10 +159,10 @@ export default function Addcar() {
     const classData = await getOneClass(id);
     console.log(classData);
     if (classData.success) {
-      console.log(classData.classes[0]?.attributes);
-      setAttributes([...classData.classes[0]?.attributes]);
+      console.log(classData.classes?.attributes);
+      setAttributes([...classData.classes?.attributes]);
       setClassA({
-        name: classData.classes[0]?.name,
+        name: classData.classes?.name,
         type: "sale",
       });
     }

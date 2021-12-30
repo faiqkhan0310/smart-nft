@@ -1,8 +1,9 @@
 /*eslint-disable*/
 
-import ClassA from "../../../models/class-model";
+import ClassA from "../../../models/class-seq";
 import "../../../utils/dbConnect";
 import productModel from "../../../models/Product";
+import Product from "../../../models/Product.seq";
 
 export default async (req, res) => {
   const { method, query } = req;
@@ -10,7 +11,8 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
-        let allClasses = await ClassA.find({});
+        let allClasses = await ClassA.findAll({ include: { model: Product } });
+
         return res.status(200).json({ success: true, classes: allClasses });
       } catch (error) {
         return res.status(400).json({
@@ -20,24 +22,16 @@ export default async (req, res) => {
       }
     case "POST":
       try {
-        const checkForClassName = await ClassA.find({
-          name: req.body.name.trim(),
-        });
-        if (checkForClassName.length) {
-          console.log(checkForClassName);
-          return res.status(422).json({
-            success: false,
-            message: "Class name alredy exists",
-          });
-        }
+        console.log(req.body);
 
-        var art = new ClassA(req.body);
-        const classRes = await ClassA.create(art);
+        const classRes = await ClassA.create({ ...req.body });
+        console.log(classRes);
         return res.status(200).json({
           success: true,
           data: classRes,
         });
       } catch (error) {
+        console.log(error);
         return res.status(400).json({
           error: error,
           success: false,

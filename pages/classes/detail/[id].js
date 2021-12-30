@@ -45,6 +45,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   const getClass = async (id) => {
     setTableLoading(true);
     const allCls = await getOneClass(id);
+    console.clear();
     console.log(allCls);
     console.log(allCls?.products);
     if (allCls.success) setClasses(allCls.classes);
@@ -140,7 +141,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
               <div className="col-6 col-md-4  col-lg-3  ">
                 <div className="row pr-5 ">
                   <div className="col-12  text-center"></div>
-                  <h1 className="app-page-title">{classes[0]?.name}</h1>
+                  <h1 className="app-page-title">{classes?.name}</h1>
                 </div>
               </div>
             </div>
@@ -154,7 +155,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                 <div className="row mb-3 ">
                   <div className="row pr-5 mt-3 w-50">
                     <div className="chip-parent">
-                      {classes[0]?.attributes?.map((att) => {
+                      {classes?.attributes?.map((att) => {
                         return (
                           <>
                             <div
@@ -201,7 +202,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
             </div>
           </div>
 
-          {classes[0]?.products.length && (
+          {classes?.products?.length && (
             <div className="app-card app-card-orders-table mb-5">
               <div className="app-card-body p-4 ">
                 {!tableLoading ? (
@@ -216,7 +217,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                       </thead>
                       <tbody>
                         {classes &&
-                          classes[0]?.products?.map((data, index) => (
+                          classes?.products?.map((data, index) => (
                             <tr>
                               <td>1</td>
                               <td className="cell">

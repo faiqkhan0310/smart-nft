@@ -1,7 +1,8 @@
 /*eslint-disable*/
 
-import Admins from "../../../../models/admins";
 import "../../../../utils/dbConnect";
+import db from "../../../../utils/dbConnect";
+import Admin from "../../../../models/Admin_seq";
 
 const handleErrors = (err) => {
   console.log(err.message, err.code);
@@ -12,11 +13,10 @@ const handleErrors = (err) => {
     errors.email = "That email is already registered";
     return errors;
   }
-  if (err.message.includes("admin validation failed")) {
-    Object.values(err.errors).forEach(({ properties }) => {
-      errors[properties.path] = properties.message;
-    });
-  }
+
+  Object.values(err.errors).forEach(({ path, message }) => {
+    errors[path] = message;
+  });
 
   return errors;
 };
@@ -28,7 +28,7 @@ export default async (req, res) => {
     case "GET":
       try {
         console.log("class id single", req.query);
-        let AdminsRes = await Admins.find({});
+        let AdminsRes = await Admin.findAll();
         return res.status(200).json({ success: true, Admins: AdminsRes });
       } catch (error) {
         console.log(error);
@@ -41,8 +41,12 @@ export default async (req, res) => {
     case "POST":
       try {
         console.log(req.body);
-        var newAdmin = new Admins(req.body);
-        const newAdminRes = await Admins.create(newAdmin);
+
+        const newAdminRes = await Admin.create({
+          name: req.body.name,
+          email: req.body.email.toLowerCase(),
+          password: req.body.password,
+        });
         return res.status(200).json({
           success: true,
           data: newAdminRes,

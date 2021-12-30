@@ -1,8 +1,8 @@
 /*eslint-disable*/
 
-import Admins from "../../../models/admins";
 import "../../../utils/dbConnect";
 import { Admin } from "../../../lib/constants";
+import Admins from "../../../models/Admin_seq";
 
 const sendResponse = (status, success, message, data, resa, ...restParams) => {
   const [restParamsObj] = restParams;
@@ -19,7 +19,7 @@ export default async (req, res) => {
   switch (method) {
     case "DELETE":
       try {
-        const isSuperAdmin = await Admins.findById(id);
+        const isSuperAdmin = await Admins.findOne({ where: { id: id } });
         console.log(isSuperAdmin);
         if (isSuperAdmin.role === Admin.SUPER_ADMIN) {
           return sendResponse(
@@ -31,7 +31,7 @@ export default async (req, res) => {
           );
         }
 
-        let AdminRes = await Admins.findByIdAndDelete(id);
+        let AdminRes = await Admins.destory({ where: { id: id } });
         return sendResponse(
           200,
           true,
@@ -49,7 +49,9 @@ export default async (req, res) => {
       }
     case "POST":
       try {
-        let AdminRes = await Admins.findByIdAndUpdate(id, body);
+        console.log(id, body);
+
+        let AdminRes = await Admins.update({ ...body }, { where: { id: id } });
         return sendResponse(
           200,
           true,
@@ -67,7 +69,7 @@ export default async (req, res) => {
       }
     case "GET":
       try {
-        let AdminRes = await Admins.findById(id);
+        let AdminRes = await Admins.findOne({ where: { id: id } });
         return sendResponse(
           200,
           true,
@@ -86,7 +88,7 @@ export default async (req, res) => {
 
     case "PATCH":
       try {
-        const isSuperAdmin = await Admins.findById(id);
+        const isSuperAdmin = await Admins.findOne({ where: { id: id } });
         console.log(isSuperAdmin);
         if (isSuperAdmin === Admin.SUPER_ADMIN) {
           return sendResponse(
@@ -98,9 +100,12 @@ export default async (req, res) => {
           );
         }
 
-        let AdminRes = await Admins.findByIdAndUpdate(id, {
-          isActive: body.isActive,
-        });
+        let AdminRes = await Admins.update(
+          {
+            isActive: body.isActive,
+          },
+          { where: { id: id } }
+        );
         return sendResponse(
           200,
           true,

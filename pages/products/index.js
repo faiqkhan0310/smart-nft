@@ -153,7 +153,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
 
                             <td className="cell">
                               <button
-                                onClick={() => handleEdit(data._id)}
+                                onClick={() => handleEdit(data.id)}
                                 style={{
                                   borderRadius: "50%",
                                   width: "35px",
@@ -169,7 +169,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                                 />
                               </button>
                               <button
-                                onClick={() => handleDetail(data._id)}
+                                onClick={() => handleDetail(data.id)}
                                 style={{
                                   width: "35px",
                                   height: "35px",
@@ -185,7 +185,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
                                 />
                               </button>
                               <button
-                                onClick={() => handleDelete(data._id)}
+                                onClick={() => handleDelete(data.id)}
                                 style={{
                                   borderRadius: "50%",
                                   marginLeft: "10px",

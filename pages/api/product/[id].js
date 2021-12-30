@@ -1,6 +1,6 @@
 /*eslint-disable*/
 
-import Product from "../../../models/Product";
+import Product from "../../../models/Product.seq";
 import ClassA from "../../../models/class-model";
 import "../../../utils/dbConnect";
 
@@ -11,7 +11,10 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
-        let oneProduct = await Product.find({ _id: id.id }).populate("class");
+        let oneProduct = await Product.findAll({
+          where: { id: id.id },
+        });
+        console.log(oneProduct);
         return res.status(200).json({ success: true, products: oneProduct });
       } catch (error) {
         return res.status(400).json({
@@ -25,20 +28,23 @@ export default async (req, res) => {
         console.log(body);
         console.log(id);
 
-        let oneClassUpdated = await Product.findByIdAndUpdate(id.id, body);
+        let oneClassUpdated = await Product.update(
+          { ...body },
+          { where: { id: id.id } }
+        );
         console.log(oneClassUpdated);
-        if (oneClassUpdated) {
-          if (
-            req.query.prevClass &&
-            req.query.prevClass != "undefined" &&
-            req.query.newClass
-          ) {
-            const removeProductFromClass = await ClassA.findByIdAndUpdate(
-              req.query.prevClass,
-              { $pull: { products: id.id } }
-            );
-          }
-        }
+        // if (oneClassUpdated) {
+        //   if (
+        //     req.query.prevClass &&
+        //     req.query.prevClass != "undefined" &&
+        //     req.query.newClass
+        //   ) {
+        //     const removeProductFromClass = await ClassA.findByIdAndUpdate(
+        //       req.query.prevClass,
+        //       { $pull: { products: id.id } }
+        //     );
+        //   }
+        // }
         return res.status(200).json({ success: true, data: oneClassUpdated });
       } catch (error) {
         console.log(error);
@@ -50,12 +56,12 @@ export default async (req, res) => {
     case "DELETE":
       try {
         console.log(id.id);
-        const delRes = await Product.findByIdAndDelete(id.id);
+        const delRes = await Product.destroy({ where: { id: id.id } });
         // console.log("del response @@@@@@@@@@@@@@@@@@");
         console.log(delRes);
         if (delRes) {
           let oneClassUpdated = await ClassA.findByIdAndUpdate(delRes.class, {
-            $pull: { products: delRes._id },
+            $pull: { products: delRes.id },
           });
           console.log("class res");
           console.log(oneClassUpdated);

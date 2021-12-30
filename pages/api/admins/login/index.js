@@ -2,8 +2,9 @@
 
 import { createJwtToken } from "@/lib/api-helpers";
 import isEmail from "validator/lib/isEmail";
-import Admins from "../../../../models/admins";
 import "../../../../utils/dbConnect";
+import Admin from "../../../../models/Admin_seq";
+
 import bcrypt from "bcryptjs";
 const sendResponse = (status, success, message, data, resa, ...restParams) => {
   const [restParamsObj] = restParams;
@@ -18,41 +19,18 @@ export default async (req, res) => {
   switch (method) {
     case "POST":
       try {
-        if (!email)
-          return sendResponse(402, false, "Email is Missing", null, res);
-        if (!isEmail(email))
-          return sendResponse(402, false, "InValid Email", null, res);
-        if (!password)
-          return sendResponse(402, false, "Password is Missing", null, res);
+        // if (!email)
+        //   return sendResponse(402, false, "Email is Missing", null, res);
+        // if (!isEmail(email))
+        //   return sendResponse(402, false, "InValid Email", null, res);
+        // if (!password)
+        //   return sendResponse(402, false, "Password is Missing", null, res);
 
-        let AdminRes = await Admins.find({ email });
+        let AdminRes = await Admin.findOne({
+          where: { email: email.toLowerCase() },
+        });
 
-        if (AdminRes.length) {
-          const [adminResObj] = AdminRes;
-          const { password: hashedPassword } = adminResObj;
-          const isPasswordValid = bcrypt.compareSync(password, hashedPassword);
-
-          if (!isPasswordValid)
-            return sendResponse(
-              400,
-              false,
-              "Password or email is invalid",
-              null,
-              res
-            );
-
-          const tokenData = {
-            email: AdminRes.email,
-            id: AdminRes._id,
-            name: AdminRes.name,
-          };
-
-          const token = createJwtToken(tokenData);
-
-          return sendResponse(200, true, "Login successfully ", AdminRes, res, {
-            token,
-          });
-        } else {
+        if (!AdminRes)
           return sendResponse(
             400,
             false,
@@ -60,7 +38,31 @@ export default async (req, res) => {
             AdminRes,
             res
           );
-        }
+
+        const { dataValues } = AdminRes;
+        const { password: hashedPassword } = dataValues;
+        const isPasswordValid = bcrypt.compareSync(password, hashedPassword);
+
+        if (!isPasswordValid)
+          return sendResponse(
+            400,
+            false,
+            "Password or email is invalid",
+            null,
+            res
+          );
+
+        const tokenData = {
+          email: AdminRes.email,
+          id: AdminRes._id,
+          name: AdminRes.name,
+        };
+
+        const token = createJwtToken(tokenData);
+
+        return sendResponse(200, true, "Login successfully ", AdminRes, res, {
+          token,
+        });
       } catch (error) {
         console.log(error);
         return res.status(400).json({

@@ -60,7 +60,7 @@ export default function AddProduct() {
     e.preventDefault();
     dispatch(startLoading());
     const apiBody = {
-      class: selClass?._id,
+      class: selClass?.id,
       ...inputState,
       attributes: selClass.attributes,
     };
@@ -68,13 +68,13 @@ export default function AddProduct() {
     const productRes = await addProduct(apiBody);
 
     if (productRes.success) {
-      const classUpdateRes = await addProductToClass(selClass?._id, {
-        products: productRes?.data?._id,
-      });
+      // const classUpdateRes = await addProductToClass(selClass?.id, {
+      //   products: productRes?.data?.id,
+      // });
 
-      if (!classUpdateRes.success) {
-        toast.error("Failed to update Class.");
-      }
+      // if (!classUpdateRes.success) {
+      //   toast.error("Failed to update Class.");
+      // }
 
       dispatch(stopLoading());
 

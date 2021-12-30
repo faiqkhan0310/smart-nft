@@ -50,6 +50,7 @@ export default function AddProduct() {
     const ProductData = await getOneProduct(id);
 
     if (ProductData.success) {
+      console.clear();
       console.log(ProductData.products[0]?.attributes);
       setInputState({
         name: ProductData.products[0]?.name,
@@ -73,12 +74,12 @@ export default function AddProduct() {
   }, []);
 
   const handleSelect = (e) => {
-    setSelClassPrev(selClass._id);
+    setSelClassPrev(selClass.id);
     setSelClass(JSON.parse(e.target.value));
     const dd = JSON.parse(e.target.value);
     setSelectedValue(dd.name);
     setProductAttributes([...dd.attributes]);
-    setClassId(dd._id);
+    setClassId(dd.id);
   };
 
   const handleMutableAttribute = (e, attr) => {
@@ -108,7 +109,6 @@ export default function AddProduct() {
     e.preventDefault();
     dispatch(startLoading());
     const apiBody = {
-      class: selClass?._id,
       ...inputState,
       attributes: procuctAttributes,
     };
@@ -116,10 +116,11 @@ export default function AddProduct() {
     const selectService = () => {
       if (isEdit) {
         return updateProduct(classId, selClassPrev, selClass, apiBody);
-      } else return addProduct(apiBody);
+      }
     };
     const productRes = await selectService();
-
+    console.clear();
+    console.log(productRes);
     if (productRes.success) {
       if (isEdit) {
         toast.success("Product Updated");
@@ -128,8 +129,8 @@ export default function AddProduct() {
 
         return router.push("/products");
       }
-      const classUpdateRes = await addProductToClass(selClass?._id, {
-        products: productRes?.data?._id,
+      const classUpdateRes = await addProductToClass(selClass?.id, {
+        products: productRes?.data?.id,
       });
 
       if (!classUpdateRes.success) {
@@ -314,35 +315,21 @@ export default function AddProduct() {
 
                           <div className="form-group add-attr-col mb-5">
                             <label className="d-block mb-4">Attributes </label>
-                            {selClass ? (
-                              procuctAttributes?.map((attr) => {
-                                return (
-                                  <div className="form-group mb-4">
-                                    <label className="d-block mb-3">
-                                      {attr?.name}
-                                    </label>
-                                    {/* <input
-                                      type="text"
-                                      name={attr?.name}
-                                      value={attr?.type}
-                                      onChange={(e) =>
-                                        handleMutableAttribute(e, attr)
-                                      }
-                                      disabled={!attr?.mutable}
-                                      className="form-control me-2"
-                                      placeholder=""
-                                    /> */}
-                                    {getFieldType(attr)}
-                                  </div>
-                                );
-                              })
-                            ) : (
-                              <p>No className is selected</p>
-                            )}
+
+                            {procuctAttributes?.map((attr) => {
+                              return (
+                                <div className="form-group mb-4">
+                                  <label className="d-block mb-3">
+                                    {attr?.name}
+                                  </label>
+
+                                  {getFieldType(attr)}
+                                </div>
+                              );
+                            })}
 
                             <div className="form-group type-btn mt-5">
                               <button
-                                disabled={!selClass}
                                 type="submit"
                                 className="add-attr-btn btn ms-auto d-block"
                               >

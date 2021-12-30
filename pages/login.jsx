@@ -64,11 +64,16 @@ const LoginPage = () => {
     const { success, message, data, token } = resJson;
     if (!success) return toast.info(message);
     if (success) {
+      if (!data.isActive)
+        return toast.info(
+          "Your Account is De-Activated by SUPER-ADMIN. Please contact to superadmin@test.com"
+        );
       toast.success(message);
       const loginPayload = { data, token };
       dispatch({ type: login, payload: loginPayload });
       console.log(data);
-      if (data[0].isFirstLogin && data[0].role !== Admin.SUPER_ADMIN)
+
+      if (data.isFirstLogin && data.role !== Admin.SUPER_ADMIN)
         return router.push("admins/reset-password");
 
       router.push("/dashboard");

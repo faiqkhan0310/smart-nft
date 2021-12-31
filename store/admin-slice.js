@@ -42,6 +42,9 @@ export const counterSlice = createSlice({
       state.token = action.payload.token;
       state.admin = action.payload.data;
     },
+    updateAdmin: (state, action) => {
+      state.admin = action.payload.data;
+    },
     logout: (state) => {
       state.isLogin = false;
       state.token = undefined;
@@ -61,7 +64,13 @@ export const counterSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { login, logout, setPublicAddress, startLoading, stopLoading } =
-  counterSlice.actions;
+export const {
+  login,
+  updateAdmin,
+  logout,
+  setPublicAddress,
+  startLoading,
+  stopLoading,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;

@@ -31,7 +31,7 @@ const AdminAddressCreate = () => {
           <div className="app-card-body">
             <form className="settings-form" onSubmit={createAdmin}>
               <div className="mb-3">
-                <label for="setting-input-2" className="form-label">
+                <label htmlFor="setting-input-2" className="form-label">
                   Admin Address
                 </label>
                 <input

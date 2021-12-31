@@ -37,3 +37,10 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
+
+IndexPage.getInitialProps = async ({ Component, ctx }) => {
+  console.log("herer is ");
+  console.log(ctx.store);
+
+  return {};
+};

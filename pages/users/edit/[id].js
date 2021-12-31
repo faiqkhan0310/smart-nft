@@ -115,7 +115,7 @@ const Details = ({ userData }) => {
                       <div className="app-card-body">
                         <form className="settings-form" onSubmit={handleSubmit}>
                           <div className="mb-3">
-                            <label for="name" className="form-label">
+                            <label htmlFor="name" className="form-label">
                               Name
                               <span
                                 className="ms-2"
@@ -151,7 +151,7 @@ const Details = ({ userData }) => {
                             />
                           </div>
                           <div className="mb-3">
-                            <label for="description" className="form-label">
+                            <label htmlFor="description" className="form-label">
                               Description
                             </label>
                             <textarea
@@ -175,7 +175,7 @@ const Details = ({ userData }) => {
                             />
                             <label
                               className="form-check-label"
-                              for="settings-checkbox-1"
+                              htmlFor="settings-checkbox-1"
                             >
                               Blocked
                             </label>
@@ -194,7 +194,7 @@ const Details = ({ userData }) => {
                             />
                             <label
                               className="form-check-label"
-                              for="settings-checkbox-2"
+                              htmlFor="settings-checkbox-2"
                             >
                               Membership status
                             </label>
@@ -222,7 +222,7 @@ const Details = ({ userData }) => {
                             />
                             <label
                               className="form-check-label"
-                              for="settings-checkbox-2"
+                              htmlFor="settings-checkbox-2"
                             >
                               Creator status
                             </label>

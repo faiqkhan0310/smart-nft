@@ -300,7 +300,10 @@ const Details = ({ userData }) => {
                       <div className="app-card-body">
                         <form className="settings-form">
                           <div className="form-check mb-3">
-                            <label for="exampleInputEmail1" required="required">
+                            <label
+                              htmlFor="exampleInputEmail1"
+                              required="required"
+                            >
                               Heading
                             </label>
                             <input
@@ -316,7 +319,10 @@ const Details = ({ userData }) => {
                           </div>
 
                           <div className="form-check mb-3">
-                            <label for="exampleInputEmail1" required="required">
+                            <label
+                              htmlFor="exampleInputEmail1"
+                              required="required"
+                            >
                               Description
                             </label>
                             <textarea
@@ -337,7 +343,7 @@ const Details = ({ userData }) => {
                           <div>
                             <div className="form-check mb-3">
                               <label
-                                for="exampleInputEmail1"
+                                htmlFor="exampleInputEmail1"
                                 required="required"
                               >
                                 VideoUrl Link
@@ -357,7 +363,10 @@ const Details = ({ userData }) => {
                           </div>
 
                           <div className="form-check mb-3">
-                            <label for="exampleInputEmail1" required="required">
+                            <label
+                              htmlFor="exampleInputEmail1"
+                              required="required"
+                            >
                               Section 2 Heading
                             </label>
                             <input
@@ -380,7 +389,7 @@ const Details = ({ userData }) => {
                             <div key={index}>
                               <div className="form-check mb-3">
                                 <label
-                                  for="exampleInputEmail1"
+                                  htmlFor="exampleInputEmail1"
                                   required="required"
                                 >
                                   Section 2 Video Name
@@ -399,7 +408,7 @@ const Details = ({ userData }) => {
 
                               <div className="form-check mb-3">
                                 <label
-                                  for="exampleInputEmail1"
+                                  htmlFor="exampleInputEmail1"
                                   required="required"
                                 >
                                   Section 2 Video Description
@@ -421,7 +430,7 @@ const Details = ({ userData }) => {
                               <div>
                                 <div className="form-check mb-3">
                                   <label
-                                    for="exampleInputEmail1"
+                                    htmlFor="exampleInputEmail1"
                                     required="required"
                                   >
                                     Section 2 Vimeo Link
@@ -464,7 +473,10 @@ const Details = ({ userData }) => {
                           ))}
 
                           <div className="form-check mb-3">
-                            <label for="exampleInputEmail1" required="required">
+                            <label
+                              htmlFor="exampleInputEmail1"
+                              required="required"
+                            >
                               Section 3 Heading
                             </label>
                             <input
@@ -487,7 +499,7 @@ const Details = ({ userData }) => {
                             <div key={index}>
                               <div className="form-check mb-3">
                                 <label
-                                  for="exampleInputEmail1"
+                                  htmlFor="exampleInputEmail1"
                                   required="required"
                                 >
                                   Section 3 Video Name
@@ -506,7 +518,7 @@ const Details = ({ userData }) => {
 
                               <div className="form-check mb-3">
                                 <label
-                                  for="exampleInputEmail1"
+                                  htmlFor="exampleInputEmail1"
                                   required="required"
                                 >
                                   Section 3 Video Description
@@ -528,7 +540,7 @@ const Details = ({ userData }) => {
                               <div>
                                 <div className="form-check mb-3">
                                   <label
-                                    for="exampleInputEmail1"
+                                    htmlFor="exampleInputEmail1"
                                     required="required"
                                   >
                                     Section 3 Vimeo Link

@@ -266,7 +266,7 @@ const Details = ({ artists }) => {
                         <div className="row">
                           <div className="form-check mb-3 col-12">
                             <label
-                              for="title"
+                              htmlFor="title"
                               className="mb-1"
                               required="required"
                             >
@@ -286,7 +286,7 @@ const Details = ({ artists }) => {
                         <div className="row">
                           <div className="form-check mb-3 col-6">
                             <label
-                              for="title"
+                              htmlFor="title"
                               className="mb-1"
                               required="required"
                             >
@@ -305,7 +305,7 @@ const Details = ({ artists }) => {
 
                           <div className="form-check mb-3 col-6">
                             <label
-                              for="title"
+                              htmlFor="title"
                               className="mb-1"
                               required="required"
                             >
@@ -326,7 +326,7 @@ const Details = ({ artists }) => {
                         <div className="row">
                           <div className="form-check mb-3 col-6">
                             <label
-                              for="exampleInputEmail1"
+                              htmlFor="exampleInputEmail1"
                               className="mb-1"
                               required="required"
                             >
@@ -344,7 +344,7 @@ const Details = ({ artists }) => {
 
                           <div className="form-check mb-3 col-6">
                             <label
-                              for="exampleInputEmail1"
+                              htmlFor="exampleInputEmail1"
                               className="mb-1"
                               required="required"
                             >
@@ -363,7 +363,7 @@ const Details = ({ artists }) => {
                           <div className="form-check mb-3">
                             <label
                               className="mb-1"
-                              for="exampleInputEmail1"
+                              htmlFor="exampleInputEmail1"
                               required="required"
                             >
                               Description
@@ -488,7 +488,7 @@ const Details = ({ artists }) => {
                           />
                           <label
                             className="form-check-label"
-                            for="settings-checkbox-1"
+                            htmlFor="settings-checkbox-1"
                           >
                             Status
                           </label>

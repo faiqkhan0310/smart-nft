@@ -5,10 +5,16 @@ import React from "react";
 import { toast } from "react-toastify";
 import { updateAdmin } from "service/admin-service";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoading, stopLoading } from "store/admin-slice";
+import {
+  startLoading,
+  stopLoading,
+  updateAdmin as UA,
+} from "store/admin-slice";
 import bcrypt from "bcryptjs";
+import { isLoginAndisFirstLogin } from "@/lib/helper";
 
 export default function ResetPassword() {
+  // isLoginAndisFirstLogin();
   const router = useRouter();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.admin);
@@ -23,7 +29,10 @@ export default function ResetPassword() {
       password: password,
       isFirstLogin: false,
     });
+    console.log(res.data[1]);
     dispatch(stopLoading());
+    const loginPayload = { data: res.data[1] };
+    dispatch({ type: UA, payload: loginPayload });
     if (!res.success) return toast.error(res.message);
     if (res.success) {
       toast.info("Admin password updated");

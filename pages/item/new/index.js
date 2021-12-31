@@ -207,7 +207,10 @@ const Details = ({ userData }) => {
                       <div className="app-card-body">
                         <form className="settings-form" onSubmit={handleSubmit}>
                           <div className="form-check mb-3">
-                            <label for="exampleInputEmail1" required="required">
+                            <label
+                              htmlFor="exampleInputEmail1"
+                              required="required"
+                            >
                               Name
                             </label>
                             <input
@@ -223,7 +226,10 @@ const Details = ({ userData }) => {
                           </div>
 
                           <div className="form-check mb-3">
-                            <label for="exampleInputEmail1" required="required">
+                            <label
+                              htmlFor="exampleInputEmail1"
+                              required="required"
+                            >
                               Description
                             </label>
                             <input
@@ -239,7 +245,10 @@ const Details = ({ userData }) => {
                           </div>
 
                           <div className="form-check mb-3">
-                            <label for="exampleInputEmail1" required="required">
+                            <label
+                              htmlFor="exampleInputEmail1"
+                              required="required"
+                            >
                               Price
                             </label>
                             <input
@@ -255,7 +264,7 @@ const Details = ({ userData }) => {
                           </div>
 
                           <div className="form-check mb-3">
-                            <label for="exampleFormControlSelect1">
+                            <label htmlFor="exampleFormControlSelect1">
                               Category
                             </label>
                             <select
@@ -284,7 +293,7 @@ const Details = ({ userData }) => {
                             />
                             <label
                               className="form-check-label"
-                              for="settings-checkbox-1"
+                              htmlFor="settings-checkbox-1"
                             >
                               Status
                             </label>
@@ -336,7 +345,7 @@ const Details = ({ userData }) => {
                           </button>
 
                           {/* <div className="mb-3">
-                          <label for="name" className="form-label">
+                          <label htmlFor="name" className="form-label">
                             Name
                             <span
                               className="ms-2"
@@ -372,7 +381,7 @@ const Details = ({ userData }) => {
                           />
                         </div>
                         <div className="mb-3">
-                          <label for="cetagory" className="form-label">
+                          <label htmlFor="cetagory" className="form-label">
                             Category
                           </label>
                           <input
@@ -384,7 +393,7 @@ const Details = ({ userData }) => {
                           />
                         </div>
                         <div className="mb-3">
-                          <label for="description" className="form-label">
+                          <label htmlFor="description" className="form-label">
                             Description
                           </label>
                           <textarea
@@ -408,7 +417,7 @@ const Details = ({ userData }) => {
                           />
                           <label
                             className="form-check-label"
-                            for="settings-checkbox-1"
+                            htmlFor="settings-checkbox-1"
                           >
                             Status
                           </label>
@@ -426,7 +435,7 @@ const Details = ({ userData }) => {
                           />
                           <label
                             className="form-check-label"
-                            for="settings-checkbox-2"
+                            htmlFor="settings-checkbox-2"
                           >
                             Feature
                           </label>
@@ -447,7 +456,7 @@ const Details = ({ userData }) => {
                           />
                           <label
                             className="form-check-label"
-                            for="Auctioned"
+                            htmlFor="Auctioned"
                           >
                             Auction
                           </label>
@@ -455,13 +464,13 @@ const Details = ({ userData }) => {
                             <div className="row">
                         <div className="col-6">
                         <div className="mb-3">
-                          <label for="StitemAuction" className="form-label">
+                          <label htmlFor="StitemAuction" className="form-label">
                             Stitem Date
                           </label>
                           <input
                            type="date"
                            value={StartAuction}
-                           className="form-control"
+                           className="form-control"clea
                            disabled
                            onChange={(e) => handleStartAuction(e)}
                            id="StartAuction"
@@ -470,7 +479,7 @@ const Details = ({ userData }) => {
                         </div>
                         <div className="col-6">
                         <div className="mb-3">
-                          <label for="EndAuction" className="form-label">
+                          <label htmlFor="EndAuction" className="form-label">
                             End Date
                           </label>
                           <input

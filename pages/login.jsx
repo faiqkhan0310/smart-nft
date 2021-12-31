@@ -109,7 +109,7 @@ const LoginPage = () => {
                   onSubmit={handleSubmitNew}
                 >
                   <div className="email mb-3">
-                    <label className="sr-only" for="email">
+                    <label className="sr-only" htmlFor="email">
                       Email
                     </label>
                     <input
@@ -122,7 +122,7 @@ const LoginPage = () => {
                     />
                   </div>
                   <div className="password mb-3">
-                    <label className="sr-only" for="password">
+                    <label className="sr-only" htmlFor="password">
                       Password
                     </label>
                     <input
@@ -137,7 +137,7 @@ const LoginPage = () => {
 									<div className="col-6">
 										<div className="form-check">
 											<input className="form-check-input" type="checkbox" value="" id="RememberPassword" />
-											<label className="form-check-label" for="RememberPassword">
+											<label className="form-check-label" htmlFor="RememberPassword">
 											Remember me
 											</label>
 										</div>

@@ -31,7 +31,7 @@ export default async (req, res) => {
           );
         }
 
-        let AdminRes = await Admins.destory({ where: { id: id } });
+        let AdminRes = await Admins.destroy({ where: { id: id } });
         return sendResponse(
           200,
           true,
@@ -51,7 +51,10 @@ export default async (req, res) => {
       try {
         console.log(id, body);
 
-        let AdminRes = await Admins.update({ ...body }, { where: { id: id } });
+        let AdminRes = await Admins.update(
+          { ...body },
+          { where: { id: id }, returning: true, plain: true }
+        );
         return sendResponse(
           200,
           true,

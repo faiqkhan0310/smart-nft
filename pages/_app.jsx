@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import router from "next/router";
 import { Provider } from "react-redux";
 import { store } from "../store/index";
+import { isLoginAndisFirstLogin } from "@/lib/helper";
 // import 'public/assets/css/portal.css';
 // import 'public/assets/plugins/fontawesome/css/all.min.css'
 
@@ -26,11 +27,9 @@ export default function MyApp({ Component, pageProps }) {
   const [global, setGlobal] = React.useState();
   const [loading, setLoading] = React.useState(false);
 
-  // useEffect(() => {
-  //   if(user===null){
-  //       router.push('/login')
-  //   }
-  // }, [user])
+  useEffect(() => {
+    isLoginAndisFirstLogin();
+  }, []);
 
   return (
     <>
@@ -56,3 +55,9 @@ export default function MyApp({ Component, pageProps }) {
     </>
   );
 }
+
+// MyApp.getInitialProps = async (ctx) => {
+//   isLoginAndisFirstLogin(ctx);
+
+//   return {};
+// };

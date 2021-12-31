@@ -161,7 +161,7 @@ const Details = ({ userData }) => {
                       <div className="app-card-body">
                         <form className="settings-form" onSubmit={handleSubmit}>
                           <div className="mb-3">
-                            <label for="name" className="form-label">
+                            <label htmlFor="name" className="form-label">
                               Name
                               <span
                                 className="ms-2"
@@ -197,7 +197,7 @@ const Details = ({ userData }) => {
                             />
                           </div>
                           <div className="mb-3">
-                            <label for="cetagory" className="form-label">
+                            <label htmlFor="cetagory" className="form-label">
                               Category
                             </label>
                             <input
@@ -209,7 +209,7 @@ const Details = ({ userData }) => {
                             />
                           </div>
                           <div className="mb-3">
-                            <label for="description" className="form-label">
+                            <label htmlFor="description" className="form-label">
                               Description
                             </label>
                             <textarea
@@ -233,7 +233,7 @@ const Details = ({ userData }) => {
                             />
                             <label
                               className="form-check-label"
-                              for="settings-checkbox-1"
+                              htmlFor="settings-checkbox-1"
                             >
                               Status
                             </label>
@@ -251,7 +251,7 @@ const Details = ({ userData }) => {
                             />
                             <label
                               className="form-check-label"
-                              for="settings-checkbox-2"
+                              htmlFor="settings-checkbox-2"
                             >
                               Feature
                             </label>
@@ -272,7 +272,7 @@ const Details = ({ userData }) => {
                                 />
                                 <label
                                   className="form-check-label"
-                                  for="Auctioned"
+                                  htmlFor="Auctioned"
                                 >
                                   Auction
                                 </label>
@@ -281,7 +281,7 @@ const Details = ({ userData }) => {
                                 <div className="col-6">
                                   <div className="mb-3">
                                     <label
-                                      for="StartAuction"
+                                      htmlFor="StartAuction"
                                       className="form-label"
                                     >
                                       Start Date
@@ -299,7 +299,7 @@ const Details = ({ userData }) => {
                                 <div className="col-6">
                                   <div className="mb-3">
                                     <label
-                                      for="EndAuction"
+                                      htmlFor="EndAuction"
                                       className="form-label"
                                     >
                                       End Date

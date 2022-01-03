@@ -3,6 +3,7 @@
 import Product from "../../../models/Product.seq";
 import ClassA from "../../../models/class-model";
 import "../../../utils/dbConnect";
+import { isAuthorized } from "@/lib/api-helpers";
 
 export default async (req, res) => {
   const { method, query: id, body } = req;
@@ -11,6 +12,10 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         let oneProduct = await Product.findAll({
           where: { id: id.id },
         });
@@ -24,6 +29,10 @@ export default async (req, res) => {
       }
     case "POST":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         console.log("update body prdiuct");
         console.log(body);
         console.log(id);
@@ -55,6 +64,10 @@ export default async (req, res) => {
       }
     case "DELETE":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         console.log(id.id);
         const delRes = await Product.destroy({ where: { id: id.id } });
         // console.log("del response @@@@@@@@@@@@@@@@@@");

@@ -15,12 +15,15 @@ export const addClass = async (body) => {
     return error;
   }
 };
-export const updateClass = async (id, body) => {
+export const updateClass = async (id, body, token) => {
   try {
     console.log(id, body);
     const res = await fetch(`/api/class/${id}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
       body: JSON.stringify(body),
     });
 

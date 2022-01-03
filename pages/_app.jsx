@@ -43,14 +43,12 @@ export default function MyApp({ Component, pageProps }) {
         rtl={false}
       />
       <Provider store={store}>
-        {/* <genContext.Provider value={{ global, setGlobal, loading, setLoading }}> */}
         <Layout>
           <Head>
             <title>Admin Portal</title>
           </Head>
           <Component {...pageProps} />
         </Layout>
-        {/* </genContext.Provider> */}
       </Provider>
     </>
   );

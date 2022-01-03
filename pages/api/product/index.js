@@ -4,6 +4,7 @@ import Product from "../../../models/Product.seq";
 import "../../../utils/dbConnect";
 import Class from "../../../models/class-seq";
 import art from "../admin/art";
+import { isAuthorized } from "@/lib/api-helpers";
 
 export default async (req, res) => {
   const { method, query } = req;
@@ -11,6 +12,10 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         let allClasses = await Product.findAll({ include: { model: Class } });
         return res.status(200).json({ success: true, classes: allClasses });
       } catch (error) {
@@ -22,6 +27,10 @@ export default async (req, res) => {
       }
     case "POST":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         console.log(req.body);
         const checkForProductName = await Product.findAll({
           where: {

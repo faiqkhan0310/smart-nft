@@ -3,6 +3,7 @@
 import "../../../utils/dbConnect";
 import { Admin } from "../../../lib/constants";
 import Admins from "../../../models/Admin_seq";
+import { isAuthorized } from "@/lib/api-helpers";
 
 const sendResponse = (status, success, message, data, resa, ...restParams) => {
   const [restParamsObj] = restParams;
@@ -19,6 +20,10 @@ export default async (req, res) => {
   switch (method) {
     case "DELETE":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         const isSuperAdmin = await Admins.findOne({ where: { id: id } });
         console.log(isSuperAdmin);
         if (isSuperAdmin.role === Admin.SUPER_ADMIN) {
@@ -50,7 +55,12 @@ export default async (req, res) => {
     case "POST":
       try {
         console.log(id, body);
-
+        console.log(req.headers);
+        console.log(req.headers["authorization"]);
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         let AdminRes = await Admins.update(
           { ...body },
           { where: { id: id }, returning: true, plain: true }
@@ -72,6 +82,10 @@ export default async (req, res) => {
       }
     case "GET":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         let AdminRes = await Admins.findOne({ where: { id: id } });
         return sendResponse(
           200,
@@ -91,6 +105,10 @@ export default async (req, res) => {
 
     case "PATCH":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         const isSuperAdmin = await Admins.findOne({ where: { id: id } });
         console.log(isSuperAdmin);
         if (isSuperAdmin === Admin.SUPER_ADMIN) {

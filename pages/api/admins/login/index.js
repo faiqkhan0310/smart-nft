@@ -26,6 +26,9 @@ export default async (req, res) => {
         // if (!password)
         //   return sendResponse(402, false, "Password is Missing", null, res);
 
+        console.log(req.headers);
+        console.log(req.headers["authorization"]);
+
         let AdminRes = await Admin.findOne({
           where: { email: email.toLowerCase() },
         });
@@ -56,6 +59,7 @@ export default async (req, res) => {
           email: AdminRes.email,
           id: AdminRes._id,
           name: AdminRes.name,
+          role: AdminRes.role,
         };
 
         const token = createJwtToken(tokenData);

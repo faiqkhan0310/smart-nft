@@ -11,11 +11,13 @@ import { Admin } from "../lib/constants";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.admin);
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState("");
   const [user, { mutate }] = useCurrentUser();
   const [loginLoading, setLoginLoading] = useState(false);
   useEffect(() => {
+    console.log(state);
     // redirect to home if user is authenticated
     if (user) router.push("/dashboard");
   }, [user]);
@@ -53,7 +55,9 @@ const LoginPage = () => {
     };
     const res = await fetch("/api/admins/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(body),
     });
 

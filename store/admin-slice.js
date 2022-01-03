@@ -38,6 +38,7 @@ export const counterSlice = createSlice({
   reducers: {
     login: (state, action) => {
       console.log(action.payload);
+      console.log(action.payload.token);
       state.isLogin = true;
       state.token = action.payload.token;
       state.admin = action.payload.data;

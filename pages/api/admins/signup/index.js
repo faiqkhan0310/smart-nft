@@ -3,6 +3,7 @@
 import "../../../../utils/dbConnect";
 import db from "../../../../utils/dbConnect";
 import Admin from "../../../../models/Admin_seq";
+import { isAuthorized } from "@/lib/api-helpers";
 
 const handleErrors = (err) => {
   console.log(err.message, err.code);
@@ -27,6 +28,10 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
         console.log("class id single", req.query);
         let AdminsRes = await Admin.findAll();
         return res.status(200).json({ success: true, Admins: AdminsRes });
@@ -41,6 +46,10 @@ export default async (req, res) => {
     case "POST":
       try {
         console.log(req.body);
+        const { status, message } = isAuthorized(req, res);
+        console.log(status, message);
+        if (status !== 200)
+          return res.status(status).json({ success: false, message: message });
 
         const newAdminRes = await Admin.create({
           name: req.body.name,

@@ -17,14 +17,7 @@ const Class = db.define("class", {
       notEmpty: { msg: "Name is empty" },
     },
   },
-  //   products: {
-  //     type: DataTypes.ARRAY,
-  //     allowNull: false,
-  //     unique: { msg: "Product id is already here." },
-  //     validate: {
-  //       notEmpty: { msg: "Prodctg id is empty." },
-  //     },
-  //   },
+
   type: {
     type: DataTypes.STRING,
     allowNull: false,

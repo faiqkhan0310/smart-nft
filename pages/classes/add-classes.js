@@ -9,17 +9,17 @@ import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   addClass,
   getOneClass,
   updateClass,
 } from "../../service/class-service";
-import { genContext } from "pages/_app";
 import { startLoading, stopLoading } from "store/admin-slice";
 
 export default function Addcar() {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.admin);
   const router = useRouter();
   const [isEdit, setIsEdit] = React.useState(false);
   const [classId, setClassId] = React.useState(undefined);
@@ -32,6 +32,7 @@ export default function Addcar() {
     { name: "", type: "", immutable: false, value: "" },
   ]);
   const handleSubmit = async (e) => {
+    console.log(state);
     e.preventDefault();
     dispatch(startLoading());
     const apibody = {
@@ -42,7 +43,7 @@ export default function Addcar() {
     const selectService = () => {
       if (isEdit) {
         console.log(classId);
-        return updateClass(classId, apibody);
+        return updateClass(classId, apibody, state.token);
       } else return addClass(apibody);
     };
     const clRes = await selectService();

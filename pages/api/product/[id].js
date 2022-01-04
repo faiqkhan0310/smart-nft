@@ -1,7 +1,7 @@
 /*eslint-disable*/
 
 import Product from "../../../models/Product.seq";
-import ClassA from "../../../models/class-model";
+import ClassA from "../../../models/class-seq";
 import "../../../utils/dbConnect";
 import { isAuthorized } from "@/lib/api-helpers";
 
@@ -18,6 +18,7 @@ export default async (req, res) => {
           return res.status(status).json({ success: false, message: message });
         let oneProduct = await Product.findAll({
           where: { id: id.id },
+          include: { model: ClassA },
         });
         console.log(oneProduct);
         return res.status(200).json({ success: true, products: oneProduct });
@@ -72,13 +73,13 @@ export default async (req, res) => {
         const delRes = await Product.destroy({ where: { id: id.id } });
         // console.log("del response @@@@@@@@@@@@@@@@@@");
         console.log(delRes);
-        if (delRes) {
-          let oneClassUpdated = await ClassA.findByIdAndUpdate(delRes.class, {
-            $pull: { products: delRes.id },
-          });
-          console.log("class res");
-          console.log(oneClassUpdated);
-        }
+        // if (delRes) {
+        //   let oneClassUpdated = await ClassA.findByIdAndUpdate(delRes.class, {
+        //     $pull: { products: delRes.id },
+        //   });
+        //   console.log("class res");
+        //   console.log(oneClassUpdated);
+        // }
         return res.status(200).json({
           success: true,
           data: delRes,

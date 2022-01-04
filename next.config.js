@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 require("dotenv").config();
 module.exports = {
   env: {
@@ -11,5 +13,16 @@ module.exports = {
     SESSION_SECRET: process.env.SESSION_SECRET,
     BASE_URl: process.env.BASE_URl,
     PINATA_BEARER_TOKEN: process.env.PINATA_BEARER_TOKEN,
+  },
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+
+    if (!isServer) {
+      config.node = {
+        fs: "empty",
+      };
+    }
+
+    return config;
   },
 };

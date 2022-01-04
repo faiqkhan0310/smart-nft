@@ -35,6 +35,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
       rejectUnauthorized: false,
     },
   },
+  logging: false,
 });
 
 sequelize

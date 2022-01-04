@@ -23,12 +23,13 @@ import { getClasses, delClass } from "../../service/class-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "store/admin-slice";
 
 const Cars = ({ users, totalRecord, handleChange, form }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.admin);
   const [total, setTotal] = useState(totalRecord);
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(10);
@@ -43,7 +44,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
 
   const getAllClasses = async () => {
     setTableLoading(true);
-    const allCls = await getClasses();
+    const allCls = await getClasses(state.token);
     console.log(allCls);
     if (allCls.success) setClasses(allCls.classes);
     setTableLoading(false);
@@ -101,7 +102,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   }, [currentPage]);
   const handleDelete = async (id) => {
     dispatch(startLoading());
-    const delRes = await delClass(id);
+    const delRes = await delClass(id, state.token);
     console.log(delRes);
     dispatch(stopLoading());
     if (delRes.success) return getAllClasses();

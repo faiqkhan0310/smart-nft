@@ -16,17 +16,17 @@ const rehydrateisLogin = () => {
   }
 };
 
-// const rehydrateToken = () => {
-//   if (typeof window != "undefined") {
-//     if (localStorage.getItem("token"))
-//       return JSON.parse(localStorage.getItem("token"));
-//     else return false;
-//   }
-// };
+const rehydrateToken = () => {
+  if (typeof window != "undefined") {
+    if (localStorage.getItem("token"))
+      return JSON.parse(localStorage.getItem("token"));
+    else return "";
+  }
+};
 
 const initialState = {
   isLogin: rehydrateisLogin(),
-  token: "",
+  token: rehydrateToken(),
   admin: rehydrateAdmin(),
   publicAddress: undefined,
   loading: false,

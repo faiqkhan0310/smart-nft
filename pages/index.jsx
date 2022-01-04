@@ -5,16 +5,33 @@ import { useCurrentUser } from "@/hooks/index";
 import LoginPage from "./login";
 import router from "next/router";
 import { useSelector } from "react-redux";
+import { isLoginAndisFirstLogin } from "@/lib/helper";
 
 const IndexPage = () => {
   // const [user] = useCurrentUser();
   const state = useSelector((state) => state.admin);
 
   // useEffect(() => {
-  //   if (state.isLogin === false) {
-  //     router.push("/login");
-  //   }
-  // }, [state.isAuth]);
+  //   isLoginAndisFirstLogin();
+  // }, [state.isLogin]);
+
+  useEffect(() => {
+    const handleRouteChange = (url, { shallow }) => {
+      console.log(
+        `App is changing to ${url} ${
+          shallow ? "with" : "without"
+        } shallow routing`
+      );
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, []);
 
   return (
     <>
@@ -37,10 +54,3 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
-
-// IndexPage.getInitialProps = async ({ Component, ctx }) => {
-//   console.log("herer is ");
-//   console.log(ctx.store);
-
-//   return {};
-// };

@@ -20,12 +20,13 @@ import Link from "next/link";
 import { useContext } from "react";
 import { delProduct, getProducts } from "service/product-service";
 import { genContext } from "pages/_app";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "store/admin-slice";
 
 const Products = ({ users, totalRecord, handleChange, form }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.admin);
   const [total, setTotal] = useState(totalRecord);
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(10);
@@ -37,10 +38,6 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
   const [classes, setClasses] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
 
-  const [user, { mutate }] = useCurrentUser();
-  // useEffect(() => {
-  //   if (user === null) router.replace("/login");
-  // }, [user]);
   const paginate = (e, pageNumber) => {
     // e.preventDefault();
     fetch(
@@ -74,12 +71,10 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
   };
   const getAllProducts = async () => {
     setTableLoading(true);
-    const allCls = await getProducts();
+    const allCls = await getProducts(state.token);
     console.log(allCls);
     if (allCls.success) setClasses(allCls.classes);
-    setTimeout(() => {
-      setTableLoading(false);
-    }, 500);
+    setTableLoading(false);
   };
   useEffect(async () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -100,7 +95,7 @@ const Products = ({ users, totalRecord, handleChange, form }) => {
   }, [currentPage]);
   const handleDelete = async (id) => {
     dispatch(startLoading());
-    const delRes = await delProduct(id);
+    const delRes = await delProduct(id, state.token);
     console.log(delRes);
     dispatch(stopLoading());
     if (delRes.success) getAllProducts();

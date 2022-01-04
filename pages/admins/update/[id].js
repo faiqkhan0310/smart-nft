@@ -4,12 +4,13 @@ import React from "react";
 import { useRouter } from "next/router";
 import { getOneAdmin, updateAdmin } from "service/admin-service";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "store/admin-slice";
 
 export default function AddAdmin() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.admin);
 
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -20,11 +21,14 @@ export default function AddAdmin() {
 
     dispatch(startLoading());
 
-    const adminRes = await updateAdmin(router.query.id, {
-      name,
-      email,
-      password,
-    });
+    const adminRes = await updateAdmin(
+      router.query.id,
+      {
+        name,
+        email,
+      },
+      state.token
+    );
     console.log(adminRes);
     dispatch(stopLoading());
     if (!adminRes.success) return toast.error(adminRes.message);
@@ -36,7 +40,7 @@ export default function AddAdmin() {
   };
 
   const getAdmin = async () => {
-    const adminRes = await getOneAdmin(router.query.id);
+    const adminRes = await getOneAdmin(router.query.id, state.token);
     if (!adminRes.success) return toast.error(adminRes.message);
     if (adminRes.success) {
       const { name, email, password } = adminRes.data;

@@ -10,12 +10,13 @@ import React from "react";
 import { addProductToClass } from "../../service/class-service";
 import { addProduct } from "service/product-service";
 import { getClasses } from "service/class-service";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "store/admin-slice";
 
 export default function AddProduct() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.admin);
   const [classes, setClasses] = React.useState([]);
   const [selClass, setSelClass] = React.useState();
   const [selectedValue, setSelectedValue] = React.useState("");
@@ -65,7 +66,7 @@ export default function AddProduct() {
       attributes: selClass.attributes,
     };
 
-    const productRes = await addProduct(apiBody);
+    const productRes = await addProduct(apiBody, state.token);
 
     if (productRes.success) {
       // const classUpdateRes = await addProductToClass(selClass?.id, {

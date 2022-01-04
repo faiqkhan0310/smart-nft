@@ -1,10 +1,14 @@
 /* eslint-disable */
 
-export const addClass = async (body) => {
+export const addClass = async (body, token) => {
   try {
     const res = await fetch("/api/class", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+
       body: JSON.stringify(body),
     });
 
@@ -34,11 +38,14 @@ export const updateClass = async (id, body, token) => {
     return error;
   }
 };
-export const addProductToClass = async (classId, body) => {
+export const addProductToClass = async (classId, body, token) => {
   try {
     const res = await fetch(`/api/class/${classId}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
       body: JSON.stringify(body),
     });
 
@@ -49,12 +56,14 @@ export const addProductToClass = async (classId, body) => {
     return error;
   }
 };
-export const getClasses = async (body) => {
+export const getClasses = async (token) => {
   try {
     const res = await fetch("/api/class", {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     });
 
     const userObj = await res.json();
@@ -65,11 +74,14 @@ export const getClasses = async (body) => {
   }
 };
 
-export const getOneClass = async (id) => {
+export const getOneClass = async (id, token) => {
   try {
     const res = await fetch(`/api/class/${id}`, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     });
 
     const userObj = await res.json();
@@ -80,11 +92,14 @@ export const getOneClass = async (id) => {
   }
 };
 
-export const delClass = async (id) => {
+export const delClass = async (id, token) => {
   try {
     const res = await fetch(`/api/class/${id}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     });
 
     const userObj = await res.json();

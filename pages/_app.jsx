@@ -54,8 +54,18 @@ export default function MyApp({ Component, pageProps }) {
   );
 }
 
-// MyApp.getInitialProps = async (ctx) => {
-//   isLoginAndisFirstLogin(ctx);
-
-//   return {};
-// };
+// export async function getStaticProps(context) {
+//   console.log("!!!!!!!  ^^^^^^^^^^^^^^^^^^^^");
+//   if (true) {
+//     console.log("yes yes yes yes  yes yes yes yes");
+//     return {
+//       redirect: {
+//         destination: "/admins",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return {
+//     props: {}, // will be passed to the page component as props
+//   };
+// }

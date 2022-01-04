@@ -73,6 +73,7 @@ export default async (req, res) => {
           res
         );
       } catch (error) {
+        console.log("Admin update sequlize error");
         console.log(error);
         return res.status(400).json({
           success: false,

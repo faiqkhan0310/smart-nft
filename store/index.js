@@ -9,7 +9,7 @@ const authMiddleware = (store) => (next) => (action) => {
     const adminState = store.getState().admin;
     localStorage.setItem("isLogin", JSON.stringify(adminState.isLogin));
     localStorage.setItem("admin", JSON.stringify(adminState.admin));
-    localStorage.setItem("token", JSON.stringify(adminState.access_token));
+    localStorage.setItem("token", JSON.stringify(adminState.token));
   }
   if (action.type?.match("logout")) {
     localStorage.clear();

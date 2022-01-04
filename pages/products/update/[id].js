@@ -1,30 +1,15 @@
 /*eslint-disable*/
 
-import { useCurrentUser } from "@/hooks/index";
-import {
-  faChevronCircleLeft,
-  faChevronLeft,
-  faShoppingBag,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { DashboardComponent } from "../../../components/dashboard-component/DashboardComponent";
 import { Navbar } from "../../../components/layout/Navbar";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { getProducts } from "../../../service/product-service";
 import { addProductToClass } from "../../../service/class-service";
-import { values } from "public/assets/plugins/fontawesome/js/v4-shims";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addProduct,
-  getOneProduct,
-  updateProduct,
-} from "service/product-service";
-import { useContext } from "react";
-import { genContext } from "pages/_app";
+import { getOneProduct, updateProduct } from "service/product-service";
 import { getClasses } from "service/class-service";
 import { startLoading, stopLoading } from "store/admin-slice";
 
@@ -38,6 +23,7 @@ export default function AddProduct() {
   const [isEdit, setIsEdit] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("");
   const [classId, setClassId] = React.useState(undefined);
+  const [gettingData, setGettingData] = React.useState(true);
   const [procuctAttributes, setProductAttributes] = React.useState([]);
   const [inputState, setInputState] = React.useState({
     name: "",
@@ -47,11 +33,11 @@ export default function AddProduct() {
   });
 
   const getProduct = async (id) => {
-    const ProductData = await getOneProduct(id);
+    setGettingData(true);
+    const ProductData = await getOneProduct(id, state.token);
 
     if (ProductData.success) {
-      console.clear();
-      console.log(ProductData.products[0]?.attributes);
+      console.log(ProductData.products[0]?.class?.name);
       setInputState({
         name: ProductData.products[0]?.name,
         desc: ProductData.products[0]?.desc,
@@ -61,6 +47,7 @@ export default function AddProduct() {
       setSelClass(ProductData.products[0]?.class);
       setSelectedValue(ProductData.products[0]?.class?.name);
       setProductAttributes([...ProductData.products[0]?.attributes]);
+      setGettingData(false);
     }
   };
   React.useEffect(async () => {
@@ -115,7 +102,13 @@ export default function AddProduct() {
 
     const selectService = () => {
       if (isEdit) {
-        return updateProduct(classId, selClassPrev, selClass, apiBody);
+        return updateProduct(
+          classId,
+          selClassPrev,
+          selClass,
+          apiBody,
+          state.token
+        );
       }
     };
     const productRes = await selectService();
@@ -226,120 +219,135 @@ export default function AddProduct() {
               <div className="app-card  h-100">
                 <div className="app-card-body p-4 p-lg-5 ">
                   <div className="row">
-                    <div className="col-md-12 col-12 product-col-form">
-                      <form onSubmit={handleSubmit}>
-                        <div className="product-form w-50">
-                          <div className="form-group mb-4">
-                            <label className="d-block mb-3">Name</label>
-                            <input
-                              name="name"
-                              required
-                              value={inputState.name}
-                              className="form-control"
-                              onChange={handleInputChange}
-                              type="text"
-                            />
-                          </div>
+                    {!gettingData ? (
+                      <div className="col-md-12 col-12 product-col-form">
+                        <form onSubmit={handleSubmit}>
+                          <div className="product-form w-50">
+                            <div className="form-group mb-4">
+                              <label className="d-block mb-3">Name</label>
+                              <input
+                                name="name"
+                                required
+                                value={inputState.name}
+                                className="form-control"
+                                onChange={handleInputChange}
+                                type="text"
+                              />
+                            </div>
 
-                          <div className="form-group mb-4">
-                            <label className="d-block mb-3">Desc</label>
-                            <textarea
-                              name="desc"
-                              required
-                              rows={5}
-                              value={inputState.desc}
-                              onChange={handleInputChange}
-                              className="form-control"
-                              id="exampleFormControlTextarea1"
-                              style={{
-                                minHeight: "170px !important",
-                                borderRadius: "20px",
-                              }}
-                            ></textarea>
-                          </div>
-                          <div className="form-group mb-5">
-                            <label className="d-block mb-3">Price</label>
-                            <input
-                              name="price"
-                              required
-                              value={inputState.price}
-                              className="form-control"
-                              onChange={handleInputChange}
-                              type="number"
-                            />
-                          </div>
-                          <div className="form-group mb-5">
-                            <label className="d-block mb-3">Select Class</label>
-                            <select
-                              onChange={handleSelect}
-                              disabled
-                              defaultValue={selectedValue}
-                              className="form-select form-control pt-2"
-                              aria-label="Default select example"
-                            >
-                              <option selected={selectedValue === ""} disabled>
+                            <div className="form-group mb-4">
+                              <label className="d-block mb-3">Desc</label>
+                              <textarea
+                                name="desc"
+                                required
+                                rows={5}
+                                value={inputState.desc}
+                                onChange={handleInputChange}
+                                className="form-control"
+                                id="exampleFormControlTextarea1"
+                                style={{
+                                  minHeight: "170px !important",
+                                  borderRadius: "20px",
+                                }}
+                              ></textarea>
+                            </div>
+                            <div className="form-group mb-5">
+                              <label className="d-block mb-3">Price</label>
+                              <input
+                                name="price"
+                                required
+                                value={inputState.price}
+                                className="form-control"
+                                onChange={handleInputChange}
+                                type="number"
+                              />
+                            </div>
+                            <div className="form-group mb-5">
+                              <label className="d-block mb-3">
                                 Select Class
-                              </option>
-                              {classes?.map((clas, ind) => {
-                                console.log(clas);
+                              </label>
+                              <select
+                                onChange={handleSelect}
+                                disabled
+                                defaultValue={selectedValue}
+                                className="form-select form-control pt-2"
+                                aria-label="Default select example"
+                              >
+                                <option
+                                  // selected={selectedValue === ""}
+                                  selected={true}
+                                  disabled
+                                >
+                                  {/* Select Class */}
+                                  {selectedValue}
+                                </option>
+                                {/* {classes?.map((clas, ind) => {
+                                  console.log(clas);
+                                  return (
+                                    <option
+                                      selected={selectedValue === clas.name}
+                                      required
+                                      value={JSON.stringify(clas)}
+                                    >
+                                      {clas?.name}
+                                    </option>
+                                  );
+                                })} */}
+                              </select>
+                            </div>
+                            <div className="form-group mb-5">
+                              <div className="form-check me-3">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  defaultValue
+                                  name="list"
+                                  onChange={handleInputChange}
+                                  id="flexCheckDefault4"
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor="flexCheckDefault4"
+                                >
+                                  {`List on ${selClass?.name || "____"}`}
+                                </label>
+                              </div>
+                            </div>
+
+                            <div className="form-group add-attr-col mb-5">
+                              <label className="d-block mb-4">
+                                Attributes{" "}
+                              </label>
+
+                              {procuctAttributes?.map((attr) => {
                                 return (
-                                  <option
-                                    selected={selectedValue === clas.name}
-                                    required
-                                    value={JSON.stringify(clas)}
-                                  >
-                                    {clas?.name}
-                                  </option>
+                                  <div className="form-group mb-4">
+                                    <label className="d-block mb-3">
+                                      {attr?.name}
+                                    </label>
+
+                                    {getFieldType(attr)}
+                                  </div>
                                 );
                               })}
-                            </select>
-                          </div>
-                          <div className="form-group mb-5">
-                            <div className="form-check me-3">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                defaultValue
-                                name="list"
-                                onChange={handleInputChange}
-                                id="flexCheckDefault4"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexCheckDefault4"
-                              >
-                                {`List on ${selClass?.name || "____"}`}
-                              </label>
+
+                              <div className="form-group type-btn mt-5">
+                                <button
+                                  type="submit"
+                                  className="add-attr-btn btn ms-auto d-block"
+                                >
+                                  Save
+                                </button>
+                              </div>
                             </div>
                           </div>
-
-                          <div className="form-group add-attr-col mb-5">
-                            <label className="d-block mb-4">Attributes </label>
-
-                            {procuctAttributes?.map((attr) => {
-                              return (
-                                <div className="form-group mb-4">
-                                  <label className="d-block mb-3">
-                                    {attr?.name}
-                                  </label>
-
-                                  {getFieldType(attr)}
-                                </div>
-                              );
-                            })}
-
-                            <div className="form-group type-btn mt-5">
-                              <button
-                                type="submit"
-                                className="add-attr-btn btn ms-auto d-block"
-                              >
-                                Save
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
+                        </form>
+                      </div>
+                    ) : (
+                      <div className="spinner-grow text-warning" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

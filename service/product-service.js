@@ -1,10 +1,13 @@
 /* eslint-disable */
 
-export const addProduct = async (body) => {
+export const addProduct = async (body, token) => {
   try {
     const res = await fetch("/api/product", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
       body: JSON.stringify(body),
     });
 
@@ -16,12 +19,14 @@ export const addProduct = async (body) => {
   }
 };
 
-export const getProducts = async (body) => {
+export const getProducts = async (token) => {
   try {
     const res = await fetch("/api/product", {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     });
 
     const userObj = await res.json();
@@ -31,12 +36,15 @@ export const getProducts = async (body) => {
     return error;
   }
 };
-export const getOneProduct = async (id) => {
+export const getOneProduct = async (id, token) => {
   console.log("prodouc one", id);
   try {
     const res = await fetch(`/api/product/${id}`, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     });
 
     const userObj = await res.json();
@@ -47,14 +55,17 @@ export const getOneProduct = async (id) => {
   }
 };
 
-export const updateProduct = async (id, prevClass, newClass, body) => {
+export const updateProduct = async (id, prevClass, newClass, body, token) => {
   try {
     console.log(id, body);
     const res = await fetch(
       `/api/product/${id}?prevClass=${prevClass}&newClass=${newClass?.id}`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
         body: JSON.stringify(body),
       }
     );
@@ -67,11 +78,14 @@ export const updateProduct = async (id, prevClass, newClass, body) => {
   }
 };
 
-export const delProduct = async (id) => {
+export const delProduct = async (id, token) => {
   try {
     const res = await fetch(`/api/product/${id}`, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     });
 
     const userObj = await res.json();

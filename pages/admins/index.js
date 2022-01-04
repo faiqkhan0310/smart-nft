@@ -19,7 +19,6 @@ import { DashboardComponent } from "../../components/dashboard-component/Dashboa
 import { Navbar } from "../../components/layout/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import { getClasses, delClass } from "../../service/class-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
 import { toast } from "react-toastify";
@@ -46,7 +45,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
 
   const getAllAdmins = async () => {
     setTableLoading(true);
-    const allAdmins = await getAdmins();
+    const allAdmins = await getAdmins(state.token);
     console.log(allAdmins);
     if (allAdmins.success) setClasses(allAdmins.data);
     setTableLoading(false);
@@ -105,7 +104,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   }, [currentPage]);
   const handleDelete = async (id) => {
     dispatch(startLoading());
-    const delRes = await delAdmin(id);
+    const delRes = await delAdmin(id, state.token);
     console.log(delRes);
     dispatch(stopLoading());
     if (delRes.success) return getAllAdmins();
@@ -128,7 +127,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     const body = {
       isActive: e.target.checked,
     };
-    const res = await changeAdminStatus(id, body);
+    const res = await changeAdminStatus(id, body, state.token);
     dispatch(stopLoading());
     if (!res.success) return toast.error(res.message);
     if (res.success) {

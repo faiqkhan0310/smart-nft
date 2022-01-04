@@ -1,32 +1,22 @@
 /*eslint-disable*/
 
 import { useCurrentUser } from "@/hooks/index";
-import {
-  faChevronCircleLeft,
-  faChevronLeft,
-  faEdit,
-  faEye,
-  faEyeDropper,
-  faEyeSlash,
-  faShoppingBag,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import Pagination from "@/components/Paginate/Paginate";
 import { useRouter } from "next/router";
-import { DashboardComponent } from "../../../components/dashboard-component/DashboardComponent";
 import { Navbar } from "../../../components/layout/Navbar";
-import Image from "next/image";
 import Link from "next/link";
 import { getOneProduct } from "service/product-service";
 import { useContext } from "react";
 import { genContext } from "pages/_app";
-import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Cars = ({ users, totalRecord, handleChange, form }) => {
   const context = useContext(genContext);
   const router = useRouter();
+  const state = useSelector((state) => state.admin);
   const [total, setTotal] = useState(totalRecord);
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(10);
@@ -41,7 +31,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
 
   const getProduct = async (id) => {
     setTableLoading(true);
-    const allCls = await getOneProduct(id);
+    const allCls = await getOneProduct(id, state.token);
     console.log(allCls);
     console.log(allCls?.products);
     if (allCls.success) setProducts(allCls.products);

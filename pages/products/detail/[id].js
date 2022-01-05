@@ -33,7 +33,6 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
     setTableLoading(true);
     const allCls = await getOneProduct(id, state.token);
     console.log(allCls);
-    console.log(allCls?.products);
     if (allCls.success) setProducts(allCls.products);
     setTableLoading(false);
   };

@@ -2,6 +2,7 @@
 
 import Product from "../../../models/Product.seq";
 import ClassA from "../../../models/class-seq";
+import ProductAttr from "../../../models/product_attributes";
 import "../../../utils/dbConnect";
 import { isAuthorized } from "@/lib/api-helpers";
 
@@ -18,7 +19,7 @@ export default async (req, res) => {
           return res.status(status).json({ success: false, message: message });
         let oneProduct = await Product.findAll({
           where: { id: id.id },
-          include: { model: ClassA },
+          include: [{ model: ClassA }, { model: ProductAttr }],
         });
         console.log(oneProduct);
         return res.status(200).json({ success: true, products: oneProduct });

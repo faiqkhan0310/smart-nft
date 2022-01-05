@@ -137,7 +137,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                     <div className="row mb-3 ">
                       <div className="row pr-5 mt-3 w-50">
                         <div className="chip-parent">
-                          {classes?.attributes?.map((att) => {
+                          {classes?.classAttributes?.map((att) => {
                             return (
                               <>
                                 <div
@@ -210,7 +210,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                         {classes &&
                           classes?.products?.map((data, index) => (
                             <tr>
-                              <td>1</td>
+                              <td>{index + 1}</td>
                               <td className="cell">
                                 {data?.name?.toUpperCase()}
                               </td>

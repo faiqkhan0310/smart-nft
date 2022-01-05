@@ -2,8 +2,8 @@
 
 import ClassA from "../../../models/class-seq";
 import "../../../utils/dbConnect";
-import productModel from "../../../models/Product";
-import Product from "../../../models/Product.seq";
+import classAttributeModel from "../../../models/class_attributes";
+import ClassAttr from "../../../models/class_attributes";
 import { isAuthorized } from "@/lib/api-helpers";
 
 export default async (req, res) => {
@@ -20,7 +20,9 @@ export default async (req, res) => {
         if (status !== 200)
           return res.status(status).json({ success: false, message: message });
 
-        let allClasses = await ClassA.findAll({ include: { model: Product } });
+        let allClasses = await ClassA.findAll({
+          include: { model: ClassAttr },
+        });
 
         return res.status(200).json({ success: true, classes: allClasses });
       } catch (error) {
@@ -31,19 +33,27 @@ export default async (req, res) => {
       }
     case "POST":
       try {
-        console.log(req.body);
         const { status, message, data } = isAuthorized(req, res);
         console.log(status, message);
+
         if (status !== 200)
           return res.status(status).json({ success: false, message: message });
 
-        const Admin = data;
-        if (Admin.role === 2)
-          return res
-            .status(401)
-            .json({ message: "Not athorized for this action" });
+        const { attributes } = req.body;
+        delete req.body.attributes;
+
+        //create class
         const classRes = await ClassA.create({ ...req.body });
-        console.log(classRes);
+        //create attributes for class
+        const { dataValues } = classRes;
+
+        if (dataValues?.id) {
+          const attributesData = attributes.map((attr) => ({
+            ...attr,
+            classId: dataValues?.id,
+          }));
+          await classAttributeModel.bulkCreate(attributesData);
+        }
         return res.status(200).json({
           success: true,
           data: classRes,

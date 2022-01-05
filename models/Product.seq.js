@@ -1,7 +1,8 @@
 /*eslint-disable*/
 
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../utils/dbConnect";
+import ProductAttr from "./product_attributes";
 
 const Product = db.define("product", {
   id: {
@@ -16,14 +17,7 @@ const Product = db.define("product", {
       notEmpty: { msg: "Name is empty" },
     },
   },
-  //   classId: {
-  //     type: DataTypes.UUID,
-  //     allowNull: false,
-  //     unique: { msg: "Class id is already here." },
-  //     validate: {
-  //       notEmpty: { msg: "Class id is empty." },
-  //     },
-  //   },
+
   desc: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -43,14 +37,10 @@ const Product = db.define("product", {
     allowNull: false,
     defaultValue: false,
   },
-  attributes: {
-    type: DataTypes.ARRAY(DataTypes.JSON),
-    allowNull: false,
-    validate: {
-      notEmpty: { msg: "attributes is empty." },
-    },
-  },
 });
+
+Product.hasMany(ProductAttr, { onDelete: "cascade", hooks: true });
+ProductAttr.belongsTo(Product);
 
 Product.sync()
   .then(() => {})

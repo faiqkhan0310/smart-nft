@@ -1,6 +1,7 @@
 /*eslint-disable*/
 
 import Product from "../../../models/Product.seq";
+import ProductAttr from "../../../models/product_attributes";
 import "../../../utils/dbConnect";
 import Class from "../../../models/class-seq";
 import art from "../admin/art";
@@ -46,15 +47,30 @@ export default async (req, res) => {
           });
         }
         console.log(art.body);
+        const { attributes } = req.body;
+        delete req.body.attributes;
+
         const classRes = await Product.create({
           name: req.body.name,
           desc: req.body.desc,
           price: req.body.price,
           list: req.body.list,
-          attributes: req.body.attributes,
           classId: req.body.class,
         });
         console.log(classRes);
+
+        const { dataValues } = classRes;
+
+        if (dataValues?.id) {
+          const attributesData = attributes.map(({ id, ...attr }) => ({
+            ...attr,
+            productId: dataValues?.id,
+          }));
+          // console.clear();
+          console.log(attributesData);
+          await ProductAttr.bulkCreate(attributesData);
+        }
+
         return res.status(200).json({
           success: true,
           data: classRes,

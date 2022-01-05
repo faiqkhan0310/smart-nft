@@ -137,7 +137,7 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
   };
   return (
     <>
-      <Navbar ClassesActive="active" />
+      <Navbar AdminsActive="active" />
       <div className="app-content">
         <div className="container-fluid">
           <div className="row g-3 mb-4 align-items-center justify-content-between">

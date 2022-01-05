@@ -3,6 +3,7 @@
 import ClassA from "../../../models/class-seq";
 import "../../../utils/dbConnect";
 import Product from "../../../models/Product.seq";
+import ClassAttr from "../../../models/class_attributes";
 import jwt from "jsonwebtoken";
 import { isAuthorized } from "@/lib/api-helpers";
 
@@ -19,7 +20,7 @@ export default async (req, res) => {
         console.log("class id single", req.query);
         let oneClass = await ClassA.findOne({
           where: { id: id.id },
-          include: { model: Product },
+          include: [{ model: Product }, { model: ClassAttr }],
         });
         return res.status(200).json({ success: true, classes: oneClass });
       } catch (error) {

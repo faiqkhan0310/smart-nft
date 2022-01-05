@@ -30,7 +30,7 @@ export default function Addcar() {
     type: "sale",
   });
   const [attributes, setAttributes] = React.useState([
-    { name: "", type: "", immutable: false, value: "" },
+    { name: "", type: "", immutable: false },
   ]);
   const handleSubmit = async (e) => {
     console.log(state);

@@ -28,7 +28,7 @@ export default function AddProduct() {
   });
 
   React.useEffect(async () => {
-    const allClasses = await getClasses();
+    const allClasses = await getClasses(state.token);
     if (allClasses?.success) setClasses(allClasses?.classes);
   }, []);
   const handleSelect = (e) => {
@@ -40,8 +40,8 @@ export default function AddProduct() {
   const handleMutableAttribute = (e, attr) => {
     const { name, value } = e.target;
     const selClassCopy = { ...selClass };
-    const selClassAttrIndx = selClassCopy.attributes.indexOf(attr);
-    selClassCopy.attributes[selClassAttrIndx].value = value;
+    const selClassAttrIndx = selClassCopy.classAttributes.indexOf(attr);
+    selClassCopy.classAttributes[selClassAttrIndx].value = value;
     console.log(selClassCopy);
     setSelClass({ ...selClassCopy });
   };
@@ -63,7 +63,7 @@ export default function AddProduct() {
     const apiBody = {
       class: selClass?.id,
       ...inputState,
-      attributes: selClass.attributes,
+      attributes: selClass.classAttributes,
     };
 
     const productRes = await addProduct(apiBody, state.token);
@@ -230,7 +230,7 @@ export default function AddProduct() {
                           <div className="form-group add-attr-col mb-5">
                             <label className="d-block mb-4">Attributes </label>
                             {selClass ? (
-                              selClass?.attributes?.map((attr) => {
+                              selClass?.classAttributes?.map((attr) => {
                                 return (
                                   <div className="form-group mb-4">
                                     <label className="d-block mb-3">

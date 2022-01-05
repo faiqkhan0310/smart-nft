@@ -158,12 +158,12 @@ const Cars = ({ users, totalRecord, handleChange, form }) => {
                       {classes &&
                         classes.map((data, index) => (
                           <tr>
-                            <td>1</td>
+                            <td>{index + 1}</td>
                             <td className="cell">
                               {data?.name?.toUpperCase()}
                             </td>
                             <td className="cell">
-                              {data.attributes?.map((attr) => (
+                              {data?.classAttributes?.map((attr) => (
                                 <span style={{ marginRight: "10px" }}>
                                   {attr.name.toUpperCase()}
                                 </span>

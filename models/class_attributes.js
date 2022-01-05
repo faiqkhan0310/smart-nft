@@ -1,11 +1,9 @@
 /*eslint-disable*/
 
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../utils/dbConnect";
-import Product from "../models/Product.seq";
-import ClassAttribute from "../models/class_attributes";
 
-const Class = db.define("class", {
+const ClassAttributes = db.define("classAttribute", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -19,6 +17,12 @@ const Class = db.define("class", {
     },
   },
 
+  immutable: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+
   type: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -28,14 +32,8 @@ const Class = db.define("class", {
   },
 });
 
-Class.hasMany(Product);
-Product.belongsTo(Class);
-
-Class.hasMany(ClassAttribute);
-ClassAttribute.belongsTo(Class);
-
-db.sync({ alter: true })
+ClassAttributes.sync()
   .then(() => {})
   .catch((err) => console.log(err));
 
-module.exports = Class;
+module.exports = ClassAttributes;

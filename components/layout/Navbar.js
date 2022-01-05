@@ -603,7 +603,7 @@ export function Navbar(props) {
                 </li> */}
                 <li className="nav-item">
                   <Link href="/admins">
-                    <a className={`nav-link ${props.AddressesActive}`}>
+                    <a className={`nav-link ${props.AdminsActive}`}>
                       <span className="nav-icon">
                         <svg
                           width="1em"
